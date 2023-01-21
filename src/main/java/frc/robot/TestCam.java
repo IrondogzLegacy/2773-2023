@@ -6,7 +6,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class TestCam extends SubsystemBase {
-  private final SerialPort serialPort = new SerialPort(115200, SerialPort.Port.kUSB);
+  private final SerialPort serialPort = new SerialPort(115200, SerialPort.Port.kUSB1);
   /** Creates a new TestCam. */
   public TestCam() {
 
