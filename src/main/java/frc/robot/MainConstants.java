@@ -5,8 +5,18 @@
 package frc.robot;
 
 /** Add your docs here. */
-public class MainConstants {
 
+//import the motortype CANSparkMaxLowLevel
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
+public class MainConstants {
+  //constants for MainDriveSubsystem
   public static final double SpeedFactor = 0.7;
   public static final double RotationFactor = 0.7;
+//constants for the CANIDs
+    public static final int leftForWheelsCANID = 10;
+    public static final int rightForWheelsCANID = 23;
+    public static final int leftBackWheelsCANID = 19;
+    public static final int rightBackWheelsCANID = 22;
+    public static final MotorType motorType = MotorType.kBrushless;
 }
