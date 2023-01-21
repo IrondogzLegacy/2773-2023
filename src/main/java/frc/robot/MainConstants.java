@@ -5,7 +5,7 @@
 package frc.robot;
 
 /** Add your docs here. */
-public class Constants {
+public class MainConstants {
 
   public static final double SpeedFactor = 0.7;
   public static final double RotationFactor = 0.7;
