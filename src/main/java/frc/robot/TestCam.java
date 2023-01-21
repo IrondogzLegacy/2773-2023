@@ -18,6 +18,7 @@ public class TestCam extends SubsystemBase {
     if (serialPort.getBytesReceived() > 0){
     String s = serialPort.readString();
     DriverStation.reportWarning("Data:" + s, false);
+    System.out.println(s);
     String[] tokens = s.split(",");    
     for (String t : tokens)
       System.out.println(t);
