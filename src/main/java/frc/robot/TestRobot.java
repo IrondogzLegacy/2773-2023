@@ -11,13 +11,13 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  * This is a demo program showing the use of the DifferentialDrive class. Runs
  * the motors with arcade steering.
  */
-public class Robot extends TimedRobot {
+public class TestRobot extends TimedRobot {
 
-  private RobotContainer m_robotContainer;
+   TestRobotContainer m_TestrobotContainer;
 
   @Override
   public void robotInit() {
-    m_robotContainer = new RobotContainer();
+    m_TestrobotContainer = new TestRobotContainer();
   }
 
   @Override
