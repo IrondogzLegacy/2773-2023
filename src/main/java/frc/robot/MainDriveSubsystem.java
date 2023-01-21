@@ -42,6 +42,6 @@ public class MainDriveSubsystem extends SubsystemBase {
     // That means that the Y axis drives forward and backward, and the X turns left and right.
     //m_robotDrive.arcadeDrive(-m_stick.getY() * 0.7, -m_stick.getX() * 0.7);
     // m_robotDrive.arcadeDrive(speed * MainConstants.SpeedFactor, rotation * MainConstants.RotationFactor);
-    leftForMotor.set(speed*0.1);
+    rightForMotor.set(speed*0.1);
   }
 }
