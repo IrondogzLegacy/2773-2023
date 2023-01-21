@@ -31,6 +31,6 @@ public class TestDriveSubsystem extends SubsystemBase {
     // That means that the Y axis drives forward
     // and backward, and the X turns left and right.
     //m_robotDrive.arcadeDrive(-m_stick.getY() * 0.7, -m_stick.getX() * 0.7);
-    m_robotDrive.arcadeDrive(speed * 0.7, rotation * 0.7);
+    m_robotDrive.arcadeDrive(speed * TestConstants.SpeedFactor, rotation * TestConstants.RotationFactor);
   }
 }

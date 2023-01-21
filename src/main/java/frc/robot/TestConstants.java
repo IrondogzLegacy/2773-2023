@@ -9,7 +9,7 @@ package frc.robot;
 public class TestConstants {
 
   public static final double SpeedFactor = 0.7;
-  public static final double RotationFactor = 0.7;
+  public static final double RotationFactor = 0.9;
 }
 
 
