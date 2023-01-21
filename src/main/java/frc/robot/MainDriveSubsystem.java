@@ -32,8 +32,7 @@ public class MainDriveSubsystem extends SubsystemBase {
 
   public void arcadeDrive(double speed, double rotation) {
     // Drive with arcade drive.
-    // That means that the Y axis drives forward
-    // and backward, and the X turns left and right.
+    // That means that the Y axis drives forward and backward, and the X turns left and right.
     //m_robotDrive.arcadeDrive(-m_stick.getY() * 0.7, -m_stick.getX() * 0.7);
     m_robotDrive.arcadeDrive(speed * MainConstants.SpeedFactor, rotation * MainConstants.RotationFactor);
   }
