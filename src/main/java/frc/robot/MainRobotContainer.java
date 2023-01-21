@@ -2,12 +2,12 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 
-public class RobotContainer {
+public class MainRobotContainer {
     private final Joystick m_stick = new Joystick(0);
-    private final DriveSubsystem driveSubsystem = new DriveSubsystem();
-    private final DriveCommand driveCommand = new DriveCommand(driveSubsystem, m_stick);
+    private final MainDriveSubsystem driveSubsystem = new MainDriveSubsystem();
+    private final MainDriveCommand driveCommand = new MainDriveCommand(driveSubsystem, m_stick);
 
-    public RobotContainer() {
+    public MainRobotContainer() {
         // Configure the button bindings
         configureButtonBindings();
 
