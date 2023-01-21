@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  */
 public class MainRobot extends TimedRobot {
 
-  private MainRobotContainer m_robotContainer;
+  MainRobotContainer m_robotContainer;
 
   @Override
   public void robotInit() {

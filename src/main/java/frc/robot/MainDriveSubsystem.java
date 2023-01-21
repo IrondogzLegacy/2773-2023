@@ -9,6 +9,10 @@ import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class MainDriveSubsystem extends SubsystemBase {
+  /**
+   *
+   */
+  
   private final PWMSparkMax m_leftMotor = new PWMSparkMax(1);
   private final PWMSparkMax m_rightMotor = new PWMSparkMax(0);
 
@@ -31,6 +35,6 @@ public class MainDriveSubsystem extends SubsystemBase {
     // That means that the Y axis drives forward
     // and backward, and the X turns left and right.
     //m_robotDrive.arcadeDrive(-m_stick.getY() * 0.7, -m_stick.getX() * 0.7);
-    m_robotDrive.arcadeDrive(speed * 0.7, rotation * 0.7);
+    m_robotDrive.arcadeDrive(speed * Constants.SpeedFactor, rotation * Constants.RotationFactor);
   }
 }
