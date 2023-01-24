@@ -20,14 +20,23 @@ public class TestCam extends SubsystemBase {
     String s = serialPort.readString();
     DriverStation.reportWarning("Data:" + s, false);
     System.out.println(s);
-    String[] tokens = s.split(",");    
-    for (String t : tokens)
-      System.out.println(t);
-    } else { 
-      System.out.println("test");
+    String[] tokens = s.split(";");
+    String[] ids = tokens[0].split(": ");
+    if (ids[0] == "TAG_FOUND") {    
+    
+    String apriltag = ids[1];
+    DriverStation.reportWarning("April Tag ID:" + apriltag, false);   
+    
+    String Group1 = tokens[2];
+    DriverStation.reportWarning("First Group:" + Group1, false);
+
+
+  
     }
+
     // This method will be called once per scheduler run
   }
+}
 }
 //TAG_FOUND: 1;0.516811,0.116328,-0.848159,-0.149319,0.987787,0.044494,0.842977,0.103652,0.527869;-0.487307,0.097861,1.649744;0.000010
 
