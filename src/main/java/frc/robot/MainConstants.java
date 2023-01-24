@@ -14,7 +14,7 @@ public class MainConstants {
   public static final double SpeedFactor = 0.7;
   public static final double RotationFactor = 0.7;
 //constants for the CANIDs, self-explanatory
-    public static final int leftForWheelsCANID = 10;
+    public static final int leftForWheelsCANID = 11;
     public static final int rightForWheelsCANID = 23;
     public static final int leftBackWheelsCANID = 19;
     public static final int rightBackWheelsCANID = 22;
