@@ -3,7 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
-
+//import the RobotBase library from wpilib
 import edu.wpi.first.wpilibj.RobotBase;
 
 /**
@@ -11,7 +11,9 @@ import edu.wpi.first.wpilibj.RobotBase;
  * you are doing, do not modify this file except to change the parameter class to the startRobot
  * call.
  */
+//create a class TrueMain
 public final class TrueMain {
+  //private class TrueMain that can be changed, but code should not be modified here
   private TrueMain() {}
 
   /**
@@ -19,7 +21,9 @@ public final class TrueMain {
    *
    * <p>If you change your main robot class, change the parameter type.
    */
-  public static void main(String... args) {
+  //A function for the main robot
+   public static void main(String... args) {
+    //starting the robot
     RobotBase.startRobot(MainRobot::new);
   }
 }
