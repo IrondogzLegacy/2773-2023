@@ -10,13 +10,15 @@ package frc.robot;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 public class MainConstants {
-  //constants for MainDriveSubsystem
+  //constants for MainDriveSubsystem, speed + rotation factor (was for the PWMs not the Neos...)
   public static final double SpeedFactor = 0.7;
   public static final double RotationFactor = 0.7;
-//constants for the CANIDs
+//constants for the CANIDs, self-explanatory
     public static final int leftForWheelsCANID = 10;
     public static final int rightForWheelsCANID = 23;
     public static final int leftBackWheelsCANID = 19;
     public static final int rightBackWheelsCANID = 22;
     public static final MotorType motorType = MotorType.kBrushless;
 }
+
+//Pseudocode updated 1/23/2023 last, MainConstants
