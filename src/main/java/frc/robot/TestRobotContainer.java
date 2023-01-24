@@ -12,7 +12,6 @@ public class TestRobotContainer {
         configureButtonBindings();
 
         driveSubsystem.setDefaultCommand(driveCommand);
-        testCam.setDefaultCommand(new TestCamCommand(testCam));
     }
 
     private void configureButtonBindings() {
