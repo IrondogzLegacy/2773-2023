@@ -18,6 +18,7 @@ public class MainConstants {
     public static final int rightForWheelsCANID = 23;
     public static final int leftBackWheelsCANID = 19;
     public static final int rightBackWheelsCANID = 22;
+    //create a private class for the motorType, brushless motors
     public static final MotorType motorType = MotorType.kBrushless;
 }
 
