@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class TestCam extends SubsystemBase {
+  //cannot use without a camera connected, will not create SerialPort
   private final SerialPort serialPort = new SerialPort(115200, SerialPort.Port.kUSB1);
   /** Creates a new TestCam. */
   public TestCam() {
