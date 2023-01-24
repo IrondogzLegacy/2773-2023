@@ -13,7 +13,7 @@ public class TestCam extends SubsystemBase {
   public TestCam() {
 
   }
-
+//reads out what the epic camera saw
   @Override
   public void periodic() {
     if (serialPort.getBytesReceived() > 0){

@@ -6,10 +6,12 @@ package frc.robot;
 
 
 /** Add your docs here. */
+//These are for changing speed and rotation of test bot
+//we love test bot
 public class TestConstants {
 
   public static final double SpeedFactor = 0.7;
   public static final double RotationFactor = 0.9;
 }
 
-
+//updated 1/23/2023
