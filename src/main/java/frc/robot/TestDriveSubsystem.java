@@ -38,6 +38,14 @@ public class TestDriveSubsystem extends SubsystemBase {
     //m_robotDrive.arcadeDrive(-m_stick.getY() * 0.7, -m_stick.getX() * 0.7); //this without the speedfactor / rotationfactor, magic numbers (0.7) should not be in code but instead in Constants file
     m_robotDrive.arcadeDrive(speed * TestConstants.SpeedFactor, rotation * TestConstants.RotationFactor);
   }
+  public void rotation(double speed) {
+    m_robotDrive.tankDrive(speed, -speed);
+
+  }
+  public void stop()
+  {
+    m_robotDrive.stopMotor();
+  }
 }
 
 //Pseudocode last updated 1/23/2023, TestDriveSubsystem

@@ -18,26 +18,35 @@ public class TestTurnAngleCommand extends CommandBase {
   }
 
   private double startAngle;
+  private double stopAngle;
+
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     startAngle = navigationSubsystem.getAngle();
+    stopAngle = startAngle + 30;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
+    driveSubsystem.rotation(0.75);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    driveSubsystem.stop();
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    if(stopAngle <= navigationSubsystem.getAngle())
+    {
+      return true;
+    }
+    else return false;
   }
 }

@@ -21,8 +21,8 @@ public class TestRobotContainer {
         driveSubsystem.setDefaultCommand(driveCommand);
     }
 
+    JoystickButton button1 = new JoystickButton(m_stick, 1);
     private void configureButtonBindings() {
-        JoystickButton button1 = new JoystickButton(m_stick, 7);
-        button1.whenHeld(turnAngleCommand);
+        button1.whileTrue(turnAngleCommand);
     }
 }
