@@ -30,7 +30,7 @@ public class MainDriveSubsystem extends SubsystemBase {
   private final CANSparkMax rightBackMotor = new CANSparkMax(MainConstants.rightBackWheelsCANID, MainConstants.motorType);
   private final MotorControllerGroup leftGroup = new MotorControllerGroup(leftBackMotor, leftForMotor);
   private final MotorControllerGroup rightGroup = new MotorControllerGroup(rightBackMotor, rightForMotor);
-
+  private final DifferentialDrive mainDrive = new DifferentialDrive(leftGroup, rightGroup);
   /** Creates a new DriveSubsystem. */
   public MainDriveSubsystem() {
     // We need to invert one side of the drivetrain so that positive voltages
@@ -46,9 +46,8 @@ public class MainDriveSubsystem extends SubsystemBase {
   public void arcadeDrive(double speed, double rotation) {
     // Drive with arcade drive.
     // That means that the Y axis drives forward and backward, and the X turns left and right.
-    //m_robotDrive.arcadeDrive(-m_stick.getY() * 0.7, -m_stick.getX() * 0.7);
-    // m_robotDrive.arcadeDrive(speed * MainConstants.SpeedFactor, rotation * MainConstants.RotationFactor);
-    leftGroup.set(speed*0.1);
+    mainDrive.arcadeDrive(speed * MainConstants.SpeedFactor, rotation * MainConstants.RotationFactor);
+
   }
 }
 //end
