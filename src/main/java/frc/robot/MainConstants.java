@@ -20,6 +20,9 @@ public class MainConstants {
     public static final int rightBackWheelsCANID = 22;
     //create a private class for the motorType, brushless motors
     public static final MotorType motorType = MotorType.kBrushless;
+
+    //constant (port #) for the flagMotorChannel
+    public static final int flagMotorChannel = 3;
 }
 
 //Pseudocode updated 1/23/2023 last, MainConstants
