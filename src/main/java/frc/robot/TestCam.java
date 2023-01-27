@@ -20,7 +20,7 @@ public class TestCam extends SubsystemBase {
     String s = serialPort.readString();
     DriverStation.reportWarning("Data:" + s, false);
     System.out.println(s);
-    String[] tokens = s.split(";");
+    String[] tokens = s.split(";"); 
     String[] ids = tokens[0].split(": ");
     if (ids[0] == "TAG_FOUND") {    
     
@@ -30,8 +30,13 @@ public class TestCam extends SubsystemBase {
     String Group1 = tokens[2];
     DriverStation.reportWarning("First Group:" + Group1, false);
 
+    String[] Num = Group1.split(",");
+      
+        double XNum = Double.parseDouble(Num[0]);
+        DriverStation.reportWarning("First X: " + XNum, false);
+    
 
-  
+
     }
 
     // This method will be called once per scheduler run
