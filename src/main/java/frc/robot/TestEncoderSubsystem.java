@@ -9,12 +9,15 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class TestEncoderSubsystem extends SubsystemBase {
   /** Creates a new TestEncoderSubsystem. */
-  public TestEncoderSubsystem() {}
-  Encoder leftEncoder = new Encoder(0, 1, false, Encoder.EncodingType.k2X);
-  Encoder rightEncoder = new Encoder(2, 3, false, Encoder.EncodingType.k2X);
+  Encoder leftEncoder = new Encoder(0, 1, false);
+  Encoder rightEncoder = new Encoder(2, 3, false);
+  public TestEncoderSubsystem() {
+   leftEncoder.setDistancePerPulse(0.5*3.1415/2048); 
+  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     System.out.println(leftEncoder.getDistance());
+    
   }
 }
