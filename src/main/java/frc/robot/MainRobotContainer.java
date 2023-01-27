@@ -15,8 +15,7 @@ public class MainRobotContainer {
         configureButtonBindings();
 
         driveSubsystem.setDefaultCommand(driveCommand);
-        flagMotorSubsystem.setDefaultCommand(flagMotorCommand);
-    }
+        }
 
     JoystickButton button2 = new JoystickButton(m_stick, 2);
     private void configureButtonBindings() {
