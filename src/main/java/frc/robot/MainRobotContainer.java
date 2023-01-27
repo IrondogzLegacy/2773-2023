@@ -1,6 +1,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 //imports joystick controls and functions
 public class MainRobotContainer {
     private final Joystick m_stick = new Joystick(0);
@@ -19,7 +20,7 @@ public class MainRobotContainer {
 
     JoystickButton button2 = new JoystickButton(m_stick, 2);
     private void configureButtonBindings() {
-
+        button2.whileTrue(flagMotorCommand);
     }
      
 }

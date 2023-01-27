@@ -7,16 +7,22 @@ package frc.robot;
 //importing the subsystem base commands
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 //importing motorcontrol commands for PMWSparkMax's
-import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
+import com.revrobotics.CANSparkMax;
 
 //creates a public class FlagMotorSubsystem that is based off of SystemBase
 public class FlagMotorSubsystem extends SubsystemBase {
  
-  private final CANSparkMax rightBackMotor = new CANSparkMax(MainConstants.rightBackWheelsCANID, MainConstants.motorType);
-  
+  private final CANSparkMax flagMotor = new CANSparkMax(10, MainConstants.motorType);
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+  }
+  public void stopMotor() {
+    flagMotor.set(0);
+  }
+  public void startMotor() {
+    flagMotor.set(0.5);
+    
   }
 }
