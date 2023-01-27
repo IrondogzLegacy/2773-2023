@@ -11,8 +11,10 @@ public class TestRobotContainer {
     private final TestDriveCommand driveCommand = new TestDriveCommand(driveSubsystem, m_stick);
     //private final TestCam testCam = new TestCam();
     private final TestNavigationSubsystem navigationSubsystem = new TestNavigationSubsystem();
+    private final TestEncoderSubsystem testEncoderSubsystem = new TestEncoderSubsystem();
 
     private final TestTurnAngleCommand turnAngleCommand = new TestTurnAngleCommand(driveSubsystem, navigationSubsystem);
+    private final MajorsTestCommand majorCommand = new MajorsTestCommand(testEncoderSubsystem, navigationSubsystem, driveSubsystem); 
 
     public TestRobotContainer() {
         // Configure the button bindings
@@ -22,7 +24,9 @@ public class TestRobotContainer {
     }
 
     JoystickButton button1 = new JoystickButton(m_stick, 1);
+    JoystickButton button4 = new JoystickButton(m_stick, 4);
     private void configureButtonBindings() {
         button1.whileTrue(turnAngleCommand);
+        button4.whileTrue();
     }
 }
