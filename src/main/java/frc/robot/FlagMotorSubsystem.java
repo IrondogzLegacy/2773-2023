@@ -22,7 +22,7 @@ public class FlagMotorSubsystem extends SubsystemBase {
     flagMotor.set(0);
   }
   public void startMotor() {
-    flagMotor.set(0.5);
+    flagMotor.set(MainConstants.flagMotorSpeed);
     
   }
 }

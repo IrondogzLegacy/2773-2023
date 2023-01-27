@@ -4,13 +4,14 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class FlagMotorCommand extends CommandBase {
   /** Creates a new FlagMotorCommand. */
   private final FlagMotorSubsystem flagMotorSubsystem;
 
-  public FlagMotorCommand(FlagMotorSubsystem flagMotorSubsystem) {
+  public FlagMotorCommand(FlagMotorSubsystem flagMotorSubsystem, Joystick m_stick) {
     this.flagMotorSubsystem = flagMotorSubsystem;
     addRequirements(flagMotorSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
