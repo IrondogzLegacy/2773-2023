@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class TestEncoderSubsystem extends SubsystemBase {
   /** Creates a new TestEncoderSubsystem. */
   public TestEncoderSubsystem() {}
-
+  Encoder testSncoder = new Encoder(0, 1, false, Encoder.EncodingType.k2X);
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

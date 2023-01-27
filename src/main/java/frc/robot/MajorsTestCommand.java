@@ -18,8 +18,10 @@ Good luck to us :P Will have to use encoders in TestEncoderSubsystem for this!
 **/
 public class MajorsTestCommand extends CommandBase {
   /** Creates a new MajorsTestCommand. */
-  public MajorsTestCommand() {
-    // Use addRequirements() here to declare subsystem dependencies.
+  public MajorsTestCommand(TestEncoderSubsystem testEncoderSubsystem, TestNavigationSubsystem navigationSubsystem) {
+    this.testEncoderSubsystem = testEncoderSubsystem;
+    this.navigationSubsystem = navigationSubsystem;
+    addRequirements(testEncoderSubsystem, navigationSubsystem);// Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
