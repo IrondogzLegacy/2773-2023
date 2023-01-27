@@ -13,8 +13,8 @@ import com.revrobotics.CANSparkMax;
 public class FlagMotorSubsystem extends SubsystemBase {
  
   private final CANSparkMax flagMotor = new CANSparkMax(MainConstants.FlagMotorCANID, MainConstants.motorType);
-  public FlagMotorSubsystem() {
-    
+  public FlagMotorSubsystem () { 
+    flagMotor.setInverted(true);
   }
   @Override
   public void periodic() {
