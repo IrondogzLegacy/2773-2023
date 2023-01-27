@@ -17,7 +17,10 @@ Now, I'm going to add another one, move back to its starting position.
 Good luck to us :P Will have to use encoders in TestEncoderSubsystem for this!
 **/
 public class MajorsTestCommand extends CommandBase {
-  /** Creates a new MajorsTestCommand. */
+  private TestEncoderSubsystem testEncoderSubsystem;
+  private TestNavigationSubsystem navigationSubsystem;
+
+/** Creates a new MajorsTestCommand. */
   public MajorsTestCommand(TestEncoderSubsystem testEncoderSubsystem, TestNavigationSubsystem navigationSubsystem) {
     this.testEncoderSubsystem = testEncoderSubsystem;
     this.navigationSubsystem = navigationSubsystem;
