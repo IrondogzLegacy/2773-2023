@@ -6,7 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-/**Alright so Major wants TestBot to do the following things
+/*Alright so Major wants TestBot to do the following things
 1. Move forward X distance
 2. Turn around 4 times, then another quarter turn (ends facing right, 360*4 degrees + 90 degrees)
 3. Move forward Y distance again
