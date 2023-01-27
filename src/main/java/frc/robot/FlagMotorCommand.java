@@ -8,8 +8,9 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class FlagMotorCommand extends CommandBase {
   /** Creates a new FlagMotorCommand. */
-  public FlagMotorCommand() {
-    addRequirements(FlagMotorSubsystem);
+  public FlagMotorCommand(FlagMotorSubsystem flagMotorSubsystem) {
+    addRequirements(FlagMotorSubsystem flagMotorSubsystem);
+    this.flagMotorSubsystem = FlagMotorSubsystem; 
     // Use addRequirements() here to declare subsystem dependencies.
   }
 

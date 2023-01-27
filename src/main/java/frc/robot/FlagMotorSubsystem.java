@@ -12,10 +12,8 @@ import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 //creates a public class FlagMotorSubsystem that is based off of SystemBase
 public class FlagMotorSubsystem extends SubsystemBase {
  
-  private final PWMSparkMax m_flagMotor = new PWMSparkMax(MainConstants.flagMotorChannel);
-
-   /** Creates a new FlagMotorSubsystem. */
-  public FlagMotorSubsystem() {}
+  private final CANSparkMax rightBackMotor = new CANSparkMax(MainConstants.rightBackWheelsCANID, MainConstants.motorType);
+  
 
   @Override
   public void periodic() {
