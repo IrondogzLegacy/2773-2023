@@ -13,7 +13,9 @@ import com.revrobotics.CANSparkMax;
 public class FlagMotorSubsystem extends SubsystemBase {
  
   private final CANSparkMax flagMotor = new CANSparkMax(MainConstants.FlagMotorCANID, MainConstants.motorType);
-
+  public FlagMotorSubsystem() {
+    
+  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
