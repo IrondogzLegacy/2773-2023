@@ -22,7 +22,7 @@ public class MainConstants {
     public static final MotorType motorType = MotorType.kBrushless;
 
     //constant (port #) for the flagMotorChannel
-    public static final int FlagMotorChannel = 10;
+    public static final int FlagMotorCANID = 10;
     public static final double flagMotorSpeed = 0.5;
     //constant for the 
 }

@@ -12,7 +12,7 @@ import com.revrobotics.CANSparkMax;
 //creates a public class FlagMotorSubsystem that is based off of SystemBase
 public class FlagMotorSubsystem extends SubsystemBase {
  
-  private final CANSparkMax flagMotor = new CANSparkMax(10, MainConstants.motorType);
+  private final CANSparkMax flagMotor = new CANSparkMax(MainConstants.FlagMotorCANID, MainConstants.motorType);
 
   @Override
   public void periodic() {
