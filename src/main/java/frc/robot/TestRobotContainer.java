@@ -1,7 +1,5 @@
 package frc.robot;
 
-import javax.print.attribute.standard.JobHoldUntil;
-
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
@@ -14,8 +12,10 @@ public class TestRobotContainer {
     private final TestEncoderSubsystem testEncoderSubsystem = new TestEncoderSubsystem();
 
     private final TestTurnAngleCommand turnAngleCommand = new TestTurnAngleCommand(driveSubsystem, navigationSubsystem);
-    private final MajorsTestCommand majorCommand = new MajorsTestCommand(testEncoderSubsystem, navigationSubsystem); 
 
+    private final MajorsTestCommand majorCommand = new MajorsTestCommand(driveSubsystem); 
+    private final MoveDistanceCommand moveCommand = new MoveDistanceCommand(testEncoderSubsystem, driveSubsystem);
+    
     public TestRobotContainer() {
         // Configure the button bindings
         configureButtonBindings();
@@ -25,8 +25,10 @@ public class TestRobotContainer {
 
     JoystickButton button1 = new JoystickButton(m_stick, 1);
     JoystickButton button4 = new JoystickButton(m_stick, 4);
+    JoystickButton button3 = new JoystickButton(m_stick, 3);
     private void configureButtonBindings() {
         button1.whileTrue(turnAngleCommand);
         button4.whileTrue(majorCommand);
+        button3.whileTrue(moveCommand);
     }
 }
