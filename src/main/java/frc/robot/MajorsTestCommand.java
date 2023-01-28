@@ -17,19 +17,18 @@ Now, I'm going to add another one, move back to its starting position.
 Good luck to us :P Will have to use encoders in TestEncoderSubsystem for this!
 **/
 public class MajorsTestCommand extends CommandBase {
-  private TestEncoderSubsystem testEncoderSubsystem;
-  private TestNavigationSubsystem navigationSubsystem;
+  private TestDriveSubsystem driveSubsystem;
 
 /** Creates a new MajorsTestCommand. */
-  public MajorsTestCommand(TestEncoderSubsystem testEncoderSubsystem, TestNavigationSubsystem navigationSubsystem) {
-    this.testEncoderSubsystem = testEncoderSubsystem;
-    this.navigationSubsystem = navigationSubsystem;
-    addRequirements(testEncoderSubsystem, navigationSubsystem);// Use addRequirements() here to declare subsystem dependencies.
+  public MajorsTestCommand(TestDriveSubsystem driveSubsystem) {
+    addRequirements(driveSubsystem); // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override

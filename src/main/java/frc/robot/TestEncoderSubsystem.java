@@ -21,4 +21,7 @@ public class TestEncoderSubsystem extends SubsystemBase {
     System.out.print("left\t" + leftEncoder.getDistance()+"\t");
     System.out.println("right\t" + rightEncoder.getDistance());
   }
+public double getDistance() {
+    return rightEncoder.getDistance();
+}
 }
