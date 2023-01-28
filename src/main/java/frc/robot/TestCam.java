@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class TestCam extends SubsystemBase {
   // cannot use without a camera connected, will not create SerialPort
-  private final SerialPort serialPort = new SerialPort(115200, SerialPort.Port.kUSB1);
+  private final SerialPort serialPort = new SerialPort(115200, SerialPort.Port.kMXP);
 
   /** Creates a new TestCam. */
   public TestCam() {
@@ -35,7 +35,7 @@ public class TestCam extends SubsystemBase {
   private static TagData parseTagData(String s) {
     String[] tokens = s.split(";");
     String[] ids = tokens[0].split(": ");
-    if (ids[0] != "TAG_FOUND") {
+    if (!ids[0].equals("TAG_FOUND")) {
       return null;
     }
 
@@ -64,8 +64,7 @@ public class TestCam extends SubsystemBase {
   public void periodic() {
     if (serialPort.getBytesReceived() > 0) {
       String s = serialPort.readString();
-      System.out.println("Data:" + s);
-      System.out.println(s);
+    //  System.out.println("Data:" + s);
 
       TagData tagData = parseTagData(s);
       if (tagData != null) {
