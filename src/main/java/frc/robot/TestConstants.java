@@ -12,6 +12,9 @@ public class TestConstants {
 
   public static final double SpeedFactor = 0.7;
   public static final double RotationFactor = 0.9;
+  public static final double genTankLSpeed = 0.5;
+  public static final double genTankRSpeed = 0.5;
+  
 }
 
 //updated 1/23/2023

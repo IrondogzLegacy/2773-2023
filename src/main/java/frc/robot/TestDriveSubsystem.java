@@ -44,7 +44,7 @@ public class TestDriveSubsystem extends SubsystemBase {
   }
   public void genTankDrive ()
   {
-    m_robotDrive.tankDrive(0.5, 0.5);
+    m_robotDrive.tankDrive(TestConstants.genTankLSpeed, TestConstants.genTankRSpeed);
   }
   public void stopAll()
   {

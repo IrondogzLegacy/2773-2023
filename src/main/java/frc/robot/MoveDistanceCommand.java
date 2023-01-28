@@ -12,10 +12,12 @@ public class MoveDistanceCommand extends CommandBase {
   private final TestDriveSubsystem driveSubsystem;
   double startDistance;
   double stopDistance;
+  private final double distance;
 
-  public MoveDistanceCommand(TestEncoderSubsystem testEncoderSubsystem, TestDriveSubsystem driveSubsystem) {
+  public MoveDistanceCommand(TestEncoderSubsystem testEncoderSubsystem, TestDriveSubsystem driveSubsystem, double distance) {
     this.testEncoderSubsystem = testEncoderSubsystem;
     this.driveSubsystem = driveSubsystem;
+    this.distance = distance;
     addRequirements(driveSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -25,12 +27,8 @@ public class MoveDistanceCommand extends CommandBase {
   public void initialize() {
     startDistance = testEncoderSubsystem.getDistance();
 
-    if (startDistance >= 0) {
-      stopDistance = startDistance + 3;
-    }
-    if (startDistance < 0) {
-      stopDistance = startDistance - 3;
-    }
+      stopDistance = startDistance + distance;
+
     System.out.print("Start" + startDistance);
     System.out.println("Stop" + stopDistance);
   }
@@ -50,11 +48,13 @@ public class MoveDistanceCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (testEncoderSubsystem.getDistance() >= stopDistance) {
+    if (distance >= 0 && testEncoderSubsystem.getDistance() >= stopDistance) {
       return true;
-    } else
-      return false;
-    // m_leftMotor.stop();
-    // m_rightMotor.stop();
+    } 
+    if (distance <= 0 && testEncoderSubsystem.getDistance() <= stopDistance) {
+      return true;
+    } 
+    return false;
+
   }
 }

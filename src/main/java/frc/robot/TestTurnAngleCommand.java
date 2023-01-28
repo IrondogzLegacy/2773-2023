@@ -10,9 +10,11 @@ public class TestTurnAngleCommand extends CommandBase {
   private final TestDriveSubsystem driveSubsystem;
   private final TestNavigationSubsystem navigationSubsystem;
   /** Creates a new TestTurnAngleCommand. */
-  public TestTurnAngleCommand(TestDriveSubsystem driveSubsystem, TestNavigationSubsystem navigationSubsystem) {
+  private final double turnAngle;
+  public TestTurnAngleCommand(TestDriveSubsystem driveSubsystem, TestNavigationSubsystem navigationSubsystem, double turnAngle) {
     this.driveSubsystem = driveSubsystem;
     this.navigationSubsystem = navigationSubsystem;
+    this.turnAngle = turnAngle;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(driveSubsystem);
   }
@@ -25,7 +27,7 @@ public class TestTurnAngleCommand extends CommandBase {
   @Override
   public void initialize() {
     startAngle = navigationSubsystem.getAngle();
-    stopAngle = startAngle + 30;
+    stopAngle = startAngle + turnAngle;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
