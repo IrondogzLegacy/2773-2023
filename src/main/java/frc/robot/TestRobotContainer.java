@@ -9,7 +9,7 @@ public class TestRobotContainer {
     private final Joystick m_stick = new Joystick(0);
     private final TestDriveSubsystem driveSubsystem = new TestDriveSubsystem();
     private final TestDriveCommand driveCommand = new TestDriveCommand(driveSubsystem, m_stick);
-    //private final TestCam testCam = new TestCam();
+    private final TestCam testCam = new TestCam();
     private final TestNavigationSubsystem navigationSubsystem = new TestNavigationSubsystem();
     private final TestEncoderSubsystem testEncoderSubsystem = new TestEncoderSubsystem();
 
