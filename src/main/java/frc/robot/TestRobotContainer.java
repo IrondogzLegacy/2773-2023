@@ -12,6 +12,7 @@ public class TestRobotContainer {
     private final TestEncoderSubsystem testEncoderSubsystem = new TestEncoderSubsystem();
 
     private final TestTurnAngleCommand turnAngleCommand = new TestTurnAngleCommand(driveSubsystem, navigationSubsystem);
+
     private final MajorsTestCommand majorCommand = new MajorsTestCommand(driveSubsystem); 
     private final MoveDistanceCommand moveCommand = new MoveDistanceCommand(testEncoderSubsystem, driveSubsystem);
     
