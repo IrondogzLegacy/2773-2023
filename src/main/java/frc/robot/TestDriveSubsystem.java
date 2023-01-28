@@ -42,7 +42,11 @@ public class TestDriveSubsystem extends SubsystemBase {
     m_robotDrive.tankDrive(speed, -speed);
 
   }
-  public void stop()
+  public void genTankDrive ()
+  {
+    m_robotDrive.tankDrive(0.5, 0.5);
+  }
+  public void stopAll()
   {
     m_robotDrive.stopMotor();
   }
