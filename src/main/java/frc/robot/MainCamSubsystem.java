@@ -7,19 +7,20 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class MainCamSubsystem extends SubsystemBase {
     private final SerialPort serialPort = new SerialPort(115200, SerialPort.Port.kUSB);
     /*
-   * Needs to be tested
-   * Parses April Tag Data
-   * Driverstation warnings are only here to make sure that the code is working and are not necessary.
-   * When testing a singular number the other System.out.println should be commented
-   * out. They should be deleted when all testing is done.
-   * Example April Tag data:
-   * TAG_FOUND: 1;0.516811,0.116328,-0.848159,-0.149319,0.987787,0.044494,0.842977,0.103652,0.527869;-0.487307,0.097861,1.649744;0.000010
+        Parses April Tag Data
+        
+        Example April Tag data:
+        TAG_FOUND: 1;0.516811,0.116328,-0.848159,-0.149319,0.987787,0.044494,0.842977,0.103652,0.527869;-0.487307,0.097861,1.649744;0.000010
+        Example simplified April Tag data:
+        First: 1 0.328023 -0.520075 1.085208
+        More data:
+        First: 1 0.328262 -0.520233 1.085545
    */
   private static class TagData {
     String apriltag;
-    double x;
+    double x; //How far right or left
     double y;
-    double z;
+    double z; //How far away
   }
 
   private static TagData parseTagData(String s) {
@@ -59,6 +60,13 @@ public class MainCamSubsystem extends SubsystemBase {
       TagData tagData = parseTagData(s);
       if (tagData != null) {
         System.out.println("First: " + tagData.apriltag + " " + tagData.x  + " " + tagData.y + " " + tagData.z);
+      }
+      if (tagData.x < 0.5) { 
+        System.out.println("The robot is facing the tag from the left");
+        /* 
+        //This println is only a placeholder. In the future it will be replaced with
+        //code that moves the robot.
+        */
       }
     }
 
