@@ -15,7 +15,7 @@ public class TestNavigationSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    System.out.println(gyro.getAngle());
+    // System.out.println(gyro.getAngle());
   }
 
 public double getAngle() {
