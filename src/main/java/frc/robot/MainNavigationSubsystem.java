@@ -32,7 +32,7 @@ public class MainNavigationSubsystem extends SubsystemBase {
     System.out.println(gyro.getAngle());
     }
 
-  //Ending :
+  //Variables :
 
   public double getAngle() {return gyro.getAngle();}
   public double getDistance() {return rightEncoder.getDistance();}
