@@ -9,13 +9,16 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class TestEncoderSubsystem extends SubsystemBase {
   /** Creates a new TestEncoderSubsystem. */
-  public TestEncoderSubsystem() {}
+  public TestEncoderSubsystem() {
+    leftEncoder.setDistancePerPulse(.5*3.14/1024);
+    rightEncoder.setDistancePerPulse(.5*3.14/1024);
+  }
   Encoder leftEncoder = new Encoder(0, 1);
   Encoder rightEncoder = new Encoder(2, 3, true);
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    System.out.println("left" + leftEncoder.getDistance());
-    System.out.println("right" + rightEncoder.getDistance());
+    System.out.print("left\t" + leftEncoder.getDistance()+"\t");
+    System.out.println("right\t" + rightEncoder.getDistance());
   }
 }
