@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
 public class MainCamSubsystem extends SubsystemBase {
-    private final SerialPort serialPort = new SerialPort(115200, SerialPort.Port.kMXP);
+    private final SerialPort serialPort = new SerialPort(115200, SerialPort.Port.kUSB);
     /*
    * Needs to be tested
    * Parses April Tag Data
@@ -25,7 +25,7 @@ public class MainCamSubsystem extends SubsystemBase {
   private static TagData parseTagData(String s) {
     String[] tokens = s.split(";");
     String[] ids = tokens[0].split(": ");
-    if (!ids[0].equals("TAG_FOUND")) {
+    if (!ids[0].equals("TAG_FOUND") || tokens.length < 4) {
       return null;
     }
 
