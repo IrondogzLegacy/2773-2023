@@ -1,5 +1,7 @@
 package frc.robot;
 
+import javax.lang.model.element.ModuleElement.UsesDirective;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -15,7 +17,7 @@ public class TestRobotContainer {
     private final TestTurnAngleCommand turnAngleCommand = new TestTurnAngleCommand(driveSubsystem, navigationSubsystem, 30);
     private final MoveDistanceCommand moveCommand = new MoveDistanceCommand(testEncoderSubsystem, driveSubsystem, 3);
 
-    // private final MajorsTestCommand majorCommand = new MajorsTestCommand(moveDistanceCommand, turnAngleCommand); 
+    private final TestPneumaticsSubsystem testPnuematicsSubsystem = new TestPneumaticsSubsystem();
     
     public TestRobotContainer() {
         // Configure the button bindings
@@ -52,10 +54,47 @@ public class TestRobotContainer {
     JoystickButton button1 = new JoystickButton(m_stick, 1);
     JoystickButton button4 = new JoystickButton(m_stick, 4);
     JoystickButton button3 = new JoystickButton(m_stick, 3);
+    JoystickButton button5 = new JoystickButton(m_stick, 5);
+    JoystickButton button6 = new JoystickButton(m_stick, 6);
+
+
     private void configureButtonBindings() {
         button1.whileTrue(turnAngleCommand);
         button3.whileTrue(moveCommand);
         final CommandBase majorCommand = createMajorsTestCommand();
         button4.whileTrue(majorCommand);
+        button5.whileTrue(
+            new CommandBase() {
+                {
+                  addRequirements(testPnuematicsSubsystem);
+                }
+          
+                @Override
+                public void initialize() {
+                    testPnuematicsSubsystem.deployIntake();
+                }
+          
+                @Override
+                public boolean isFinished() {
+                  return true;
+                }
+              });
+        button6.whileTrue(
+            new CommandBase() {
+                {
+                  addRequirements(testPnuematicsSubsystem);
+                }
+          
+                @Override
+                public void initialize() {
+                    testPnuematicsSubsystem.retractIntake();
+                }
+          
+                @Override
+                public boolean isFinished() {
+                  return true;
+                }
+              });
+        
     }
 }
