@@ -14,7 +14,7 @@ public class TestRobotContainer {
     private final TestEncoderSubsystem testEncoderSubsystem = new TestEncoderSubsystem();
 
     private final TestTurnAngleCommand turnAngleCommand = new TestTurnAngleCommand(driveSubsystem, navigationSubsystem);
-    private final MajorsTestCommand majorCommand = new MajorsTestCommand(testEncoderSubsystem, navigationSubsystem, driveSubsystem); 
+    private final MajorsTestCommand majorCommand = new MajorsTestCommand(testEncoderSubsystem, navigationSubsystem); 
 
     public TestRobotContainer() {
         // Configure the button bindings

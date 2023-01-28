@@ -4,7 +4,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -21,7 +20,7 @@ public class TestCam extends SubsystemBase {
    * Needs to be tested
    * Parses April Tag Data
    * Driverstation warnings are only here to make sure that the code is working and are not necessary.
-   * When testing a singular number the other report warnings should be commented
+   * When testing a singular number the other System.out.println should be commented
    * out. They should be deleted when all testing is done.
    * Example April Tag data:
    * TAG_FOUND: 1;0.516811,0.116328,-0.848159,-0.149319,0.987787,0.044494,0.842977,0.103652,0.527869;-0.487307,0.097861,1.649744;0.000010
@@ -65,12 +64,12 @@ public class TestCam extends SubsystemBase {
   public void periodic() {
     if (serialPort.getBytesReceived() > 0) {
       String s = serialPort.readString();
-      DriverStation.reportWarning("Data:" + s, false);
+      System.out.println("Data:" + s);
       System.out.println(s);
 
       TagData tagData = parseTagData(s);
       if (tagData != null) {
-        DriverStation.reportWarning("First: " + tagData.apriltag + " " + tagData.x  + " " + tagData.y + " " + tagData.z, false);
+        System.out.println("First: " + tagData.apriltag + " " + tagData.x  + " " + tagData.y + " " + tagData.z);
       }
     }
 
