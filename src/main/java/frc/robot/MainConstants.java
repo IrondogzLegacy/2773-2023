@@ -24,7 +24,9 @@ public class MainConstants {
     //constant (port #) for the flagMotorChannel
     public static final int FlagMotorCANID = 10;
     public static final double flagMotorSpeed = 0.25;
-    //constant for the 
+    //constant for the default TankDrive
+    public static final double genTankLSpeed = 0.5;
+    public static final double genTankRSpeed = 0.5;
 }
 
 //Pseudocode updated 1/23/2023 last, MainConstants
