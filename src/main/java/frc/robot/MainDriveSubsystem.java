@@ -47,5 +47,17 @@ public class MainDriveSubsystem extends SubsystemBase {
     mainDrive.arcadeDrive(speed * MainConstants.SpeedFactor, rotation * MainConstants.RotationFactor);
 
   }
+  public void rotation(double speed) {
+    mainDrive.tankDrive(speed, -speed);
+
+  }
+  public void genTankDrive ()
+  {
+    mainDrive.tankDrive(MainConstants.genTankLSpeed, MainConstants.genTankRSpeed);
+  }
+  public void stopAll()
+  {
+    mainDrive.stopMotor();
+  }
 }
 //end
