@@ -13,7 +13,7 @@ public class TestRobotContainer {
 
     private final TestTurnAngleCommand turnAngleCommand = new TestTurnAngleCommand(driveSubsystem, navigationSubsystem);
     private final MajorsTestCommand majorCommand = new MajorsTestCommand(driveSubsystem); 
-    private final MoveDistanceCommand moveCommand = new MoveDistanceCommand();
+    private final MoveDistanceCommand moveCommand = new MoveDistanceCommand(testEncoderSubsystem, driveSubsystem);
     
     public TestRobotContainer() {
         // Configure the button bindings

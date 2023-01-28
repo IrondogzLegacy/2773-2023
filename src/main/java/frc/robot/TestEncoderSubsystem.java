@@ -18,8 +18,8 @@ public class TestEncoderSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    System.out.print("left\t" + leftEncoder.getDistance()+"\t");
-    System.out.println("right\t" + rightEncoder.getDistance());
+   // System.out.print("left\t" + leftEncoder.getDistance()+"\t");
+   // System.out.println("right\t" + rightEncoder.getDistance());
   }
 public double getDistance() {
     return rightEncoder.getDistance();
