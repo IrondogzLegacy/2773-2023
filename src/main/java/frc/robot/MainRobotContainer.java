@@ -8,6 +8,7 @@ public class MainRobotContainer {
     private final MainDriveSubsystem driveSubsystem = new MainDriveSubsystem();
     private final MainDriveCommand driveCommand = new MainDriveCommand(driveSubsystem, m_stick);
     private final FlagMotorSubsystem flagMotorSubsystem = new FlagMotorSubsystem();
+    private final MainCamSubsystem MainCamSubsystem = new MainCamSubsystem();
     private final FlagMotorCommand flagMotorCommand = new FlagMotorCommand(flagMotorSubsystem, m_stick);
 //Needed to make the controller function
     public MainRobotContainer() {
