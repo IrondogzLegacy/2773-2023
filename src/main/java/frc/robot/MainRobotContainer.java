@@ -18,7 +18,7 @@ public class MainRobotContainer {
 
         driveSubsystem.setDefaultCommand(driveCommand);
         }
-
+// Controls how it grabs or lets go
     JoystickButton button2 = new JoystickButton(m_stick, 2);
     JoystickButton button3 = new JoystickButton(m_stick, 3);
     private void configureButtonBindings() {
