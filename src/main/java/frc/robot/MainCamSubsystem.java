@@ -18,11 +18,20 @@ public class MainCamSubsystem extends SubsystemBase {
    */
   private static class TagData {
     String apriltag;
-    double x; //How far right or left
-    double y;
-    double z; //How far away
+    double x; //How far right or left (I think)
+    double y; //How high or low the april tag is (mostly irrelavant for our purposes)
+    double z; //How far away (I think)
   }
-
+/*
+ * S = All data
+ * Tokens splits data based on ";", 
+ * ids splits tokens based on ":"
+ * ids[0] = "TAG_FOUND", when april tag is found.
+ * ids[1] = the april tag ID, example: 1, 5, 16.
+ * xyz is tokens[2], it is the three floats at the end of String s
+ * When an april tag is found, a string will print with the id and xyz.
+ * I have begun working on how the robot can respond to xyz. (Lines 73-80)
+ */
   private static TagData parseTagData(String s) {
     String[] tokens = s.split(";");
     String[] ids = tokens[0].split(": ");
@@ -63,9 +72,17 @@ public class MainCamSubsystem extends SubsystemBase {
       }
       if (tagData.x < 0.5) { 
         System.out.println("The robot is facing the tag from the left");
+      
+        if (tagData.z < 1) { 
+        System.out.println("Robot is close to april tag");
+      } else { 
+        System.out.println("The Robot is far away from the april tag");
+      }   
+      
         /* 
-        //This println is only a placeholder. In the future it will be replaced with
-        //code that moves the robot.
+        //Lines 73-80 need to be tested. 
+        //The println are only placeholders. In the future it will be replaced with
+        //code that moves the robot. 
         */
       }
     }
@@ -74,6 +91,3 @@ public class MainCamSubsystem extends SubsystemBase {
   }
 
 }
-// TAG_FOUND:
-// 1;0.516811,0.116328,-0.848159,-0.149319,0.987787,0.044494,0.842977,0.103652,0.527869;-0.487307,0.097861,1.649744;0.000010
-
