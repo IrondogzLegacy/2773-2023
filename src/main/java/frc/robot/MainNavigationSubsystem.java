@@ -31,9 +31,7 @@ public class MainNavigationSubsystem extends SubsystemBase {
     System.out.println("right\t" + rightEncoder.getDistance());
     System.out.println(gyro.getAngle());
     }
-
-  //Variables :
-
+    //Variables :
   public double getAngle() {return gyro.getAngle();}
   public double getDistance() {return rightEncoder.getDistance();}
 }
