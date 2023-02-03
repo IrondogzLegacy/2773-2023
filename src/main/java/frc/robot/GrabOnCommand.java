@@ -7,13 +7,13 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class FlagMotorCommand extends CommandBase {
+public class GrabOnCommand extends CommandBase {
   /** Creates a new FlagMotorCommand. */
-  private final FlagMotorSubsystem flagMotorSubsystem;
+  private final ClawSubsystem GrabOnSubsystem;
 
-  public FlagMotorCommand(FlagMotorSubsystem flagMotorSubsystem, Joystick m_stick) {
-    this.flagMotorSubsystem = flagMotorSubsystem;
-    addRequirements(flagMotorSubsystem);
+  public GrabOnCommand(ClawSubsystem GrabOnSubsystem, Joystick m_stick) {
+    this.GrabOnSubsystem = GrabOnSubsystem;
+    addRequirements(GrabOnSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -25,14 +25,14 @@ public class FlagMotorCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    flagMotorSubsystem.startMotor();
+    GrabOnSubsystem.Grab();
   }
 
   
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    flagMotorSubsystem.stopMotor();
+    GrabOnSubsystem.stopMotor();
   }
 
   

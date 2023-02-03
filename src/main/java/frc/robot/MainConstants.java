@@ -21,12 +21,17 @@ public class MainConstants {
     //create a private class for the motorType, brushless motors
     public static final MotorType motorType = MotorType.kBrushless;
 
-    //constant (port #) for the flagMotorChannel
-    public static final int FlagMotorCANID = 10;
-    public static final double flagMotorSpeed = 0.25;
+    //constant (port #) for the ClawMotorChannel
+    public static final int ClawMotorCANID = 10;
+      //constant for the PickUpSpeed (motor for extending / closing the claw)
+    public static final double ClawMotorSpeed = 0.25;
+    //constant for the ReleaseSpeed
+    public static final double ReleaseSpeed = 0.5;
     //constant for the default TankDrive
     public static final double genTankLSpeed = 0.5;
-    public static final double genTankRSpeed = 0.5;
+    public static final double genTankRSpeed = -0.5;
+
+
 }
 
 //Pseudocode updated 1/23/2023 last, MainConstants
