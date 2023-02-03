@@ -78,12 +78,8 @@ public class MainCamSubsystem extends SubsystemBase {
       } else { 
         System.out.println("The Robot is far away from the april tag");
       }   
-      
-        /* 
-        //Lines 73-80 need to be tested. 
-        //The println are only placeholders. In the future it will be replaced with
-        //code that moves the robot. 
-        */
+//The println will be replaced in the future with code that moves the robot accordingly. The conditions for the if state
+//if statements will also be replaced with more useful information as more data is collected. 
       }
     }
 
