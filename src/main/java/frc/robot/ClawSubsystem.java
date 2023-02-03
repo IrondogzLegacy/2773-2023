@@ -10,21 +10,24 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.CANSparkMax;
 
 //creates a public class FlagMotorSubsystem that is based off of SystemBase
-public class FlagMotorSubsystem extends SubsystemBase {
+public class ClawSubsystem extends SubsystemBase {
  
-  private final CANSparkMax flagMotor = new CANSparkMax(MainConstants.FlagMotorCANID, MainConstants.motorType);
-  public FlagMotorSubsystem () { 
-    flagMotor.setInverted(true);
+  private final CANSparkMax ClawMotor = new CANSparkMax(MainConstants.ClawMotorCANID, MainConstants.motorType);
+
+  public ClawSubsystem () { 
+    ClawMotor.setInverted(true);
   }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
   }
   public void stopMotor() {
-    flagMotor.set(0);
+    ClawMotor.set(0);
   }
-  public void startMotor() {
-    flagMotor.set(MainConstants.flagMotorSpeed);
-    
+  public void Grab() {
+    ClawMotor.set(MainConstants.ClawMotorSpeed);
+  }
+  public void Release() {
+    ClawMotor.set(MainConstants.ReleaseSpeed);
   }
 }
