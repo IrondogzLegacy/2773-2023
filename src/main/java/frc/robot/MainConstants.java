@@ -29,7 +29,7 @@ public class MainConstants {
     public static final double ReleaseSpeed = 0.5;
     //constant for the default TankDrive
     public static final double genTankLSpeed = 0.5;
-    public static final double genTankRSpeed = -0.5;
+    public static final double genTankRSpeed = 0.5;
 
 
 }
