@@ -51,9 +51,10 @@ public class MainDriveSubsystem extends SubsystemBase {
   {
     mainDrive.tankDrive(MainConstants.genTankLSpeed, MainConstants.genTankRSpeed);
   }
-  public void stopAll()
+  public void stopAllDrive()
   {
-    mainDrive.stopMotor();
+    leftGroup.stopMotor();
+    rightGroup.stopMotor();
   }
 }
 //end
