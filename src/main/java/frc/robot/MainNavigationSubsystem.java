@@ -16,8 +16,8 @@ public class MainNavigationSubsystem extends SubsystemBase {
   /** Creates a new MainNavigationSubsystem. */
   //Encoders :
     public MainNavigationSubsystem() {
-      leftEncoder.setDistancePerPulse(.5*3.14/1024);
-      rightEncoder.setDistancePerPulse(.5*3.14/1024);
+      leftEncoder.setDistancePerPulse(.5*3.14/8192);
+      rightEncoder.setDistancePerPulse(.5*3.14/8192);
     }
     Encoder leftEncoder = new Encoder(0, 1);
     Encoder rightEncoder = new Encoder(2, 3, true);
