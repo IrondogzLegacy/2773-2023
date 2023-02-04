@@ -11,12 +11,14 @@ public class MainRobotContainer {
     private final ClawSubsystem GrabOnSubsystem = new ClawSubsystem();
     private final MainCamSubsystem camSubsystem = new MainCamSubsystem();
     private final GrabOnCommand grabOnCommand = new GrabOnCommand(GrabOnSubsystem, m_stick);
-    private final LetGoCommand letGoCommand = new LetGoCommand(GrabOnSubsystem, m_stick);
-//Needed to make the controller function
+    private final LetGoCommand letGoCommand = new LetGoCommand(GrabOnSubsystem, m_stick);    
     
+    //Autonomous Section
     public Command getAutonomousCommand() {
     return grabOnCommand;
     }
+    
+   //Needed to make the controller function
     public MainRobotContainer() {
         // Configure the button bindings
         configureButtonBindings();
