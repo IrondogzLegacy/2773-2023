@@ -27,7 +27,7 @@ public class MainNavigationSubsystem extends SubsystemBase {
     private final ADXRS450_Gyro gyro = new ADXRS450_Gyro(Port.kOnboardCS0);
   @Override
     public void periodic() {
-    System.out.print("left\t" + leftEncoder.getDistance()+"\t");
+    System.out.print("\t\tleft\t" + leftEncoder.getDistance()+"\t");
     System.out.println("right\t" + rightEncoder.getDistance());
     System.out.println(gyro.getAngle());
     }
