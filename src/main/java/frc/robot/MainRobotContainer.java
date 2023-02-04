@@ -17,6 +17,7 @@ public class MainRobotContainer {
     private final TurnToTagCommand turnToTagCommand = new TurnToTagCommand(driveSubsystem, camSubsystem);    
     private final RotationCommand rotationCommand = new RotationCommand(driveSubsystem, navigationSubsystem, 30);
     private final MoveDistanceCommand moveCommand = new MoveDistanceCommand (driveSubsystem, navigationSubsystem, 2);
+
     //Autonomous Section
     public Command getAutonomousCommand() {
     return grabOnCommand;
@@ -47,7 +48,7 @@ public class MainRobotContainer {
         button3.whileTrue(letGoCommand);
         button4.whileTrue(moveCommand);
         final CommandBase majorCommand = createMajorsMainCommand();
-        button5.whileTrue(majorCommand);
+        button5.onTrue(majorCommand);
     }
      
 }
