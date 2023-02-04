@@ -8,9 +8,13 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 //import the wpilib folder for Joysticks
 import edu.wpi.first.wpilibj.Joystick;
 
+import edu.wpi.first.wpilibj.Timer;
+
+
 public class LetGoCommand extends CommandBase {
   /** Creates a new LetGoCommand. */
   private final ClawSubsystem ReleaseSubsystem;
+  private final Timer timer = new Timer();
 
   public LetGoCommand(ClawSubsystem ReleaseSubsystem, Joystick m_stick) {
     this.ReleaseSubsystem = ReleaseSubsystem;
@@ -20,7 +24,9 @@ public class LetGoCommand extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    timer.start();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -37,6 +43,6 @@ public class LetGoCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return timer.hasElapsed(1);
   }
 }
