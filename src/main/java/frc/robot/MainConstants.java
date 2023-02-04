@@ -12,7 +12,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 public class MainConstants {
   //constants for MainDriveSubsystem, speed + rotation factor (was for the PWMs not the Neos...)
   public static final double SpeedFactor = 0.55;
-  public static final double RotationFactor = 0.5;
+  public static final double RotationFactor = 0.3;
 //constants for the CANIDs, self-explanatory
     public static final int leftForWheelsCANID = 11;
     public static final int rightForWheelsCANID = 23;
@@ -28,8 +28,7 @@ public class MainConstants {
     //constant for the ReleaseSpeed
     public static final double ReleaseSpeed = 0.5;
     //constant for the default TankDrive
-    public static final double genTankLSpeed = 0.5;
-    public static final double genTankRSpeed = 0.5;
+    public static final double genTankSpeed = 0.3;
 
 
 }
