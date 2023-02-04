@@ -11,13 +11,14 @@ public class MainRobotContainer {
     private final ClawSubsystem GrabOnSubsystem = new ClawSubsystem();
     private final MainCamSubsystem camSubsystem = new MainCamSubsystem();
     private final GrabOnCommand grabOnCommand = new GrabOnCommand(GrabOnSubsystem, m_stick);
-    private final LetGoCommand letGoCommand = new LetGoCommand(GrabOnSubsystem, m_stick);    
+    private final LetGoCommand letGoCommand = new LetGoCommand(GrabOnSubsystem, m_stick);
+    private final TurnToTagCommand turnToTagCommand = new TurnToTagCommand(driveSubsystem, camSubsystem);    
     
     //Autonomous Section
     public Command getAutonomousCommand() {
     return grabOnCommand;
     }
-    
+
    //Needed to make the controller function
     public MainRobotContainer() {
         // Configure the button bindings
@@ -32,7 +33,7 @@ public class MainRobotContainer {
     private void configureButtonBindings() {
         button1.whileTrue(grabOnCommand);
         button3.whileTrue(letGoCommand);
-        button2.whileTrue(new TurnToTagCommand(driveSubsystem, camSubsystem));
+        button2.whileTrue(turnToTagCommand);
     }
      
 }
