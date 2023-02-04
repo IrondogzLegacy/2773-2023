@@ -70,20 +70,21 @@ public class MainCamSubsystem extends SubsystemBase {
       if (tagData != null) {
         System.out.println("First: " + tagData.apriltag + " " + tagData.x  + " " + tagData.y + " " + tagData.z);
       }
+      
       if (tagData.x < 0.5) { 
         System.out.println("The robot is facing the tag from the left");
-      
-        if (tagData.z < 1) { 
+      }
+
+      if (tagData.z < 1) { 
         System.out.println("Robot is close to april tag");
       } else { 
         System.out.println("The Robot is far away from the april tag");
-      }   
+      }
+
 //The println will be replaced in the future with code that moves the robot accordingly. The conditions for the if state
 //if statements will also be replaced with more useful information as more data is collected. 
       }
     }
 
     // This method will be called once per scheduler run
-  }
-
 }
