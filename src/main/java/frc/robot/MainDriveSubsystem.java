@@ -14,14 +14,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.CANSparkMax;
 
 public class MainDriveSubsystem extends SubsystemBase {
-  /**
-   *
-   */
-  
-
-
   // private final DifferentialDrive m_robotDrive = new DifferentialDrive(m_leftMotor, m_rightMotor);
-
+//Above is our old DifferentialDrive, now we are using MotorControllerGroups
   // specific drive motors
   private final CANSparkMax leftForMotor = new CANSparkMax(MainConstants.leftForWheelsCANID, MainConstants.motorType);
   private final CANSparkMax rightForMotor = new CANSparkMax(MainConstants.rightForWheelsCANID, MainConstants.motorType);
