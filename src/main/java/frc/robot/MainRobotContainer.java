@@ -15,7 +15,6 @@ public class MainRobotContainer {
     private final GrabOnCommand grabOnCommand = new GrabOnCommand(GrabOnSubsystem, m_stick);
     private final LetGoCommand letGoCommand = new LetGoCommand(GrabOnSubsystem, m_stick);
     private final TurnToTagCommand turnToTagCommand = new TurnToTagCommand(driveSubsystem, camSubsystem);    
-    private final RotationCommand rotationCommand = new RotationCommand(driveSubsystem, navigationSubsystem, 30);
     private final MoveDistanceCommand moveCommand = new MoveDistanceCommand (driveSubsystem, navigationSubsystem, 2);
 
     //Autonomous Section
@@ -23,7 +22,8 @@ public class MainRobotContainer {
         final MoveDistanceCommand move2 = new MoveDistanceCommand (driveSubsystem, navigationSubsystem, 2);    
         final MoveDistanceCommand moveBack2 = new MoveDistanceCommand (driveSubsystem, navigationSubsystem, -2);
         final LetGoCommand letGoCommand = new LetGoCommand(GrabOnSubsystem, m_stick);
-        return move2; //.andThen(moveBack2).andThen(letGoCommand);
+        final RotationCommand rotationFlip = new RotationCommand(driveSubsystem, navigationSubsystem, 180);
+        return move2.andThen(letGoCommand).andThen(moveBack2).andThen(rotationFlip);
     }
 
    //Needed to make the controller function
