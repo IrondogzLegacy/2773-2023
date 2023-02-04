@@ -14,24 +14,32 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class MainNavigationSubsystem extends SubsystemBase {
   /** Creates a new MainNavigationSubsystem. */
-  //Encoders :
-    public MainNavigationSubsystem() {
-      leftEncoder.setDistancePerPulse(.5*3.14/8192);
-      rightEncoder.setDistancePerPulse(.5*3.14/8192);
-    }
-    Encoder leftEncoder = new Encoder(0, 1);
-    Encoder rightEncoder = new Encoder(2, 3, true);
+  // Encoders :
+  Encoder leftEncoder = new Encoder(0, 1);
+  Encoder rightEncoder = new Encoder(2, 3, true);
 
-  //Gyro :
+  public MainNavigationSubsystem() {
+    leftEncoder.setDistancePerPulse(0.5 * 3.14 / 2048);
+    rightEncoder.setDistancePerPulse(0.5 * 3.14 / 2048);
+  }
 
-    private final ADXRS450_Gyro gyro = new ADXRS450_Gyro(Port.kOnboardCS0);
+  // Gyro :
+
+  private final ADXRS450_Gyro gyro = new ADXRS450_Gyro(Port.kOnboardCS0);
+
   @Override
-    public void periodic() {
-    System.out.print("\t\tleft\t" + leftEncoder.getDistance()+"\t");
-    System.out.println("right\t" + rightEncoder.getDistance());
-    System.out.println(gyro.getAngle());
-    }
-    //Variables :
-  public double getAngle() {return gyro.getAngle();}
-  public double getDistance() {return rightEncoder.getDistance();}
+  public void periodic() {
+    // System.out.print("left\t" + leftEncoder.getDistance() + "\t");
+    // System.out.print("right\t" + rightEncoder.getDistance() + "\t");
+    // System.out.println("a\t" + gyro.getAngle());
+  }
+
+  // Variables :
+  public double getAngle() {
+    return gyro.getAngle();
+  }
+
+  public double getDistance() {
+    return rightEncoder.getDistance();
+  }
 }
