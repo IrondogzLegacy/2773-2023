@@ -27,7 +27,8 @@ public class MainRobot extends TimedRobot {
   }
 
   @Override
-  public void teleopPeriodic() {
+  public void teleopPeriodic() {}
 
-  }
+  @Override
+  public void autonomousPeriodic() {}
 }
