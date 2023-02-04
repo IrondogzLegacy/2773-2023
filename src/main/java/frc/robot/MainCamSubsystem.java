@@ -21,6 +21,12 @@ public class MainCamSubsystem extends SubsystemBase {
     return this.x;
   }
 
+  private double z;
+
+  public double z() { 
+    return this.z;
+  }
+
   private String apriltag;
 
   public String apriltag() { 
@@ -93,6 +99,7 @@ public class MainCamSubsystem extends SubsystemBase {
           // accordingly. The conditions for the if state
         
           this.x = tagData.x;
+          this.z = tagData.z;
           this.apriltag = tagData.apriltag;
         }
       }
