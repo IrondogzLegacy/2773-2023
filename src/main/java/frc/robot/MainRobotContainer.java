@@ -1,6 +1,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 //imports joystick controls and functions
 public class MainRobotContainer {
@@ -12,6 +13,10 @@ public class MainRobotContainer {
     private final GrabOnCommand grabOnCommand = new GrabOnCommand(GrabOnSubsystem, m_stick);
     private final LetGoCommand letGoCommand = new LetGoCommand(GrabOnSubsystem, m_stick);
 //Needed to make the controller function
+    
+    public Command getAutonomousCommand() {
+    return grabOnCommand;
+    }
     public MainRobotContainer() {
         // Configure the button bindings
         configureButtonBindings();
