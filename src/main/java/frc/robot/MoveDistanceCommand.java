@@ -14,7 +14,7 @@ public class MoveDistanceCommand extends CommandBase {
   double stopDistance;
   private final double distance;
 
-  public MoveDistanceCommand(MainNavigationSubsystem navigationSubsystem, MainDriveSubsystem driveSubsystem, double distance) {
+  public MoveDistanceCommand(MainDriveSubsystem driveSubsystem, MainNavigationSubsystem navigationSubsystem, double distance) {
     this.navigationSubsystem = navigationSubsystem;
     this.driveSubsystem = driveSubsystem;
     this.distance = distance;
