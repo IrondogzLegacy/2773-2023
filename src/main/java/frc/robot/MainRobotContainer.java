@@ -8,7 +8,7 @@ public class MainRobotContainer {
     private final MainDriveSubsystem driveSubsystem = new MainDriveSubsystem();
     private final MainDriveCommand driveCommand = new MainDriveCommand(driveSubsystem, m_stick);
     private final ClawSubsystem GrabOnSubsystem = new ClawSubsystem();
-    private final MainCamSubsystem MainCamSubsystem = new MainCamSubsystem();
+    private final MainCamSubsystem camSubsystem = new MainCamSubsystem();
     private final GrabOnCommand grabOnCommand = new GrabOnCommand(GrabOnSubsystem, m_stick);
     private final LetGoCommand letGoCommand = new LetGoCommand(GrabOnSubsystem, m_stick);
 //Needed to make the controller function
@@ -22,8 +22,10 @@ public class MainRobotContainer {
     JoystickButton button2 = new JoystickButton(m_stick, 2);
     JoystickButton button3 = new JoystickButton(m_stick, 3);
     private void configureButtonBindings() {
-        button2.whileTrue(grabOnCommand);
+        //button2.whileTrue(grabOnCommand);
         button3.whileTrue(letGoCommand);
+
+        button2.whileTrue(new TurnToTagCommand(driveSubsystem, camSubsystem));
     }
      
 }
