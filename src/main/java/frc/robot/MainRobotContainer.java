@@ -34,8 +34,8 @@ public class MainRobotContainer {
     JoystickButton button4 = new JoystickButton(m_stick, 4);
     private void configureButtonBindings() {
         button1.whileTrue(grabOnCommand);
-        button3.whileTrue(letGoCommand);
         button2.whileTrue(turnToTagCommand);
+        button3.whileTrue(letGoCommand);
         button4.whileTrue(rotationCommand);
     }
      
