@@ -9,9 +9,6 @@ public class MainCamSubsystem extends SubsystemBase {
    * Parses April Tag Data
    * 
    * Example April Tag data:
-   * TAG_FOUND:
-   * 1;0.516811,0.116328,-0.848159,-0.149319,0.987787,0.044494,0.842977,0.103652,0
-   * .527869;-0.487307,0.097861,1.649744;0.000010
    * Example simplified April Tag data:
    * First: 1 0.328023 -0.520075 1.085208
    * More data:
@@ -22,6 +19,12 @@ public class MainCamSubsystem extends SubsystemBase {
 
   public double x() {
     return this.x;
+  }
+
+  private String apriltag;
+
+  public String apriltag() { 
+    return this.apriltag;
   }
 
   private static class TagData {
@@ -39,7 +42,6 @@ public class MainCamSubsystem extends SubsystemBase {
    * ids[1] = the april tag ID, example: 1, 5, 16.
    * xyz is tokens[2], it is the three floats at the end of String s
    * When an april tag is found, a string will print with the id and xyz.
-   * I have begun working on how the robot can respond to xyz. (Lines 73-80)
    */
   private static TagData parseTagData(String s) {
     String[] tokens = s.split(";");
@@ -79,7 +81,7 @@ public class MainCamSubsystem extends SubsystemBase {
       if (tagData != null) {
         System.out.println("First: " + tagData.apriltag + " " + tagData.x + " " + tagData.y + " " + tagData.z);
 
-        if (tagData.x < 0.5) {
+        if (tagData.x < 0) {
           System.out.println("The robot is facing the tag from the left");
 
           if (tagData.z < 1) {
@@ -89,9 +91,9 @@ public class MainCamSubsystem extends SubsystemBase {
           }
           // The println will be replaced in the future with code that moves the robot
           // accordingly. The conditions for the if state
-          // if statements will also be replaced with more useful information as more data
-          // is collected.
+        
           this.x = tagData.x;
+          this.apriltag = tagData.apriltag;
         }
       }
     }
