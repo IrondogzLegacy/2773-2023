@@ -17,17 +17,27 @@ public class TurnToTagCommand extends CommandBase {
   }
 
   double angle;
+  double dis;
+  double z;
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     double x = camSubsystem.x();
+    double z = camSubsystem.z();
+    String apriltag = camSubsystem.apriltag();
     angle = x < 0 ? -30 : 30;
+    dis = z < 5 ? -z : z;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     driveSubsystem.rotation(angle < 0 ? -0.5 : 0.5);
+    if (dis == z) { 
+      //Move Robot Forward Here
+    } else { 
+      //Move robot backwards here   
+     }
   }
 
   // Called once the command ends or is interrupted.
