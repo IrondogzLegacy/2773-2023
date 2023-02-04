@@ -20,7 +20,10 @@ public class MainRobotContainer {
 
     //Autonomous Section
     public Command getAutonomousCommand() {
-    return grabOnCommand;
+        final MoveDistanceCommand move2 = new MoveDistanceCommand (driveSubsystem, navigationSubsystem, 2);    
+        final MoveDistanceCommand moveBack2 = new MoveDistanceCommand (driveSubsystem, navigationSubsystem, -2);
+        final LetGoCommand letGoCommand = new LetGoCommand(GrabOnSubsystem, m_stick);
+        return move2; //.andThen(moveBack2).andThen(letGoCommand);
     }
 
    //Needed to make the controller function
