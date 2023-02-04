@@ -25,7 +25,6 @@ public class MainRobotContainer {
     private void configureButtonBindings() {
         button1.whileTrue(grabOnCommand);
         button3.whileTrue(letGoCommand);
-
         button2.whileTrue(new TurnToTagCommand(driveSubsystem, camSubsystem));
     }
      
