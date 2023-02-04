@@ -22,7 +22,7 @@ public class ClawSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
   }
   // Controls the claw motor
-  public void stopMotor() {
+  public void stopClawMotor() {
     ClawMotor.set(0);
   }
   public void Grab() {
