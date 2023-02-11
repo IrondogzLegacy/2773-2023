@@ -7,10 +7,10 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class ArmCommand extends CommandBase {
+public class RetractCommand extends CommandBase {
   private final ArmSubsystem armSubsystem;
   /** Creates a new ArmCommand. */
-  public ArmCommand(ArmSubsystem armSubsystem, Joystick m_trigger) {
+  public RetractCommand(ArmSubsystem armSubsystem, Joystick m_trigger) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(armSubsystem);
     this.armSubsystem = armSubsystem;
@@ -23,7 +23,7 @@ public class ArmCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    armSubsystem.stretch();
+    armSubsystem.retract();
     }
 
   // Called once the command ends or is interrupted.

@@ -22,4 +22,7 @@ public ArmSubsystem () {
  public void stretch(){
   ArmMotor.set(MainConstants.ArmMotorSpeed);
  }
+ public void retract(){
+  ArmMotor.set(-MainConstants.ArmMotorSpeed);
+ }
 }

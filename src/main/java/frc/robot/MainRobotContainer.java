@@ -1,6 +1,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -19,6 +20,8 @@ public class MainRobotContainer {
     private final LetGoCommand letGoCommand = new LetGoCommand(GrabOnSubsystem, m_stick);
     private final TurnToTagCommand turnToTagCommand = new TurnToTagCommand(driveSubsystem, camSubsystem);    
     private final MoveDistanceCommand moveCommand = new MoveDistanceCommand (driveSubsystem, navigationSubsystem, 2);
+    private final ArmSubsystem armSubsystem = new ArmSubsystem();
+    private final RetractCommand retractCommand = new RetractCommand(armSubsystem, m_stick);
 
     //Autonomous Section
     public Command getAutonomousCommand() {
@@ -48,6 +51,8 @@ public class MainRobotContainer {
     JoystickButton button3 = new JoystickButton(m_stick, 3);
     JoystickButton button4 = new JoystickButton(m_stick, 4);
     JoystickButton button5 = new JoystickButton(m_stick, 5);
+    XboxController controllerOne = new XboxController(0); // Creates an XboxController on port 0.
+    Trigger retractTrigger = new JoystickButton(controllerOne, XboxController.Button.kLeftBumper.value); // Creates a new JoystickButton object for the `Y` button on exampleController
     private void configureButtonBindings() {
         button1.whileTrue(grabOnCommand);
         button2.whileTrue(turnToTagCommand);
@@ -55,6 +60,7 @@ public class MainRobotContainer {
         button4.whileTrue(moveCommand);
         final CommandBase majorCommand = createMajorsMainCommand();
         button5.onTrue(majorCommand);
+        retractTrigger.onTrue(retractCommand);
     }
      
 }
