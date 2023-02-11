@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ArmSubsystem extends SubsystemBase {
 
-  private final CANSparkMax ArmMotor = new CANSparkMax(MainConstants.ClawMotorCANID, MainConstants.motorType);
+  private final CANSparkMax ArmMotor = new CANSparkMax(MainConstants.ArmMotorCANID, MainConstants.motorType);
 
 public ArmSubsystem () {
   ArmMotor.setInverted(true);
