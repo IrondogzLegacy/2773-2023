@@ -13,6 +13,7 @@ public class ArmSubsystem extends SubsystemBase {
   private final CANSparkMax ArmMotor = new CANSparkMax(MainConstants.ArmMotorCANID, MainConstants.motorType);
 
 public ArmSubsystem () {
+  //unnecessary but I don't care
   ArmMotor.setInverted(true);
 }
  @Override
