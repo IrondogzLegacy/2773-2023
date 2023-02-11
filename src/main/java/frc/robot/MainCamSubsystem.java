@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class MainCamSubsystem extends SubsystemBase {
-  private final SerialPort serialPort = new SerialPort(115200, SerialPort.Port.kUSB);
+  private final SerialPortDevice serialPort = new SerialPortDevice(115200, SerialPort.Port.kUSB);
   /*
    * Parses April Tag Data
    * 
@@ -80,10 +80,8 @@ public class MainCamSubsystem extends SubsystemBase {
   // reads out what the epic camera saw
   @Override
   public void periodic() {
-    if (serialPort.getBytesReceived() > 0) {
-      String s = serialPort.readString();
-      // System.out.println("Data:" + s);
-
+    String s = serialPort.readLine();
+    if (s != null) {
       TagData tagData = parseTagData(s);
       if (tagData != null) {
         System.out.println("First: " + tagData.apriltag + " " + tagData.x + " " + tagData.y + " " + tagData.z);
