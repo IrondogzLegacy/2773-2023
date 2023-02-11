@@ -29,8 +29,9 @@ public class MainConstants {
     public static final double ReleaseSpeed = 0.5;
     //constant for the default TankDrive
     public static final double genTankSpeed = 0.3;
-
-
+    //constant for the ArmMotor
+    public static final int ArmMotorCANID = 17;
+    // constant for ArmMotor Speed
+    public static final double ArmMotorSpeed = 0.1;
 }
-
 //Pseudocode updated 1/23/2023 last, MainConstants
