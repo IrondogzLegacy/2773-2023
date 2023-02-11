@@ -27,6 +27,7 @@ public class TurnToTagCommand extends CommandBase {
     String apriltag = camSubsystem.apriltag();
     angle = x < 0 ? -30 : 30;
     dis = z < 5 ? -z : z;
+    //If distance is less than five, distance is negative, else distance is postive. Later, this distance will be moved.
   }
 
   // Called every time the scheduler runs while the command is scheduled.

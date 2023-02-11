@@ -32,6 +32,7 @@ public class MainCamSubsystem extends SubsystemBase {
   public String apriltag() { 
     return this.apriltag;
   }
+  //Used for the data used in TurnToTagCommand.java
 
   private static class TagData {
     String apriltag;
@@ -86,7 +87,7 @@ public class MainCamSubsystem extends SubsystemBase {
       TagData tagData = parseTagData(s);
       if (tagData != null) {
         System.out.println("First: " + tagData.apriltag + " " + tagData.x + " " + tagData.y + " " + tagData.z);
-
+      //If there is data, then the data will be printed.
         if (tagData.x < 0) {
           System.out.println("The robot is facing the tag from the left");
 
@@ -101,6 +102,8 @@ public class MainCamSubsystem extends SubsystemBase {
           this.x = tagData.x;
           this.z = tagData.z;
           this.apriltag = tagData.apriltag;
+          //Used for the data used in TurnToTagCommand.java
+
         }
       }
     }
