@@ -32,10 +32,6 @@ public class MainConstants {
     //constant for the ArmMotor
     public static final int ArmMotorCANID = 17;
     // constant for ArmMotor Speed
-<<<<<<< HEAD
-    public static final double ArmMotorSpeed = 0.3;
-=======
-    public static final double ArmMotorSpeed = 0.4;
->>>>>>> 1ebd59751742c9858faee6014ead16be5f8796ff
+    public static final double ArmMotorSpeed = 0.5;
 }
 //Pseudocode updated 1/23/2023 last, MainConstants
