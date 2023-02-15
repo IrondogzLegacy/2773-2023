@@ -30,7 +30,7 @@ public ArmSubsystem () {
   ArmMotor.set(-MainConstants.ArmMotorSpeed);
  }
 
- public void stretch1ft()
+ public void stretch1Rev()
  {
   double stretch_start = armEncoder.getPosition();
   double ratio = armEncoder.getCountsPerRevolution();

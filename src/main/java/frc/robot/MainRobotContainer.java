@@ -23,6 +23,7 @@ public class MainRobotContainer {
     private final ArmSubsystem armSubsystem = new ArmSubsystem();
     private final RetractCommand retractCommand = new RetractCommand(armSubsystem, m_stick);
     private final StretchCommand stretchCommand = new StretchCommand(armSubsystem, m_stick);
+    private final Stretch1RevCommand stretch1RevCommand = new Stretch1RevCommand(armSubsystem, m_stick);
 
     //Autonomous Section
     public Command getAutonomousCommand() {
@@ -57,7 +58,7 @@ public class MainRobotContainer {
     private void configureButtonBindings() {
         button1.whileTrue(turnToTagCommand);
         button2.whileTrue(retractCommand);
-        button3.whileTrue(stretchCommand);
+        button3.whileTrue(stretch1RevCommand);
         button4.whileTrue(moveCommand);
         final CommandBase majorCommand = createMajorsMainCommand();
         button5.onTrue(majorCommand);
