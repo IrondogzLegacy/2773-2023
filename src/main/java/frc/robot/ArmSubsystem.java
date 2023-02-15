@@ -40,4 +40,12 @@ public ArmSubsystem () {
     stretch();
   }
  }
+ public void stopArm()
+ {
+  ArmMotor.stopMotor();
+ }
+ public void ResetArmEncoder()
+ {
+  armEncoder.setPosition(0);
+ }
 }
