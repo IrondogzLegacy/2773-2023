@@ -18,7 +18,7 @@ public class MainRobotContainer {
     private final MainCamSubsystem camSubsystem = new MainCamSubsystem();
     private final GrabOnCommand grabOnCommand = new GrabOnCommand(GrabOnSubsystem, m_stick);
     private final LetGoCommand letGoCommand = new LetGoCommand(GrabOnSubsystem, m_stick);
-    private final TurnToTagCommand turnToTagCommand = new TurnToTagCommand(driveSubsystem, camSubsystem);    
+    private final TurnToTagCommand turnToTagCommand = new TurnToTagCommand(driveSubsystem, camSubsystem, navigationSubsystem);    
     private final MoveDistanceCommand moveCommand = new MoveDistanceCommand (driveSubsystem, navigationSubsystem, 2);
     private final ArmSubsystem armSubsystem = new ArmSubsystem();
     private final RetractCommand retractCommand = new RetractCommand(armSubsystem, m_stick);

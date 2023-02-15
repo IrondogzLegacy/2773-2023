@@ -9,11 +9,12 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class TurnToTagCommand extends CommandBase {
   private final MainDriveSubsystem driveSubsystem;
   private final MainCamSubsystem camSubsystem;
+  private MainNavigationSubsystem navigationSubsystem;
   /** Creates a new TurnToTag. */
-  public TurnToTagCommand(MainDriveSubsystem driveSubsystem, MainCamSubsystem camSubsystem) {
+  public TurnToTagCommand(MainDriveSubsystem driveSubsystem, MainCamSubsystem camSubsystem, MainNavigationSubsystem navigationSubsystem) {
     this.driveSubsystem = driveSubsystem;
     this.camSubsystem = camSubsystem;
-    addRequirements(driveSubsystem);
+    this.navigationSubsystem = navigationSubsystem;
   }
 
   double angle;
@@ -26,25 +27,18 @@ public class TurnToTagCommand extends CommandBase {
     double z = camSubsystem.z();
     String apriltag = camSubsystem.apriltag();
     angle = x < 0 ? -30 : 30;
-    dis = z < 5 ? -z : z;
-    //If distance is less than five, distance is negative, else distance is postive. Later, this distance will be moved.
+    RotationCommand rotationCommand = new RotationCommand(driveSubsystem, navigationSubsystem, angle);
+    rotationCommand.schedule();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    driveSubsystem.rotation(angle < 0 ? -0.5 : 0.5);
-    if (dis == z) { 
-      //Move Robot Forward Here
-    } else { 
-      //Move robot backwards here   
-     }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    driveSubsystem.stopAllDrive();
   }
 
   // Returns true when the command should end.
