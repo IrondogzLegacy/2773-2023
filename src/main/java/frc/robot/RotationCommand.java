@@ -10,7 +10,9 @@ public class RotationCommand extends CommandBase {
   private final MainDriveSubsystem driveSubsystem;
   private final MainNavigationSubsystem navigationSubsystem;
   private final double turnAngle;
-  public RotationCommand(MainDriveSubsystem driveSubsystem, MainNavigationSubsystem navigationSubsystem, double turnAngle) {
+
+  public RotationCommand(MainDriveSubsystem driveSubsystem, MainNavigationSubsystem navigationSubsystem,
+      double turnAngle) {
     this.driveSubsystem = driveSubsystem;
     this.navigationSubsystem = navigationSubsystem;
     this.turnAngle = turnAngle;
@@ -20,7 +22,6 @@ public class RotationCommand extends CommandBase {
 
   private double startAngle;
   private double stopAngle;
-
 
   // Called when the command is initially scheduled.
   @Override
@@ -32,7 +33,11 @@ public class RotationCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    driveSubsystem.rotation(MainConstants.RotationFactor);
+    if (turnAngle >= 0) {
+      driveSubsystem.rotation(MainConstants.RotationFactor);
+    } else {
+      driveSubsystem.rotation(-MainConstants.RotationFactor);
+    }
   }
 
   // Called once the command ends or is interrupted.
@@ -44,10 +49,11 @@ public class RotationCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(stopAngle <= navigationSubsystem.getAngle())
-    {
+    if (turnAngle >= 0 && stopAngle <= navigationSubsystem.getAngle()) {
       return true;
-    }
-    else return false;
+    } else if (turnAngle < 0 && stopAngle >= navigationSubsystem.getAngle()) {
+      return true;
+    } 
+    return false;
   }
 }
