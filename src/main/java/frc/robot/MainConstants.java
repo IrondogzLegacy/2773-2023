@@ -33,5 +33,6 @@ public class MainConstants {
     public static final int ArmMotorCANID = 17;
     // constant for ArmMotor Speed
     public static final double ArmMotorSpeed = 0.5;
+    public static final double ArmEncoderRatio = 0.04*0.75*3.14;
 }
 //Pseudocode updated 1/23/2023 last, MainConstants

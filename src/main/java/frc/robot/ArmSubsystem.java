@@ -17,7 +17,7 @@ public class ArmSubsystem extends SubsystemBase {
 public ArmSubsystem () {
   //unnecessary but I don't care
   ArmMotor.setInverted(true);
-  armEncoder.setPositionConversionFactor(0.5*3.14);
+  armEncoder.setPositionConversionFactor(MainConstants.ArmEncoderRatio);
 }
  @Override
  public void periodic() {
