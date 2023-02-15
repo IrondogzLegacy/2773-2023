@@ -17,6 +17,7 @@ public class ArmSubsystem extends SubsystemBase {
 public ArmSubsystem () {
   //unnecessary but I don't care
   ArmMotor.setInverted(true);
+  armEncoder.setPositionConversionFactor(0.5*3.14);
 }
  @Override
  public void periodic() {
@@ -27,5 +28,16 @@ public ArmSubsystem () {
  }
  public void retract(){
   ArmMotor.set(-MainConstants.ArmMotorSpeed);
+ }
+
+ public void stretch1ft()
+ {
+  double stretch_start = armEncoder.getPosition();
+  double ratio = armEncoder.getCountsPerRevolution();
+  double stretch_finish = stretch_start + 1*ratio;
+  if (armEncoder.getPosition() < stretch_finish)
+  {
+    stretch();
+  }
  }
 }
