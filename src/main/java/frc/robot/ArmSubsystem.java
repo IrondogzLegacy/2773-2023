@@ -44,8 +44,13 @@ public ArmSubsystem () {
  {
   ArmMotor.stopMotor();
  }
+ public void printEncoder()
+ {
+  System.out.println(armEncoder.getPosition());
+ }
  public void ResetArmEncoder()
  {
   armEncoder.setPosition(0);
+  printEncoder();
  }
 }
