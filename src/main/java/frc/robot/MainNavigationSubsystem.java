@@ -31,19 +31,29 @@ public class MainNavigationSubsystem extends SubsystemBase {
   // Gyro :
 
   // private final ADXRS450_Gyro gyro = new ADXRS450_Gyro(Port.kOnboardCS0);
-  AHRS ahrs = new AHRS(SPI.Port.kMXP); /* Alternatives:  SPI.Port.kMXP, I2C.Port.kMXP or SerialPort.Port.kUSB */
-  
+  private AHRS ahrs = new AHRS(SPI.Port.kMXP); /* Alternatives:  SPI.Port.kMXP, I2C.Port.kMXP or SerialPort.Port.kUSB */
+   
+  private double prevAngle = 0;
+  private double angleCorrection = 0;
 
   @Override
   public void periodic() {
-    // System.out.print("left\t" + leftEncoder.getDistance() + "\t");
+    double currentAngle = ahrs.getYaw();
+    if (prevAngle < -90 && currentAngle > 90) {
+      angleCorrection -= 360;
+    }
+    if (prevAngle > 90 && currentAngle < -90) {
+      angleCorrection += 360;
+    }
+    prevAngle = currentAngle;
+    //System.out.println("left\t" + ahrs.getYaw() + "\t");
     // System.out.print("right\t" + rightEncoder.getDistance() + "\t");
     // System.out.println("a\t" + ahrs.getRawGyroZ());
   }
 
   // Variables :
   public double getAngle() {
-    return ahrs.getYaw();
+    return ahrs.getYaw() + angleCorrection;
   }
 
   public double getPitch()

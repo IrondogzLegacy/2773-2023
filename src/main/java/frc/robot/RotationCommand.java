@@ -28,6 +28,8 @@ public class RotationCommand extends CommandBase {
   public void initialize() {
     startAngle = navigationSubsystem.getAngle();
     stopAngle = startAngle + turnAngle;
+    System.out.println(startAngle);
+    System.out.println(stopAngle);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

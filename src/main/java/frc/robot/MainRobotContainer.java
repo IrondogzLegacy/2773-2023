@@ -60,7 +60,7 @@ public class MainRobotContainer {
     private final RotationCommand rotationFlip = new RotationCommand(driveSubsystem, navigationSubsystem, 180);
     
     private void configureButtonBindings() {
-        button1.whileTrue(rotationFlip);
+        button1.onTrue(rotationFlip);
         button2.whileTrue(retractCommand);
         button3.whileTrue(stretchCommand);
         button4.whileTrue(resetArmEncoderCommand);
