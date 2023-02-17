@@ -57,8 +57,10 @@ public class MainRobotContainer {
     JoystickButton button6 = new JoystickButton(m_stick, 6);
     // XboxController controllerOne = new XboxController(0); // Creates an XboxController on port 0.
     // Trigger retractTrigger = new JoystickButton(controllerOne, XboxController.Trigger.kLeftTrigger.value); // Creates a new JoystickButton object for the `Y` button on exampleController
+    private final RotationCommand rotationFlip = new RotationCommand(driveSubsystem, navigationSubsystem, 180);
+    
     private void configureButtonBindings() {
-        button1.whileTrue(turnToTagCommand);
+        button1.whileTrue(rotationFlip);
         button2.whileTrue(retractCommand);
         button3.whileTrue(stretchCommand);
         button4.whileTrue(resetArmEncoderCommand);
