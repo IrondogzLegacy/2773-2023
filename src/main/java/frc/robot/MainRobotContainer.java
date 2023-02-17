@@ -61,10 +61,10 @@ public class MainRobotContainer {
         button1.whileTrue(turnToTagCommand);
         button2.whileTrue(retractCommand);
         button3.whileTrue(stretchCommand);
-        button4.whileTrue(moveCommand);
+        button4.whileTrue(resetArmEncoderCommand);
         final CommandBase majorCommand = createMajorsMainCommand();
-        button5.onTrue(majorCommand);
-        button6.onTrue(resetArmEncoderCommand);
+        button5.onTrue(grabOnCommand);
+        button6.onTrue(letGoCommand);
     }
      
 }
