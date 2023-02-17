@@ -4,10 +4,15 @@
 
 package frc.robot;
 
+import com.kauailabs.navx.IMUProtocol.GyroUpdate;
+import com.kauailabs.navx.frc.AHRS;
+
 //Imports :
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.SPI.Port;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 //Navigation Subsystem --
@@ -25,18 +30,25 @@ public class MainNavigationSubsystem extends SubsystemBase {
 
   // Gyro :
 
-  private final ADXRS450_Gyro gyro = new ADXRS450_Gyro(Port.kOnboardCS0);
+  // private final ADXRS450_Gyro gyro = new ADXRS450_Gyro(Port.kOnboardCS0);
+  AHRS ahrs = new AHRS(SPI.Port.kMXP); /* Alternatives:  SPI.Port.kMXP, I2C.Port.kMXP or SerialPort.Port.kUSB */
+  
 
   @Override
   public void periodic() {
     // System.out.print("left\t" + leftEncoder.getDistance() + "\t");
     // System.out.print("right\t" + rightEncoder.getDistance() + "\t");
-    // System.out.println("a\t" + gyro.getAngle());
+    // System.out.println("a\t" + ahrs.getRawGyroZ());
   }
 
   // Variables :
   public double getAngle() {
-    return gyro.getAngle();
+    return ahrs.getYaw();
+  }
+
+  public double getPitch()
+  {
+    return ahrs.getPitch();
   }
 
   public double getDistance() {
