@@ -7,12 +7,16 @@ package frc.robot;
 import com.kauailabs.navx.IMUProtocol.GyroUpdate;
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 //Imports :
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 //Navigation Subsystem --
@@ -23,42 +27,66 @@ public class MainNavigationSubsystem extends SubsystemBase {
   Encoder leftEncoder = new Encoder(0, 1);
   Encoder rightEncoder = new Encoder(2, 3, true);
 
+  NetworkTable table = NetworkTableInstance.getDefault().getTable("Navigation");
+  NetworkTableEntry leftEncoderEntry = table.getEntry("left");
+  NetworkTableEntry rightEncoderEntry = table.getEntry("right");
+  NetworkTableEntry directionEntry = table.getEntry("direction");
+  NetworkTableEntry pitchEntry = table.getEntry("pitch");
+
   public MainNavigationSubsystem() {
     leftEncoder.setDistancePerPulse(0.5 * 3.14 / 2048);
     rightEncoder.setDistancePerPulse(0.5 * 3.14 / 2048);
   }
 
   // Gyro :
-
-  // private final ADXRS450_Gyro gyro = new ADXRS450_Gyro(Port.kOnboardCS0);
   private AHRS ahrs = new AHRS(SPI.Port.kMXP); /* Alternatives:  SPI.Port.kMXP, I2C.Port.kMXP or SerialPort.Port.kUSB */
-   
-  private double prevAngle = 0;
-  private double angleCorrection = 0;
-  private double currentAngle = 0;
+  
+  //The left/right angles
+  private double prevAngleZ = 0;
+  private double angleCorrectionZ = 0;
+  private double currentAngleZ = 0;
+
+  //The up/down angles
+  private double angleCorrectionX = 0;
+  private double currentAngleX = 0;
+  private Timer calibrationTimer = null;
+
   @Override
   public void periodic() {
-    prevAngle = currentAngle;
-    currentAngle = ahrs.getYaw();
-    if (prevAngle < -90 && currentAngle > 90) {
-      angleCorrection -= 360;
+    prevAngleZ = currentAngleZ;
+    currentAngleZ = ahrs.getYaw();
+    if (prevAngleZ < -90 && currentAngleZ > 90) {
+      angleCorrectionZ -= 360;
     }
-    if (prevAngle > 90 && currentAngle < -90) {
-      angleCorrection += 360;
+    if (prevAngleZ > 90 && currentAngleZ < -90) {
+      angleCorrectionZ += 360;
     }
-    //System.out.println("left\t" + ahrs.getYaw() + "\t");
-    // System.out.print("right\t" + rightEncoder.getDistance() + "\t");
-    // System.out.println("a\t" + ahrs.getRawGyroZ());
+    currentAngleX = ahrs.getRoll();
+    // check if calibration period is in progress.
+    if (calibrationTimer != null && calibrationTimer.hasElapsed(2)) {
+      // set current angle as correction.
+      angleCorrectionX -= currentAngleX;
+      calibrationTimer.stop();
+      calibrationTimer = null;
+    }
+
+    leftEncoderEntry.setDouble(leftEncoder.getDistance());
+    rightEncoderEntry.setDouble(rightEncoder.getDistance());
+    directionEntry.setDouble(getAngle());
+    pitchEntry.setDouble(getPitch());
   }
+
+//Reset Gyro method
+public void resetGyro()
 
   // Variables :
   public double getAngle() {
-    return currentAngle + angleCorrection;
+    return currentAngleZ + angleCorrectionZ;
   }
 
   public double getPitch()
   {
-    return ahrs.getPitch();
+    return currentAngleX + angleCorrectionX;
   }
 
   public double getDistance() {

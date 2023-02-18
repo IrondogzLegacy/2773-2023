@@ -7,7 +7,11 @@ package frc.robot;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ArmSubsystem extends SubsystemBase {
@@ -15,6 +19,12 @@ public class ArmSubsystem extends SubsystemBase {
   private final CANSparkMax ArmMotor = new CANSparkMax(MainConstants.ArmMotorCANID, MainConstants.motorType);
   private final RelativeEncoder armEncoder = ArmMotor.getEncoder();
   private final DigitalInput limitSwitch = new DigitalInput(9);
+  private final AnalogInput lengthSensor = new AnalogInput(0);
+
+  private final NetworkTable table = NetworkTableInstance.getDefault().getTable("Arm");
+  private final NetworkTableEntry counterEntry = table.getEntry("count");
+  private final NetworkTableEntry distanceEntry = table.getEntry("length");
+  private final NetworkTableEntry switchEntry = table.getEntry("switch");
 
   public ArmSubsystem() {
     // unnecessary but I don't care
@@ -24,7 +34,9 @@ public class ArmSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    counterEntry.setDouble(armEncoder.getPosition());
+    distanceEntry.setDouble(lengthSensor.getVoltage());
+    switchEntry.setBoolean(limitSwitch.get());
   }
 
   public void stretch() {

@@ -21,6 +21,7 @@ public class MainRobot extends TimedRobot {
   @Override
   public void robotInit() {
     m_robotContainer = new MainRobotContainer();
+    m_robotContainer.resetGyro();
   }
   @Override
   public void autonomousInit() {
