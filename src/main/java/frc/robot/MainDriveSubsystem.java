@@ -47,7 +47,7 @@ public class MainDriveSubsystem extends SubsystemBase {
 
   }
   // Drive with tank drive
-  public void genTankDrive (double speed)
+  public void driveLine (double speed)
   {
     mainDrive.tankDrive(speed, speed);
   }

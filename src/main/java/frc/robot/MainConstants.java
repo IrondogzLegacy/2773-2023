@@ -34,5 +34,7 @@ public class MainConstants {
     // constant for ArmMotor Speed
     public static final double ArmMotorSpeed = 0.5;
     public static final double ArmEncoderRatio = 0.04*0.75*3.14;
+
+    public static final double BalanceSpeed = 0.3;
 }
 //Pseudocode updated 1/23/2023 last, MainConstants

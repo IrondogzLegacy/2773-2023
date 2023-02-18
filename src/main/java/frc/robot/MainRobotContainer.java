@@ -25,6 +25,7 @@ public class MainRobotContainer {
     private final StretchCommand stretchCommand = new StretchCommand(armSubsystem, m_stick);
     private final Stretch1RevCommand stretch1RevCommand = new Stretch1RevCommand(armSubsystem, m_stick);
     private final ResetArmEncoderCommand resetArmEncoderCommand = new ResetArmEncoderCommand(armSubsystem);
+    private final AutoBalanceCommand autoBalance = new AutoBalanceCommand(driveSubsystem, navigationSubsystem);
 
     // Autonomous Section
     public Command getAutonomousCommand() {
@@ -72,7 +73,7 @@ public class MainRobotContainer {
         button1.onTrue(rotationFlip);
         button2.whileTrue(retractCommand);
         button3.whileTrue(stretchCommand);
-        button4.whileTrue(resetArmEncoderCommand);
+        button4.whileTrue(autoBalance);
         final CommandBase majorCommand = createMajorsMainCommand();
         button5.onTrue(grabOnCommand);
         button6.onTrue(letGoCommand);
