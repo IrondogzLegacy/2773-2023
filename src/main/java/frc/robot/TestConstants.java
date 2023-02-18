@@ -10,8 +10,8 @@ package frc.robot;
 //we love test bot
 public class TestConstants {
 
-  public static final double SpeedFactor = 0.7;
-  public static final double RotationFactor = 0.9;
+  public static final double SpeedFactor = 0.6;
+  public static final double RotationFactor = 0.7;
   public static final double genTankLSpeed = 0.5;
   public static final double genTankRSpeed = 0.5;
   
