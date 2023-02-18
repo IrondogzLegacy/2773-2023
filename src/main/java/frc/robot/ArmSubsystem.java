@@ -7,50 +7,57 @@ package frc.robot;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ArmSubsystem extends SubsystemBase {
 
   private final CANSparkMax ArmMotor = new CANSparkMax(MainConstants.ArmMotorCANID, MainConstants.motorType);
   private final RelativeEncoder armEncoder = ArmMotor.getEncoder();
+  private final DigitalInput limitSwitch = new DigitalInput(9);
 
-public ArmSubsystem () {
-  //unnecessary but I don't care
-  ArmMotor.setInverted(true);
-  armEncoder.setPositionConversionFactor(MainConstants.ArmEncoderRatio);
-}
- @Override
- public void periodic() {
-  // This method will be called once per scheduler run
- }
- public void stretch(){
-  ArmMotor.set(MainConstants.ArmMotorSpeed);
- }
- public void retract(){
-  ArmMotor.set(-MainConstants.ArmMotorSpeed);
- }
-
- public void stretch1Rev()
- {
-  double stretch_start = armEncoder.getPosition();
-  double ratio = armEncoder.getCountsPerRevolution();
-  double stretch_finish = stretch_start + 1*ratio;
-  if (armEncoder.getPosition() < stretch_finish)
-  {
-    stretch();
+  public ArmSubsystem() {
+    // unnecessary but I don't care
+    ArmMotor.setInverted(true);
+    armEncoder.setPositionConversionFactor(MainConstants.ArmEncoderRatio);
   }
- }
- public void stopArm()
- {
-  ArmMotor.stopMotor();
- }
- public void printEncoder()
- {
-  System.out.println(armEncoder.getPosition());
- }
- public void ResetArmEncoder()
- {
-  armEncoder.setPosition(0);
-  printEncoder();
- }
+
+  @Override
+  public void periodic() {
+    // This method will be called once per scheduler run
+  }
+
+  public void stretch() {
+    ArmMotor.set(MainConstants.ArmMotorSpeed);
+  }
+
+  public void retract() {
+    if (limitSwitch.get()) {
+      ArmMotor.set(-MainConstants.ArmMotorSpeed);
+    } else {
+      ArmMotor.set(0);
+    }
+  }
+
+  public void stretch1Rev() {
+    double stretch_start = armEncoder.getPosition();
+    double ratio = armEncoder.getCountsPerRevolution();
+    double stretch_finish = stretch_start + 1 * ratio;
+    if (armEncoder.getPosition() < stretch_finish) {
+      stretch();
+    }
+  }
+
+  public void stopArm() {
+    ArmMotor.stopMotor();
+  }
+
+  public void printEncoder() {
+    System.out.println(armEncoder.getPosition());
+  }
+
+  public void ResetArmEncoder() {
+    armEncoder.setPosition(0);
+    printEncoder();
+  }
 }

@@ -35,17 +35,17 @@ public class MainNavigationSubsystem extends SubsystemBase {
    
   private double prevAngle = 0;
   private double angleCorrection = 0;
-
+  private double currentAngle = 0;
   @Override
   public void periodic() {
-    double currentAngle = ahrs.getYaw();
+    prevAngle = currentAngle;
+    currentAngle = ahrs.getYaw();
     if (prevAngle < -90 && currentAngle > 90) {
       angleCorrection -= 360;
     }
     if (prevAngle > 90 && currentAngle < -90) {
       angleCorrection += 360;
     }
-    prevAngle = currentAngle;
     //System.out.println("left\t" + ahrs.getYaw() + "\t");
     // System.out.print("right\t" + rightEncoder.getDistance() + "\t");
     // System.out.println("a\t" + ahrs.getRawGyroZ());
@@ -53,7 +53,7 @@ public class MainNavigationSubsystem extends SubsystemBase {
 
   // Variables :
   public double getAngle() {
-    return ahrs.getYaw() + angleCorrection;
+    return currentAngle + angleCorrection;
   }
 
   public double getPitch()
