@@ -12,7 +12,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 public class MainConstants {
   //constants for MainDriveSubsystem, speed + rotation factor (was for the PWMs not the Neos...)
   public static final double SpeedFactor = 0.45;
-  public static final double RotationFactor = 0.3;
+  public static final double RotationFactor = 0.4;
 //constants for the CANIDs, self-explanatory
     public static final int leftForWheelsCANID = 11;
     public static final int rightForWheelsCANID = 23;
@@ -35,6 +35,6 @@ public class MainConstants {
     public static final double ArmMotorSpeed = 0.5;
     public static final double ArmEncoderRatio = 0.04*0.75*3.14;
 
-    public static final double BalanceSpeed = 0.3;
+    public static final double BalanceSpeed = 0.2;
 }
 //Pseudocode updated 1/23/2023 last, MainConstants
