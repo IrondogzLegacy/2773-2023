@@ -78,6 +78,12 @@ public class MainNavigationSubsystem extends SubsystemBase {
 
 //Reset Gyro method
 public void resetGyro()
+{
+  ahrs.calibrate();
+  // start calibration period
+  calibrationTimer = new Timer();
+  calibrationTimer.start();
+}
 
   // Variables :
   public double getAngle() {
