@@ -53,8 +53,7 @@ public class MainDriveSubsystem extends SubsystemBase {
   }
   public void stopAllDrive()
   {
-    leftGroup.stopMotor();
-    rightGroup.stopMotor();
+    mainDrive.tankDrive(0,0);
   }
 }
 //end

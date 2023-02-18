@@ -4,6 +4,9 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
+import edu.wpi.first.wpilibj2.command.StartEndCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -21,9 +24,9 @@ public class MainRobotContainer {
             navigationSubsystem);
     private final MoveDistanceCommand moveCommand = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, 2);
     private final ArmSubsystem armSubsystem = new ArmSubsystem();
-    private final RetractCommand retractCommand = new RetractCommand(armSubsystem, m_stick);
-    private final StretchCommand stretchCommand = new StretchCommand(armSubsystem, m_stick);
-    private final Stretch1RevCommand stretch1RevCommand = new Stretch1RevCommand(armSubsystem, m_stick);
+    private final RetractCommand retractCommand = new RetractCommand(armSubsystem);
+    private final StretchCommand stretchCommand = new StretchCommand(armSubsystem);
+    private final Stretch1RevCommand stretch1RevCommand = new Stretch1RevCommand(armSubsystem);
     private final ResetArmEncoderCommand resetArmEncoderCommand = new ResetArmEncoderCommand(armSubsystem);
     private final AutoBalanceCommand autoBalance = new AutoBalanceCommand(driveSubsystem, navigationSubsystem);
 
@@ -33,7 +36,15 @@ public class MainRobotContainer {
         final MoveDistanceCommand moveBack2 = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, -2);
         final LetGoCommand letGoCommand = new LetGoCommand(GrabOnSubsystem, m_stick);
         final RotationCommand rotationFlip = new RotationCommand(driveSubsystem, navigationSubsystem, 180);
-        return move2.andThen(letGoCommand).andThen(moveBack2).andThen(rotationFlip);
+
+        var retractCommand = new ParallelRaceGroup(
+                new WaitCommand(1),
+                new RetractCommand(armSubsystem));
+        var stretchCommand = new ParallelRaceGroup(
+                new WaitCommand(1), new StretchCommand(armSubsystem));
+
+        return move2.andThen(letGoCommand).andThen(moveBack2)
+                .andThen(rotationFlip).andThen(stretchCommand).andThen(retractCommand);
     }
 
     public void resetGyro() {

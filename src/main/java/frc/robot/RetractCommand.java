@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class RetractCommand extends CommandBase {
   private final ArmSubsystem armSubsystem;
   /** Creates a new ArmCommand. */
-  public RetractCommand(ArmSubsystem armSubsystem, Joystick m_trigger) {
+  public RetractCommand(ArmSubsystem armSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(armSubsystem);
     this.armSubsystem = armSubsystem;

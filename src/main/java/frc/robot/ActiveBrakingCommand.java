@@ -7,9 +7,13 @@ package frc.robot;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class ActiveBrakingCommand extends CommandBase {
-  /** Creates a new ActiveBrakingCommand. */
-  public ActiveBrakingCommand() {
-    // Use addRequirements() here to declare subsystem dependencies.
+  private final MainDriveSubsystem driveDriveSubsystem;
+  private final MainNavigationSubsystem navigationSubsystem;
+
+  public ActiveBrakingCommand(MainDriveSubsystem driveSubsystem, MainNavigationSubsystem navigationSubsystem) {
+    this.driveDriveSubsystem = driveSubsystem;
+    this.navigationSubsystem = navigationSubsystem;
+    addRequirements(driveSubsystem);
   }
 
   // Called when the command is initially scheduled.
