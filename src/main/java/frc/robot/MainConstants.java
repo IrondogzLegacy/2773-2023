@@ -24,9 +24,9 @@ public class MainConstants {
     //constant (port #) for the ClawMotorChannel
     public static final int ClawMotorCANID = 10;
       //constant for the PickUpSpeed (motor for extending / closing the claw)
-    public static final double ClawMotorSpeed = 0.25;
+    public static final double ClawMotorSpeed = 0.1; //0.25;
     //constant for the ReleaseSpeed
-    public static final double ReleaseSpeed = 0.5;
+    public static final double ReleaseSpeed = 0.1; //0.5;
     //constant for the default TankDrive
     public static final double genTankSpeed = 0.3;
     //constant for the ArmMotor
