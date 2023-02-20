@@ -86,7 +86,7 @@ public class MainRobotContainer {
         button3.whileTrue(stretchCommand);
         button4.whileTrue(autoBalance);
         final CommandBase majorCommand = createMajorsMainCommand();
-        button5.onTrue(grabOnCommand);
+        button5.onTrue(moveCommand);
         button6.onTrue(letGoCommand);
     }
 
