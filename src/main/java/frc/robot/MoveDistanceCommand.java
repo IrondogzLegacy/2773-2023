@@ -37,7 +37,7 @@ public class MoveDistanceCommand extends CommandBase {
   @Override
   public void execute() {
     var error = stopDistance - startDistance;
-    var speed = error * 0.042;
+    var speed = error * MainConstants.DriveKP;
     if (speed > 0.5)
     {speed = 0.5;}
     if (speed < -0.5)
