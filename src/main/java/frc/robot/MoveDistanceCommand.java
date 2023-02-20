@@ -36,7 +36,13 @@ public class MoveDistanceCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    driveSubsystem.driveLine(distance >= 0 ? MainConstants.genTankSpeed : -MainConstants.genTankSpeed);
+    var error = stopDistance - startDistance;
+    var speed = error * 0.042;
+    if (speed > 0.5)
+    {speed = 0.5;}
+    if (speed < -0.5)
+    {speed = -0.5;}
+    driveSubsystem.driveLine(speed);
   }
 
   // Called once the command ends or is interrupted.
