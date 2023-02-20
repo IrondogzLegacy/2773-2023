@@ -22,7 +22,6 @@ public class MainRobotContainer {
     private final LetGoCommand letGoCommand = new LetGoCommand(GrabOnSubsystem, m_stick);
     private final TurnToTagCommand turnToTagCommand = new TurnToTagCommand(driveSubsystem, camSubsystem,
             navigationSubsystem);
-    private final MoveDistanceCommand moveCommand = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, 2);
     private final ArmSubsystem armSubsystem = new ArmSubsystem();
     private final RetractCommand retractCommand = new RetractCommand(armSubsystem);
     private final StretchCommand stretchCommand = new StretchCommand(armSubsystem);
@@ -66,6 +65,8 @@ public class MainRobotContainer {
         return move3.andThen(rotate90.andThen(move3b));
     }
 
+    private final MoveDistanceCommand move3 = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, 3);
+
     // Controls how it grabs or lets go
     JoystickButton button1 = new JoystickButton(m_stick, 1);
     JoystickButton button2 = new JoystickButton(m_stick, 2);
@@ -86,7 +87,7 @@ public class MainRobotContainer {
         button3.whileTrue(stretchCommand);
         button4.whileTrue(autoBalance);
         final CommandBase majorCommand = createMajorsMainCommand();
-        button5.onTrue(moveCommand);
+        button5.onTrue(move3);
         button6.onTrue(letGoCommand);
     }
 
