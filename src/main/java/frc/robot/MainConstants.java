@@ -40,5 +40,12 @@ public class MainConstants {
     //PID Constants (kP)
     public static final double DriveKP = 0.5;
     public static final double ArmKP = 0.042;
+
+    public static final double RotateKP = 0.008;
+    public static final double RotateKI = 0.005;
+    public static final double RotateKD = 0;
+    public static final double MaxRotationSpeed = 0.6;
+
+  
   }
 //Pseudocode updated 1/23/2023 last, MainConstants

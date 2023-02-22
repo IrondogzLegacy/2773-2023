@@ -4,15 +4,19 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class RotationCommand extends CommandBase {
   private final MainDriveSubsystem driveSubsystem;
   private final MainNavigationSubsystem navigationSubsystem;
   private final double turnAngle;
+  
+  private final PIDController pid = new PIDController (MainConstants.RotateKP, MainConstants.RotateKI, MainConstants.RotateKD); 
 
   public RotationCommand(MainDriveSubsystem driveSubsystem, MainNavigationSubsystem navigationSubsystem,
       double turnAngle) {
+
     this.driveSubsystem = driveSubsystem;
     this.navigationSubsystem = navigationSubsystem;
     this.turnAngle = turnAngle;
@@ -28,18 +32,20 @@ public class RotationCommand extends CommandBase {
   public void initialize() {
     startAngle = navigationSubsystem.getAngle();
     stopAngle = startAngle + turnAngle;
-    System.out.println(startAngle);
-    System.out.println(stopAngle);
+    pid.setSetpoint(stopAngle);
+    pid.setTolerance(2);
+    //System.out.println(startAngle);
+    //System.out.println(stopAngle);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (turnAngle >= 0) {
-      driveSubsystem.rotation(MainConstants.RotationFactor);
-    } else {
-      driveSubsystem.rotation(-MainConstants.RotationFactor);
-    }
+    var speed = pid.calculate(navigationSubsystem.getAngle());
+    //System.out.println(navigationSubsystem.getAngle());
+    speed = Math.min(speed, MainConstants.MaxRotationSpeed);
+    speed = Math.max(speed,-MainConstants.MaxRotationSpeed);
+    driveSubsystem.rotation(speed);
   }
 
   // Called once the command ends or is interrupted.
@@ -51,11 +57,6 @@ public class RotationCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (turnAngle >= 0 && stopAngle <= navigationSubsystem.getAngle()) {
-      return true;
-    } else if (turnAngle < 0 && stopAngle >= navigationSubsystem.getAngle()) {
-      return true;
-    } 
-    return false;
+    return pid.atSetpoint();
   }
 }
