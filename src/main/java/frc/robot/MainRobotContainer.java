@@ -88,7 +88,7 @@ public class MainRobotContainer {
         button4.whileTrue(autoBalance);
         final CommandBase majorCommand = createMajorsMainCommand();
         button5.onTrue(letGoCommand);
-        button6.onTrue(rotate90);
+        button6.onTrue(grabOnCommand);
     }
 
 }

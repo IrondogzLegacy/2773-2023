@@ -14,7 +14,8 @@ public class MoveDistanceCommand extends CommandBase {
   double stopDistance;
   private final double distance;
 
-  public MoveDistanceCommand(MainDriveSubsystem driveSubsystem, MainNavigationSubsystem navigationSubsystem, double distance) {
+  public MoveDistanceCommand(MainDriveSubsystem driveSubsystem, MainNavigationSubsystem navigationSubsystem,
+      double distance) {
     this.navigationSubsystem = navigationSubsystem;
     this.driveSubsystem = driveSubsystem;
     this.distance = distance;
@@ -27,7 +28,7 @@ public class MoveDistanceCommand extends CommandBase {
   public void initialize() {
     startDistance = navigationSubsystem.getDistance();
 
-      stopDistance = startDistance + distance;
+    stopDistance = startDistance + distance;
 
     System.out.print("Start" + startDistance);
     System.out.println("Stop" + stopDistance);
@@ -38,10 +39,12 @@ public class MoveDistanceCommand extends CommandBase {
   public void execute() {
     var error = stopDistance - startDistance;
     var speed = error * MainConstants.DriveKP;
-    if (speed > 0.5)
-    {speed = 0.5;}
-    if (speed < -0.5)
-    {speed = -0.5;}
+    if (speed > 0.5) {
+      speed = 0.5;
+    }
+    if (speed < -0.5) {
+      speed = -0.5;
+    }
     driveSubsystem.driveLine(speed);
   }
 
@@ -56,10 +59,10 @@ public class MoveDistanceCommand extends CommandBase {
   public boolean isFinished() {
     if (distance >= 0 && navigationSubsystem.getDistance() >= stopDistance) {
       return true;
-    } 
+    }
     if (distance <= 0 && navigationSubsystem.getDistance() <= stopDistance) {
       return true;
-    } 
+    }
     return false;
 
   }
