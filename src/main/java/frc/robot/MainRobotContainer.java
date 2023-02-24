@@ -20,8 +20,8 @@ public class MainRobotContainer {
     private final MainCamSubsystem camSubsystem = new MainCamSubsystem();
     private final GrabOnCommand grabOnCommand = new GrabOnCommand(GrabOnSubsystem, m_stick);
     private final LetGoCommand letGoCommand = new LetGoCommand(GrabOnSubsystem, m_stick);
-    private final TurnToTagCommand turnToTagCommand = new TurnToTagCommand(driveSubsystem, camSubsystem,
-            navigationSubsystem);
+    private final RotationCommand rotate90 = new RotationCommand(driveSubsystem, navigationSubsystem, 90);
+    private final TurnToTagCommand turnToTagCommand = new TurnToTagCommand(driveSubsystem, camSubsystem, navigationSubsystem, rotate90);
     private final ArmSubsystem armSubsystem = new ArmSubsystem();
     private final RetractCommand retractCommand = new RetractCommand(armSubsystem);
     private final StretchCommand stretchCommand = new StretchCommand(armSubsystem);
@@ -78,7 +78,7 @@ public class MainRobotContainer {
     }
 
     private final MoveDistanceCommand move3 = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, 3);
-    private final RotationCommand rotate90 = new RotationCommand(driveSubsystem, navigationSubsystem, 90);
+    
     // Controls how it grabs or lets go
     JoystickButton button1 = new JoystickButton(m_stick, 1);
     JoystickButton button2 = new JoystickButton(m_stick, 2);
