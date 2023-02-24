@@ -47,13 +47,13 @@ public class MainRobotContainer {
     }
 
     public Command getAutonomousCommand2() {
-        final MoveDistanceCommand move2 = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, 2);
+        final MoveDistanceCommand move2 = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, -10);
 
         var moveUntilandAutoBalance = move2
-                .until(() -> navigationSubsystem.getPitch() < 1.5 || navigationSubsystem.getPitch() > -1.5)
+                .until(() -> navigationSubsystem.getPitch() > 12 || navigationSubsystem.getPitch() < -12)
                 .andThen(autoBalance);
         var moveOnCommand = new ParallelRaceGroup(
-                new WaitCommand(5),
+                new WaitCommand(15),
                 moveUntilandAutoBalance);
         return moveOnCommand;
     }

@@ -35,7 +35,7 @@ public class MainConstants {
     public static final double ArmMotorSpeed = 0.3;
     public static final double ArmEncoderRatio = 0.04*0.75*3.14;
 
-    public static final double BalanceSpeed = 0.2;
+    public static final double BalanceSpeed = 0.3;
 
     //PID Constants (kP)
     public static final double DriveKP = 0.5;
