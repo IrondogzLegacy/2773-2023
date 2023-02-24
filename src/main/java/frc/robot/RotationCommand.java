@@ -38,7 +38,7 @@ public class RotationCommand extends CommandBase {
     //System.out.println(startAngle);
     //System.out.println(stopAngle);
    
-    /*Above lines are commented due to them not being needed. 
+    /*Above lines are commented out due to them not being needed. 
     //Tolerance is the difference between what the actual angle is and what we want it to be.
     //If the robot turns 92 degrees instead of 90, its probaly fine. Tolerance should be lowered
     //If we need to be more precise. 
@@ -51,7 +51,7 @@ public class RotationCommand extends CommandBase {
     var speed = pid.calculate(navigationSubsystem.getAngle());
     //Speed is based on angle
     //System.out.println(navigationSubsystem.getAngle());
-    speed = Math.min(speed, MainConstants.MaxRotationSpeed);
+    speed = Math.min(speed, MainConstants.MinRotationSpeed);
     speed = Math.max(speed,-MainConstants.MaxRotationSpeed);
     //Speed is the range of rotationspeed.
     driveSubsystem.rotation(speed);
