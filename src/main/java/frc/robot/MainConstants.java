@@ -44,8 +44,8 @@ public class MainConstants {
     public static final double RotateKP = 0.008;
     public static final double RotateKI = 0.005;
     public static final double RotateKD = 0;
-    public static final double MaxRotationSpeed = 0.6;
-    public static final double MinRotationSpeed = 0.1;
+    public static final double MaxRotationSpeed = 0.5;
+    public static final double MinRotationSpeed = 0.5;
 
   
   }

@@ -22,6 +22,7 @@ public class TurnToTagCommand extends CommandBase {
   double angle;
   double dis;
   double z;
+  double x;
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
@@ -35,7 +36,7 @@ public class TurnToTagCommand extends CommandBase {
   }
   public void distanceToTag()
   {
-    // var distanceToTag = sqrt(x^2+z^2);
+     //var distanceToTag = sqrt(x^2 + z^2);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
