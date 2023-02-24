@@ -34,7 +34,7 @@ public class MainRobotContainer {
         final MoveDistanceCommand move2 = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, 2);
         final MoveDistanceCommand moveBack2 = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, -2);
         final LetGoCommand letGoCommand = new LetGoCommand(GrabOnSubsystem, m_stick);
-        final RotationCommand rotationFlip = new RotationCommand(driveSubsystem, navigationSubsystem, 10);
+        final RotationCommand rotationFlip = new RotationCommand(driveSubsystem, navigationSubsystem, 180);
 
         var retractCommand = new ParallelRaceGroup(
                 new WaitCommand(1),
@@ -49,7 +49,13 @@ public class MainRobotContainer {
     public Command getAutonomousCommand2() {
         final MoveDistanceCommand move2 = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, 2);
 
-        return 
+        var moveUntilandAutoBalance = move2
+                .until(() -> navigationSubsystem.getPitch() < 1.5 || navigationSubsystem.getPitch() > -1.5)
+                .andThen(autoBalance);
+        var moveOnCommand = new ParallelRaceGroup(
+                new WaitCommand(5),
+                moveUntilandAutoBalance);
+        return moveOnCommand;
     }
 
     public void resetGyro() {
