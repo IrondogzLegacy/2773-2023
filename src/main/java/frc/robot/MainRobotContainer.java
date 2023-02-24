@@ -66,7 +66,7 @@ public class MainRobotContainer {
     }
 
     private final MoveDistanceCommand move3 = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, 3);
-    private final RotationCommand rotate = new RotationCommand(driveSubsystem, navigationSubsystem, 90);
+    private final RotationCommand rotate90 = new RotationCommand(driveSubsystem, navigationSubsystem, 90);
     // Controls how it grabs or lets go
     JoystickButton button1 = new JoystickButton(m_stick, 1);
     JoystickButton button2 = new JoystickButton(m_stick, 2);
@@ -87,8 +87,8 @@ public class MainRobotContainer {
         button3.whileTrue(stretchCommand);
         button4.whileTrue(autoBalance);
         final CommandBase majorCommand = createMajorsMainCommand();
-        button5.onTrue(move3);
-        button6.onTrue(rotate);
+        button5.onTrue(letGoCommand);
+        button6.onTrue(rotate90);
     }
 
 }
