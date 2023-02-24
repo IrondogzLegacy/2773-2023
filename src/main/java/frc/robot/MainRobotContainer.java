@@ -76,8 +76,6 @@ public class MainRobotContainer {
         MoveDistanceCommand move3b = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, 3);
         return move3.andThen(rotate90.andThen(move3b));
     }
-
-    private final MoveDistanceCommand move3 = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, 3);
     
     // Controls how it grabs or lets go
     JoystickButton button1 = new JoystickButton(m_stick, 1);

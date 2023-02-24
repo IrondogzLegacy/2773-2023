@@ -29,9 +29,13 @@ public class TurnToTagCommand extends CommandBase {
     double z = camSubsystem.z();
     String apriltag = camSubsystem.apriltag();
     //angle = x < 0 ? -30 : 30;
-    turnAngle = x;
+    // turnAngle = x;
     RotationCommand rotationCommand = new RotationCommand(driveSubsystem, navigationSubsystem, angle);
     rotationCommand.schedule();
+  }
+  public void distanceToTag()
+  {
+    // var distanceToTag = sqrt(x^2+z^2);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
