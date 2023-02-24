@@ -30,7 +30,7 @@ public class MainRobotContainer {
     private final AutoBalanceCommand autoBalance = new AutoBalanceCommand(driveSubsystem, navigationSubsystem);
 
     // Autonomous Section
-    public Command getAutonomousCommand() {
+    public Command getAutonomousCommand1() {
         final MoveDistanceCommand move2 = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, 2);
         final MoveDistanceCommand moveBack2 = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, -2);
         final LetGoCommand letGoCommand = new LetGoCommand(GrabOnSubsystem, m_stick);
@@ -44,6 +44,12 @@ public class MainRobotContainer {
 
         return move2.andThen(letGoCommand).andThen(moveBack2)
                 .andThen(rotationFlip).andThen(stretchCommand).andThen(retractCommand);
+    }
+
+    public Command getAutonomousCommand2() {
+        final MoveDistanceCommand move2 = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, 2);
+
+        return 
     }
 
     public void resetGyro() {
