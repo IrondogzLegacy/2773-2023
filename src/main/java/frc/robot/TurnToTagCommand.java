@@ -9,24 +9,27 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class TurnToTagCommand extends CommandBase {
   private final MainDriveSubsystem driveSubsystem;
   private final MainCamSubsystem camSubsystem;
+  private RotationCommand rotate90;
   private MainNavigationSubsystem navigationSubsystem;
   /** Creates a new TurnToTag. */
-  public TurnToTagCommand(MainDriveSubsystem driveSubsystem, MainCamSubsystem camSubsystem, MainNavigationSubsystem navigationSubsystem) {
+  public TurnToTagCommand(MainDriveSubsystem driveSubsystem, MainCamSubsystem camSubsystem, MainNavigationSubsystem navigationSubsystem, RotationCommand rotate90) {
     this.driveSubsystem = driveSubsystem;
     this.camSubsystem = camSubsystem;
     this.navigationSubsystem = navigationSubsystem;
+    this.rotate90 = rotate90;
   }
-
+  double turnAngle;
   double angle;
   double dis;
   double z;
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    double x = camSubsystem.x();
+    double x = camSubsystem.x();// How far right or left (I think)
     double z = camSubsystem.z();
     String apriltag = camSubsystem.apriltag();
-    angle = x < 0 ? -30 : 30;
+    //angle = x < 0 ? -30 : 30;
+    turnAngle = x;
     RotationCommand rotationCommand = new RotationCommand(driveSubsystem, navigationSubsystem, angle);
     rotationCommand.schedule();
   }
