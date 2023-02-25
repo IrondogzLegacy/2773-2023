@@ -12,14 +12,15 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 //imports joystick controls and functions
 public class MainRobotContainer {
-    private final Joystick m_stick = new Joystick(0);
+    private final Joystick main_stick = new Joystick(0);
+    private final Joystick arm_stick = new Joystick(1);
     private final MainDriveSubsystem driveSubsystem = new MainDriveSubsystem();
-    private final MainDriveCommand driveCommand = new MainDriveCommand(driveSubsystem, m_stick);
+    private final MainDriveCommand driveCommand = new MainDriveCommand(driveSubsystem, main_stick);
     private final MainNavigationSubsystem navigationSubsystem = new MainNavigationSubsystem();
     private final ClawSubsystem GrabOnSubsystem = new ClawSubsystem();
     private final MainCamSubsystem camSubsystem = new MainCamSubsystem();
-    private final GrabOnCommand grabOnCommand = new GrabOnCommand(GrabOnSubsystem, m_stick);
-    private final LetGoCommand letGoCommand = new LetGoCommand(GrabOnSubsystem, m_stick);
+    private final GrabOnCommand grabOnCommand = new GrabOnCommand(GrabOnSubsystem, main_stick);
+    private final LetGoCommand letGoCommand = new LetGoCommand(GrabOnSubsystem, main_stick);
     private final RotationCommand rotate90 = new RotationCommand(driveSubsystem, navigationSubsystem, 90);
     private final TurnToTagCommand turnToTagCommand = new TurnToTagCommand(driveSubsystem, camSubsystem, navigationSubsystem, rotate90);
     private final ArmSubsystem armSubsystem = new ArmSubsystem();
@@ -34,7 +35,7 @@ public class MainRobotContainer {
     public Command getAutonomousCommand1() {
         final MoveDistanceCommand move2 = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, 2);
         final MoveDistanceCommand moveBack2 = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, -2);
-        final LetGoCommand letGoCommand = new LetGoCommand(GrabOnSubsystem, m_stick);
+        final LetGoCommand letGoCommand = new LetGoCommand(GrabOnSubsystem, main_stick);
         final RotationCommand rotationFlip = new RotationCommand(driveSubsystem, navigationSubsystem, 180);
 
         var retractCommand = new ParallelRaceGroup(
@@ -78,21 +79,25 @@ public class MainRobotContainer {
         return move3.andThen(rotate90.andThen(move3b));
     }
     
+    // Controls how it grabs or lets go
+    JoystickButton button1 = new JoystickButton(main_stick, 1);
+    JoystickButton button2 = new JoystickButton(main_stick, 2);
+    JoystickButton button3 = new JoystickButton(main_stick, 3);
+    JoystickButton button4 = new JoystickButton(main_stick, 4);
+    JoystickButton button5 = new JoystickButton(main_stick, 5);
+    JoystickButton button6 = new JoystickButton(main_stick, 6);
+    JoystickButton button7 = new JoystickButton(main_stick, 7);
+
+    JoystickButton arm1 = new JoystickButton(arm_stick, 1);
+
+    
+    /*Below is not used, attempted to assign commands to triggers a while ago
     XboxController controllerOne = new XboxController(0);
     XboxController controllerTwo = new XboxController(1); 
-    // Controls how it grabs or lets go
-    JoystickButton button1 = new JoystickButton(m_stick, 1);
-    JoystickButton button2 = new JoystickButton(m_stick, 2);
-    JoystickButton button3 = new JoystickButton(m_stick, 3);
-    JoystickButton button4 = new JoystickButton(m_stick, 4);
-    JoystickButton button5 = new JoystickButton(m_stick, 5);
-    JoystickButton button6 = new JoystickButton(m_stick, 6);
-    JoystickButton button7 = new JoystickButton(m_stick, 7);
-    
-    // Creates an XboxController on ports 0 and 1.
-    // Trigger retractTrigger = new JoystickButton(controllerOne,
-    // XboxController.Trigger.kLeftTrigger.value); // Creates a new JoystickButton
-    // object for the `Y` button on exampleController
+    Trigger retractTrigger = new JoystickButton(controllerOne,
+    XboxController.Trigger.kLeftTrigger.value); // Creates a new JoystickButton
+    object for the `Y` button on exampleController
+    */
     private final RotationCommand rotationFlip = new RotationCommand(driveSubsystem, navigationSubsystem, 180);
 
     private void configureButtonBindings() {
@@ -106,6 +111,8 @@ public class MainRobotContainer {
         //final CommandBase majorCommand = createMajorsMainCommand();
 
         button7.onTrue(turnToTagCommand);
+
+        arm1.onTrue(null);
     }
 
 }
