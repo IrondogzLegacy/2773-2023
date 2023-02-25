@@ -46,7 +46,9 @@ public class TurnToTagCommand extends CommandBase {
     z = tagData.z;
     tagRotation = tagData.alpha;
     System.out.println("Alpha" + tagRotation);
-    fullTurnAngle = 90-tagRotation*conversionToDeg;
+    if (tagRotation > 0) {fullTurnAngle = 90-tagRotation*conversionToDeg;}
+    if (tagRotation < 0) {fullTurnAngle = -90-tagRotation*conversionToDeg;}
+
     if (fullTurnAngle > 0) {rotateSign = -90;}
     if (fullTurnAngle < 0) {rotateSign = 90;}
     System.out.println("Beta" + fullTurnAngle);
