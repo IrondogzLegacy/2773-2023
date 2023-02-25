@@ -31,13 +31,13 @@ public class TurnToTagCommand extends CommandBase {
     String apriltag = camSubsystem.apriltag();
     //angle = x < 0 ? -30 : 30;
     // turnAngle = x;
-    RotationCommand rotationCommand = new RotationCommand(driveSubsystem, navigationSubsystem, angleToTag);
-    MoveDistanceCommand moveDistanceCommand = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, distanceToTag()-2);
+    RotationCommand rotationCommand = new RotationCommand(driveSubsystem, navigationSubsystem, angletoTag());
+    MoveDistanceCommand moveDistanceCommand = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, distanceToTag()-1);
     rotationCommand.andThen(moveDistanceCommand).schedule();
   }
   public double distanceToTag()
   {
-     var distanceToTag = (Math.sqrt(x * x + z * z));
+     var distanceToTag = (Math.sqrt(x * x + z * z)*3.28);
     //For movement, the robot will turn angleToTag, and then move distanceToTag
     return distanceToTag;
   }
@@ -45,7 +45,9 @@ public class TurnToTagCommand extends CommandBase {
   public double angletoTag() 
   {
     angleToTag = Math.atan2(z, x) / Math.PI * 180;
+    System.out.println(angleToTag);
     return angleToTag;
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
