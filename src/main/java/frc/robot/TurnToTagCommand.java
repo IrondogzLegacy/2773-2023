@@ -26,8 +26,8 @@ public class TurnToTagCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    double x = camSubsystem.x();
-    double z = camSubsystem.z();
+    x = camSubsystem.x();
+    z = camSubsystem.z();
     String apriltag = camSubsystem.apriltag();
     //angle = x < 0 ? -30 : 30;
     // turnAngle = x;
@@ -61,6 +61,6 @@ public class TurnToTagCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }
