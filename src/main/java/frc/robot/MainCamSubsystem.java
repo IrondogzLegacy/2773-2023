@@ -69,6 +69,15 @@ public class MainCamSubsystem extends SubsystemBase {
 
     double ZNum = Double.parseDouble(Num[2]);
 
+    String TagMatrix = tokens[1];
+
+    String[] MatrixNum = TagMatrix.split(",");
+
+    double sinAlpha = Double.parseDouble(MatrixNum[0]);
+    double minusCosAlpha = Double.parseDouble(MatrixNum[2]);
+    double tagRotation = Math.atan2(sinAlpha,minusCosAlpha);
+
+
     TagData data = new TagData();
     data.x = XNum;
     data.y = YNum;
