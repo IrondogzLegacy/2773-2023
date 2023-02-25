@@ -112,7 +112,7 @@ public class MainRobotContainer {
 
         button7.onTrue(turnToTagCommand);
 
-        arm1.onTrue(null);
+        //arm1.onTrue(null);
     }
 
 }

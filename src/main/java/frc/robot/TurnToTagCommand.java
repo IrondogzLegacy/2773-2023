@@ -10,50 +10,54 @@ public class TurnToTagCommand extends CommandBase {
   private final MainDriveSubsystem driveSubsystem;
   private final MainCamSubsystem camSubsystem;
   private MainNavigationSubsystem navigationSubsystem;
+
   /** Creates a new TurnToTag. */
-  public TurnToTagCommand(MainDriveSubsystem driveSubsystem, MainCamSubsystem camSubsystem, MainNavigationSubsystem navigationSubsystem, RotationCommand rotate90) {
+  public TurnToTagCommand(MainDriveSubsystem driveSubsystem, MainCamSubsystem camSubsystem,
+      MainNavigationSubsystem navigationSubsystem, RotationCommand rotate90) {
     this.driveSubsystem = driveSubsystem;
     this.camSubsystem = camSubsystem;
     this.navigationSubsystem = navigationSubsystem;
   }
+
   double turnAngle;
   double angleToTag;
   double dis;
   double z;
   double x;
+
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     var tagData = camSubsystem.apriltag(1);
-   
-    //angle =   x < 0 ? -30 : 30;
+
+    // angle = x < 0 ? -30 : 30;
     // turnAngle = x;
-    if (tagData != null) { 
-    x = tagData.x;
-    z = tagData.z;
-    System.out.println("Tag One Found");
-    RotationCommand rotationCommand = new RotationCommand(driveSubsystem, navigationSubsystem, angletoTag());
-    MoveDistanceCommand moveDistanceCommand = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, distanceToTag()-1);
-    rotationCommand.andThen(moveDistanceCommand).schedule();
-    //rotationCommand.schedule();
-  } else  { 
-    System.out.println("Different or no tag");
+    if (tagData != null) {
+      x = tagData.x;
+      z = tagData.z;
+      System.out.println("Tag One Found");
+      RotationCommand rotationCommand = new RotationCommand(driveSubsystem, navigationSubsystem, angletoTag());
+      MoveDistanceCommand moveDistanceCommand = new MoveDistanceCommand(driveSubsystem, navigationSubsystem,
+          distanceToTag() - 1);
+      rotationCommand.andThen(moveDistanceCommand).schedule();
+      // rotationCommand.schedule();
+    } else {
+      System.out.println("Different or no tag");
+    }
   }
-}
-  public double distanceToTag()
-  {
-     var distanceToTag = (Math.sqrt(x * x + z * z)*3.28);
-    //For movement, the robot will turn angleToTag, and then move distanceToTag
+
+  public double distanceToTag() {
+    var distanceToTag = (Math.sqrt(x * x + z * z) * 3.28);
+    // For movement, the robot will turn angleToTag, and then move distanceToTag
     System.out.println(x);
     return distanceToTag;
   }
 
-  public double angletoTag() 
-  {
+  public double angletoTag() {
     angleToTag = Math.atan2(x, z) / Math.PI * 180;
     System.out.println(angleToTag);
     return angleToTag;
-    
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.

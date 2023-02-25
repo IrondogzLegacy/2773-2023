@@ -15,13 +15,12 @@ public class MainCamSubsystem extends SubsystemBase {
    * First: 1 0.328262 -0.520233 1.085545
    */
 
-
   private TagData[] apriltag = new TagData[30];
 
-  public TagData apriltag(int i) { 
+  public TagData apriltag(int i) {
     return this.apriltag[i];
   }
-  //Used for the data used in TurnToTagCommand.java
+  // Used for the data used in TurnToTagCommand.java
 
   public static class TagData {
     String apriltag;
@@ -64,8 +63,7 @@ public class MainCamSubsystem extends SubsystemBase {
 
     double sinAlpha = Double.parseDouble(MatrixNum[0]);
     double minusCosAlpha = Double.parseDouble(MatrixNum[2]);
-    double tagRotation = Math.atan2(sinAlpha,minusCosAlpha);
-
+    double tagRotation = Math.atan2(sinAlpha, minusCosAlpha);
 
     TagData data = new TagData();
     data.x = XNum;
@@ -83,27 +81,14 @@ public class MainCamSubsystem extends SubsystemBase {
       TagData tagData = parseTagData(s);
       if (tagData != null) {
         System.out.println("First: " + tagData.apriltag + " " + tagData.x + " " + tagData.y + " " + tagData.z);
-      //If there is data, then the data will be printed.
-        if (tagData.x < 0) {
-          System.out.println("The robot is facing the tag from the left");
-
-          if (tagData.z < 1) {
-            System.out.println("Robot is close to april tag");
-          } else {
-            System.out.println("The Robot is far away from the april tag");
-          }
-          // The println will be replaced in the future with code that moves the robot
-          // accordingly. The conditions for the if state
-        
-  
+        // If there is data, then the data will be printed
           this.apriltag[Integer.parseInt(tagData.apriltag)] = tagData;
-          //Used for the data used in TurnToTagCommand.java
-          
-  
-        }
+          // Used for the data used in TurnToTagCommand.java
+
+        
       }
     }
 
     // This method will be called once per scheduler run
-}
+  }
 }
