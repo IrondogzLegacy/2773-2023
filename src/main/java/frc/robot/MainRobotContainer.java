@@ -99,7 +99,7 @@ public class MainRobotContainer {
         button2.whileTrue(retractCommand);
         button3.whileTrue(stretchCommand);
         button4.whileTrue(activeBraking);
-        button5.onTrue(letGoCommand);
+        button5.onTrue(turnToTagCommand);
         button6.onTrue(grabOnCommand);
 
         //final CommandBase majorCommand = createMajorsMainCommand();
