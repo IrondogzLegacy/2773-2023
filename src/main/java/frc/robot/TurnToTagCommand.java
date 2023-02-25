@@ -9,14 +9,12 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class TurnToTagCommand extends CommandBase {
   private final MainDriveSubsystem driveSubsystem;
   private final MainCamSubsystem camSubsystem;
-  private RotationCommand rotate90;
   private MainNavigationSubsystem navigationSubsystem;
   /** Creates a new TurnToTag. */
   public TurnToTagCommand(MainDriveSubsystem driveSubsystem, MainCamSubsystem camSubsystem, MainNavigationSubsystem navigationSubsystem, RotationCommand rotate90) {
     this.driveSubsystem = driveSubsystem;
     this.camSubsystem = camSubsystem;
     this.navigationSubsystem = navigationSubsystem;
-    this.rotate90 = rotate90;
   }
   double turnAngle;
   double angleToTag;
