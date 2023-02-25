@@ -24,7 +24,20 @@ public class TurnToTagCommand extends CommandBase {
   double dis;
   double z;
   double x;
+<<<<<<< Updated upstream
 
+=======
+  double sinAlpha;
+  double minusCosAlpha;
+  double tagRotation;
+  double fullTurnAngle;
+  double theta;
+  double distanceB;
+  double distanceA;
+  double conversionToDeg = 180/Math.PI;
+  double conversionToRad = Math.PI/180;
+  double rotateSign;
+>>>>>>> Stashed changes
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
@@ -32,6 +45,7 @@ public class TurnToTagCommand extends CommandBase {
 
     // angle = x < 0 ? -30 : 30;
     // turnAngle = x;
+<<<<<<< Updated upstream
     if (tagData != null) {
       x = tagData.x;
       z = tagData.z;
@@ -44,6 +58,36 @@ public class TurnToTagCommand extends CommandBase {
     } else {
       System.out.println("Different or no tag");
     }
+=======
+    if (tagData != null) { 
+    x = tagData.x;
+    z = tagData.z;
+    tagRotation = tagData.alpha;
+    System.out.println("Alpha" + tagRotation);
+    fullTurnAngle = 90-tagRotation*conversionToDeg;
+    if (fullTurnAngle > 0) {rotateSign = -90;}
+    if (fullTurnAngle < 0) {rotateSign = 90;}
+    System.out.println("Beta" + fullTurnAngle);
+    //turn the above angle
+    theta = (fullTurnAngle - angleToTag)*conversionToRad;
+    System.out.println("Theta" + theta);
+    distanceB = Math.cos(theta)*distanceToTag();
+    System.out.println("B" + distanceB);
+    //drive the above distance after turning
+    distanceA = Math.sin(theta)*distanceToTag();
+    System.out.println("A"+distanceA);
+    //drive the above distance minus some # after the previous drive finishes
+    System.out.println("Tag One Found");
+    RotationCommand rotationCommand = new RotationCommand(driveSubsystem, navigationSubsystem, fullTurnAngle);
+    MoveDistanceCommand moveDistanceB = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, distanceB);
+    MoveDistanceCommand moveDistanceA = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, distanceA-1);
+    RotationCommand rotate90 = new RotationCommand(driveSubsystem, navigationSubsystem, rotateSign);
+
+    rotationCommand.andThen(moveDistanceB).andThen(rotate90).andThen(moveDistanceA).schedule();
+    //rotationCommand.schedule();
+  } else  { 
+    System.out.println("Different or no tag");
+>>>>>>> Stashed changes
   }
 
   public double distanceToTag() {

@@ -27,6 +27,7 @@ public class MainCamSubsystem extends SubsystemBase {
     double x; // How far right or left (I think)
     double y; // How high or low the april tag is (mostly irrelavant for our purposes)
     double z; // How far away (I think)
+    double alpha;
   }
 
   /*
@@ -63,12 +64,16 @@ public class MainCamSubsystem extends SubsystemBase {
 
     double sinAlpha = Double.parseDouble(MatrixNum[0]);
     double minusCosAlpha = Double.parseDouble(MatrixNum[2]);
+<<<<<<< Updated upstream
     double tagRotation = Math.atan2(sinAlpha, minusCosAlpha);
+=======
+>>>>>>> Stashed changes
 
     TagData data = new TagData();
     data.x = XNum;
     data.y = YNum;
     data.z = ZNum;
+    data.alpha = Math.atan2(sinAlpha,minusCosAlpha);
     data.apriltag = apriltag;
     return data;
   }
