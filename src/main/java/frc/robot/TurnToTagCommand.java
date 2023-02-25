@@ -33,7 +33,7 @@ public class TurnToTagCommand extends CommandBase {
     // turnAngle = x;
     RotationCommand rotationCommand = new RotationCommand(driveSubsystem, navigationSubsystem, angle);
     rotationCommand.schedule();
-    driveSubsystem.driveLine(distanceToTag());
+    driveSubsystem.driveLine(distanceToTag() - 2);
     driveSubsystem.rotation(angletoTag());
   }
   public double distanceToTag()
@@ -45,7 +45,7 @@ public class TurnToTagCommand extends CommandBase {
 
   public double angletoTag() 
   {
-    var angleToTag = Math.atan(z/x);
+    var angleToTag = Math.atan2(z, x) / Math.PI * 180;
     return angleToTag;
   }
 
