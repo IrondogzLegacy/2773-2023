@@ -78,6 +78,8 @@ public class MainRobotContainer {
         return move3.andThen(rotate90.andThen(move3b));
     }
     
+    XboxController controllerOne = new XboxController(0);
+    XboxController controllerTwo = new XboxController(1); 
     // Controls how it grabs or lets go
     JoystickButton button1 = new JoystickButton(m_stick, 1);
     JoystickButton button2 = new JoystickButton(m_stick, 2);
@@ -87,8 +89,7 @@ public class MainRobotContainer {
     JoystickButton button6 = new JoystickButton(m_stick, 6);
     JoystickButton button7 = new JoystickButton(m_stick, 7);
     
-    // XboxController controllerOne = new XboxController(0); // Creates an
-    // XboxController on port 0.
+    // Creates an XboxController on ports 0 and 1.
     // Trigger retractTrigger = new JoystickButton(controllerOne,
     // XboxController.Trigger.kLeftTrigger.value); // Creates a new JoystickButton
     // object for the `Y` button on exampleController
