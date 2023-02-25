@@ -29,11 +29,13 @@ public class TurnToTagCommand extends CommandBase {
     String apriltag = camSubsystem.apriltag(0);
     //angle = x < 0 ? -30 : 30;
     // turnAngle = x;
+    if (apriltag == camSubsystem.apriltag(1)) { 
     RotationCommand rotationCommand = new RotationCommand(driveSubsystem, navigationSubsystem, angletoTag());
     MoveDistanceCommand moveDistanceCommand = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, distanceToTag()-1);
     rotationCommand.andThen(moveDistanceCommand).schedule();
     //rotationCommand.schedule();
   }
+}
   public double distanceToTag()
   {
      var distanceToTag = (Math.sqrt(x * x + z * z)*3.28);
