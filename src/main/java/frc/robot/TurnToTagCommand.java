@@ -19,7 +19,7 @@ public class TurnToTagCommand extends CommandBase {
     this.rotate90 = rotate90;
   }
   double turnAngle;
-  double angle;
+  double angleToTag;
   double dis;
   double z;
   double x;
@@ -31,7 +31,7 @@ public class TurnToTagCommand extends CommandBase {
     String apriltag = camSubsystem.apriltag();
     //angle = x < 0 ? -30 : 30;
     // turnAngle = x;
-    RotationCommand rotationCommand = new RotationCommand(driveSubsystem, navigationSubsystem, angle);
+    RotationCommand rotationCommand = new RotationCommand(driveSubsystem, navigationSubsystem, angleToTag);
     MoveDistanceCommand moveDistanceCommand = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, distanceToTag()-2);
     rotationCommand.andThen(moveDistanceCommand).schedule();
   }
@@ -44,7 +44,7 @@ public class TurnToTagCommand extends CommandBase {
 
   public double angletoTag() 
   {
-    var angleToTag = Math.atan2(z, x) / Math.PI * 180;
+    angleToTag = Math.atan2(z, x) / Math.PI * 180;
     return angleToTag;
   }
 
