@@ -26,7 +26,7 @@ public class TurnToTagCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    double x = camSubsystem.x();// How far right or left (I think)
+    double x = camSubsystem.x();
     double z = camSubsystem.z();
     String apriltag = camSubsystem.apriltag();
     //angle = x < 0 ? -30 : 30;
@@ -36,7 +36,7 @@ public class TurnToTagCommand extends CommandBase {
   }
   public void distanceToTag()
   {
-     //var distanceToTag = sqrt(x^2 + z^2);
+     var distanceToTag = (Math.sqrt(x * x + z * z));
   }
 
   // Called every time the scheduler runs while the command is scheduled.
