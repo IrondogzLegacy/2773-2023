@@ -36,6 +36,8 @@ public class TurnToTagCommand extends CommandBase {
     MoveDistanceCommand moveDistanceCommand = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, distanceToTag()-1);
     rotationCommand.andThen(moveDistanceCommand).schedule();
     //rotationCommand.schedule();
+  } else  { 
+    System.out.println("Different or no tag");
   }
 }
   public double distanceToTag()
