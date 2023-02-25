@@ -32,7 +32,8 @@ public class TurnToTagCommand extends CommandBase {
     //angle = x < 0 ? -30 : 30;
     // turnAngle = x;
     RotationCommand rotationCommand = new RotationCommand(driveSubsystem, navigationSubsystem, angle);
-    rotationCommand.schedule();
+    MoveDistanceCommand moveDistanceCommand = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, distanceToTag()-2);
+    rotationCommand.andThen(moveDistanceCommand).schedule();
     driveSubsystem.driveLine(distanceToTag() - 2);
     driveSubsystem.rotation(angletoTag());
   }
