@@ -24,9 +24,6 @@ public class TurnToTagCommand extends CommandBase {
   double dis;
   double z;
   double x;
-<<<<<<< Updated upstream
-
-=======
   double sinAlpha;
   double minusCosAlpha;
   double tagRotation;
@@ -37,7 +34,6 @@ public class TurnToTagCommand extends CommandBase {
   double conversionToDeg = 180/Math.PI;
   double conversionToRad = Math.PI/180;
   double rotateSign;
->>>>>>> Stashed changes
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
@@ -45,20 +41,6 @@ public class TurnToTagCommand extends CommandBase {
 
     // angle = x < 0 ? -30 : 30;
     // turnAngle = x;
-<<<<<<< Updated upstream
-    if (tagData != null) {
-      x = tagData.x;
-      z = tagData.z;
-      System.out.println("Tag One Found");
-      RotationCommand rotationCommand = new RotationCommand(driveSubsystem, navigationSubsystem, angletoTag());
-      MoveDistanceCommand moveDistanceCommand = new MoveDistanceCommand(driveSubsystem, navigationSubsystem,
-          distanceToTag() - 1);
-      rotationCommand.andThen(moveDistanceCommand).schedule();
-      // rotationCommand.schedule();
-    } else {
-      System.out.println("Different or no tag");
-    }
-=======
     if (tagData != null) { 
     x = tagData.x;
     z = tagData.z;
@@ -87,8 +69,8 @@ public class TurnToTagCommand extends CommandBase {
     //rotationCommand.schedule();
   } else  { 
     System.out.println("Different or no tag");
->>>>>>> Stashed changes
   }
+}
 
   public double distanceToTag() {
     var distanceToTag = (Math.sqrt(x * x + z * z) * 3.28);

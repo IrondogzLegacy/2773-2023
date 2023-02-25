@@ -64,10 +64,6 @@ public class MainCamSubsystem extends SubsystemBase {
 
     double sinAlpha = Double.parseDouble(MatrixNum[0]);
     double minusCosAlpha = Double.parseDouble(MatrixNum[2]);
-<<<<<<< Updated upstream
-    double tagRotation = Math.atan2(sinAlpha, minusCosAlpha);
-=======
->>>>>>> Stashed changes
 
     TagData data = new TagData();
     data.x = XNum;
