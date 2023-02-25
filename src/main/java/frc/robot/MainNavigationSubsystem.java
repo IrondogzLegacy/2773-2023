@@ -4,16 +4,16 @@
 
 package frc.robot;
 
-import com.kauailabs.navx.IMUProtocol.GyroUpdate;
+// import com.kauailabs.navx.IMUProtocol.GyroUpdate;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 //Imports :
-import edu.wpi.first.wpilibj.ADXRS450_Gyro;
-import edu.wpi.first.wpilibj.SPI.Port;
-import edu.wpi.first.wpilibj.interfaces.Gyro;
+//import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+//import edu.wpi.first.wpilibj.SPI.Port;
+//import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Timer;
@@ -76,7 +76,13 @@ public class MainNavigationSubsystem extends SubsystemBase {
     pitchEntry.setDouble(getPitch());
   }
 
-//Reset Gyro method
+  public double getRightEncoder()
+  {return rightEncoder.getDistance();}
+
+  public double getLeftEncoder()
+  {return leftEncoder.getDistance();}
+
+  //Reset Gyro method
 public void resetGyro()
 {
   ahrs.calibrate();
@@ -95,7 +101,5 @@ public void resetGyro()
     return currentAngleX + angleCorrectionX;
   }
 
-  public double getDistance() {
-    return rightEncoder.getDistance();
-  }
+  public double getDistance() {return rightEncoder.getDistance();}
 }

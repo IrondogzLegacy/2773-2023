@@ -48,5 +48,6 @@ public class MainConstants {
     public static final double MinRotationSpeed = 0.5;
 
   
+    public static final double AutoBrakingSpeed = 0.2;
   }
 //Pseudocode updated 1/23/2023 last, MainConstants
