@@ -84,6 +84,8 @@ public class MainRobotContainer {
     JoystickButton button4 = new JoystickButton(m_stick, 4);
     JoystickButton button5 = new JoystickButton(m_stick, 5);
     JoystickButton button6 = new JoystickButton(m_stick, 6);
+    JoystickButton button7 = new JoystickButton(m_stick, 7);
+    
     // XboxController controllerOne = new XboxController(0); // Creates an
     // XboxController on port 0.
     // Trigger retractTrigger = new JoystickButton(controllerOne,
@@ -99,6 +101,7 @@ public class MainRobotContainer {
         final CommandBase majorCommand = createMajorsMainCommand();
         button5.onTrue(letGoCommand);
         button6.onTrue(grabOnCommand);
+        button7.onTrue(turnToTagCommand);
     }
 
 }

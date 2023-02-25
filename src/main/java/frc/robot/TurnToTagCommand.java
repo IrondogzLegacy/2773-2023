@@ -33,10 +33,20 @@ public class TurnToTagCommand extends CommandBase {
     // turnAngle = x;
     RotationCommand rotationCommand = new RotationCommand(driveSubsystem, navigationSubsystem, angle);
     rotationCommand.schedule();
+    driveSubsystem.driveLine(distanceToTag());
+    driveSubsystem.rotation(angletoTag());
   }
-  public void distanceToTag()
+  public double distanceToTag()
   {
      var distanceToTag = (Math.sqrt(x * x + z * z));
+    //For movement, the robot will turn angleToTag, and then move distanceToTag
+    return distanceToTag;
+  }
+
+  public double angletoTag() 
+  {
+    var angleToTag = Math.atan(z/x);
+    return angleToTag;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
