@@ -26,7 +26,7 @@ public class TurnToTagCommand extends CommandBase {
   public void initialize() {
     x = camSubsystem.x();
     z = camSubsystem.z();
-    String apriltag = camSubsystem.apriltag();
+    String apriltag = camSubsystem.apriltag(0);
     //angle = x < 0 ? -30 : 30;
     // turnAngle = x;
     RotationCommand rotationCommand = new RotationCommand(driveSubsystem, navigationSubsystem, angletoTag());
