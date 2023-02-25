@@ -45,21 +45,21 @@ public class TurnToTagCommand extends CommandBase {
     x = tagData.x;
     z = tagData.z;
     tagRotation = tagData.alpha;
-    System.out.println("Alpha" + tagRotation);
+    System.out.println("Alpha " + tagRotation);
     if (tagRotation > 0) {fullTurnAngle = 90-tagRotation*conversionToDeg;}
     if (tagRotation < 0) {fullTurnAngle = -90-tagRotation*conversionToDeg;}
 
     if (fullTurnAngle > 0) {rotateSign = -90;}
     if (fullTurnAngle < 0) {rotateSign = 90;}
-    System.out.println("Beta" + fullTurnAngle);
+    System.out.println("Beta " + fullTurnAngle);
     //turn the above angle
     theta = (fullTurnAngle - angleToTag)*conversionToRad;
-    System.out.println("Theta" + theta);
+    System.out.println("Theta " + theta);
     distanceB = Math.cos(theta)*distanceToTag();
-    System.out.println("B" + distanceB);
+    System.out.println("B " + distanceB);
     //drive the above distance after turning
     distanceA = Math.sin(theta)*distanceToTag();
-    System.out.println("A"+distanceA);
+    System.out.println("A "+distanceA);
     //drive the above distance minus some # after the previous drive finishes
     System.out.println("Tag One Found");
     RotationCommand rotationCommand = new RotationCommand(driveSubsystem, navigationSubsystem, fullTurnAngle);
