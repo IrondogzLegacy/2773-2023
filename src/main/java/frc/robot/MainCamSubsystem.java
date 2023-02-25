@@ -27,10 +27,10 @@ public class MainCamSubsystem extends SubsystemBase {
     return this.z;
   }
 
-  private String apriltag;
+  private String[] apriltag = new String[30];
 
-  public String apriltag() { 
-    return this.apriltag;
+  public String apriltag(int i) { 
+    return this.apriltag[i];
   }
   //Used for the data used in TurnToTagCommand.java
 
@@ -99,9 +99,10 @@ public class MainCamSubsystem extends SubsystemBase {
         
           this.x = tagData.x;
           this.z = tagData.z;
-          this.apriltag = tagData.apriltag;
+          this.apriltag[0] = tagData.apriltag;
           //Used for the data used in TurnToTagCommand.java
-
+          
+  
         }
       }
     }
