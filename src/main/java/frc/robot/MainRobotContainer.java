@@ -28,6 +28,7 @@ public class MainRobotContainer {
     private final Stretch1RevCommand stretch1RevCommand = new Stretch1RevCommand(armSubsystem);
     private final ResetArmEncoderCommand resetArmEncoderCommand = new ResetArmEncoderCommand(armSubsystem);
     private final AutoBalanceCommand autoBalance = new AutoBalanceCommand(driveSubsystem, navigationSubsystem);
+    private final ActiveBrakingCommand activeBraking = new ActiveBrakingCommand(driveSubsystem, navigationSubsystem);
 
     // Autonomous Section
     public Command getAutonomousCommand1() {
@@ -97,7 +98,7 @@ public class MainRobotContainer {
         button1.onTrue(rotationFlip);
         button2.whileTrue(retractCommand);
         button3.whileTrue(stretchCommand);
-        button4.whileTrue(autoBalance);
+        button4.whileTrue(activeBraking);
         button5.onTrue(letGoCommand);
         button6.onTrue(grabOnCommand);
 
