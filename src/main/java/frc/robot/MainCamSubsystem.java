@@ -15,26 +15,15 @@ public class MainCamSubsystem extends SubsystemBase {
    * First: 1 0.328262 -0.520233 1.085545
    */
 
-  private double x;
 
-  public double x() {
-    return this.x;
-  }
+  private TagData[] apriltag = new TagData[30];
 
-  private double z;
-
-  public double z() { 
-    return this.z;
-  }
-
-  private String[] apriltag = new String[30];
-
-  public String apriltag(int i) { 
+  public TagData apriltag(int i) { 
     return this.apriltag[i];
   }
   //Used for the data used in TurnToTagCommand.java
 
-  private static class TagData {
+  public static class TagData {
     String apriltag;
     double x; // How far right or left (I think)
     double y; // How high or low the april tag is (mostly irrelavant for our purposes)
@@ -97,9 +86,8 @@ public class MainCamSubsystem extends SubsystemBase {
           // The println will be replaced in the future with code that moves the robot
           // accordingly. The conditions for the if state
         
-          this.x = tagData.x;
-          this.z = tagData.z;
-          this.apriltag[0] = tagData.apriltag;
+  
+          this.apriltag[Integer.parseInt(tagData.apriltag)] = tagData;
           //Used for the data used in TurnToTagCommand.java
           
   

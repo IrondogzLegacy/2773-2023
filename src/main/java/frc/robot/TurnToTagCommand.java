@@ -24,12 +24,14 @@ public class TurnToTagCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    x = camSubsystem.x();
-    z = camSubsystem.z();
-    String apriltag = camSubsystem.apriltag(0);
-    //angle = x < 0 ? -30 : 30;
+    var tagData = camSubsystem.apriltag(1);
+   
+    //angle =   x < 0 ? -30 : 30;
     // turnAngle = x;
-    if (apriltag == camSubsystem.apriltag(1)) { 
+    if (tagData != null) { 
+    x = tagData.x;
+    z = tagData.z;
+    System.out.println("Tag One Found");
     RotationCommand rotationCommand = new RotationCommand(driveSubsystem, navigationSubsystem, angletoTag());
     MoveDistanceCommand moveDistanceCommand = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, distanceToTag()-1);
     rotationCommand.andThen(moveDistanceCommand).schedule();
