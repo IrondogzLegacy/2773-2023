@@ -31,8 +31,8 @@ public class TurnToTagCommand extends CommandBase {
   double theta;
   double distanceB;
   double distanceA;
-  double conversionToDeg = 180/Math.PI;
-  double conversionToRad = Math.PI/180;
+  double conversionToDeg = 180./Math.PI;
+  double conversionToRad = Math.PI/180.;
   double rotateSign;
   // Called when the command is initially scheduled.
   @Override

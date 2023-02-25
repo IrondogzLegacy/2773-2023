@@ -30,7 +30,7 @@ public class MainConstants {
     //constant for the default TankDrive
     public static final double genTankSpeed = 0.3;
     //constant for the ArmMotor
-    public static final int ArmMotorCANID = 17;
+    public static final int ArmMotorCANID = 17; //make 16 for extension/retraction, 12 for up/down
     // constant for ArmMotor Speed
     public static final double ArmMotorSpeed = 0.3;
     public static final double ArmEncoderRatio = 0.04*0.75*3.14;
