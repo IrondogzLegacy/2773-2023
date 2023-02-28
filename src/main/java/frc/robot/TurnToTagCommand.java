@@ -4,12 +4,17 @@
 
 package frc.robot;
 
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class TurnToTagCommand extends CommandBase {
   private final MainDriveSubsystem driveSubsystem;
   private final MainCamSubsystem camSubsystem;
   private MainNavigationSubsystem navigationSubsystem;
+  private final NetworkTable table = NetworkTableInstance.getDefault().getTable("Id");
+
 
   /** Creates a new TurnToTag. */
   public TurnToTagCommand(MainDriveSubsystem driveSubsystem, MainCamSubsystem camSubsystem,
@@ -38,12 +43,15 @@ public class TurnToTagCommand extends CommandBase {
   @Override
   public void initialize() {
     var tagData = camSubsystem.apriltag(1);
-
+    var tagData2 = camSubsystem.apriltag(2);
+    System.out.println("tagData: " + tagData);
     // angle = x < 0 ? -30 : 30;
     // turnAngle = x;
     if (tagData != null) { 
     x = tagData.x;
     z = tagData.z;
+    System.out.println("x: " + x + " z: " + z);
+    System.out.println("tagData.x: " + tagData.x + " tagData.z: " + tagData.z);
     tagRotation = tagData.alpha;
     System.out.println("Alpha " + tagRotation);
     if (tagRotation > 0) {fullTurnAngle = 90-tagRotation*conversionToDeg;}
@@ -67,10 +75,10 @@ public class TurnToTagCommand extends CommandBase {
     MoveDistanceCommand moveDistanceA = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, distanceA-1);
     RotationCommand rotate90 = new RotationCommand(driveSubsystem, navigationSubsystem, rotateSign);
 
-    rotationCommand.andThen(moveDistanceB).andThen(rotate90).andThen(moveDistanceA).schedule();
+    //rotationCommand.andThen(moveDistanceB).andThen(rotate90).andThen(moveDistanceA).schedule();
     //rotationCommand.schedule();
-  } else  { 
-    System.out.println("Different or no tag");
+  } else if (tagData2 != null) { 
+    System.out.println("Tag Id 2 Found!");
   }
 }
 
