@@ -37,14 +37,14 @@ public class ActiveBrakingCommand extends CommandBase {
     //deadzone is 2 inches
     if (deltaRightEncoder > 1./6. && deltaLeftEncoder > 1./6.)
     {
-      driveSubsystem.driveLine(-MainConstants.AutoBrakingSpeed);
+      driveSubsystem.driveLine(-Constants.AutoBrakingSpeed);
       System.out.println("Delta-right" + deltaRightEncoder);
       System.out.println("Delta-left" + deltaRightEncoder);
     }
     //deadzone is 2 inches
     if (deltaRightEncoder < -1./6. && deltaLeftEncoder < -1./6.)
     {
-      driveSubsystem.driveLine(MainConstants.AutoBrakingSpeed);
+      driveSubsystem.driveLine(Constants.AutoBrakingSpeed);
       System.out.println("Delta-right" + deltaRightEncoder);
       System.out.println("Delta-left" + deltaRightEncoder);
     }

@@ -27,11 +27,11 @@ public class AutoBalanceCommand extends CommandBase {
       double pitch = navigationSubsystem.getPitch();
       if (pitch > 1.5)
       {
-        driveSubsystem.driveLine(MainConstants.BalanceSpeed);
+        driveSubsystem.driveLine(Constants.BalanceSpeed);
       }
       else if (pitch < -1.5)
       {
-        driveSubsystem.driveLine(-MainConstants.BalanceSpeed);
+        driveSubsystem.driveLine(-Constants.BalanceSpeed);
       }
       else{driveSubsystem.stopAllDrive();}
   }

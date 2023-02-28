@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+//import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -19,17 +20,7 @@ public class MainRobotContainer {
     private final MainNavigationSubsystem navigationSubsystem = new MainNavigationSubsystem();
     private final ClawSubsystem GrabOnSubsystem = new ClawSubsystem();
     private final MainCamSubsystem camSubsystem = new MainCamSubsystem();
-    private final GrabOnCommand grabOnCommand = new GrabOnCommand(GrabOnSubsystem, main_stick);
-    private final LetGoCommand letGoCommand = new LetGoCommand(GrabOnSubsystem, main_stick);
-    private final RotationCommand rotate90 = new RotationCommand(driveSubsystem, navigationSubsystem, 90);
-    private final TurnToTagCommand turnToTagCommand = new TurnToTagCommand(driveSubsystem, camSubsystem, navigationSubsystem, rotate90);
     private final ArmSubsystem armSubsystem = new ArmSubsystem();
-    private final RetractCommand retractCommand = new RetractCommand(armSubsystem);
-    private final StretchCommand stretchCommand = new StretchCommand(armSubsystem);
-    private final Stretch1RevCommand stretch1RevCommand = new Stretch1RevCommand(armSubsystem);
-    private final ResetArmEncoderCommand resetArmEncoderCommand = new ResetArmEncoderCommand(armSubsystem);
-    private final AutoBalanceCommand autoBalance = new AutoBalanceCommand(driveSubsystem, navigationSubsystem);
-    private final ActiveBrakingCommand activeBraking = new ActiveBrakingCommand(driveSubsystem, navigationSubsystem);
 
     // Autonomous Section
     public Command getAutonomousCommand1() {
@@ -50,6 +41,7 @@ public class MainRobotContainer {
 
     public Command getAutonomousCommand2() {
         final MoveDistanceCommand move2 = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, -10);
+        final AutoBalanceCommand autoBalance = new AutoBalanceCommand(driveSubsystem, navigationSubsystem);
 
         var moveUntilandAutoBalance = move2
                 .until(() -> navigationSubsystem.getPitch() > 12 || navigationSubsystem.getPitch() < -12)
@@ -72,13 +64,6 @@ public class MainRobotContainer {
         driveSubsystem.setDefaultCommand(driveCommand);
     }
 
-    private CommandBase createMajorsMainCommand() {
-        MoveDistanceCommand move3 = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, 3);
-        RotationCommand rotate90 = new RotationCommand(driveSubsystem, navigationSubsystem, 90);
-        MoveDistanceCommand move3b = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, 3);
-        return move3.andThen(rotate90.andThen(move3b));
-    }
-    
     // Controls how it grabs or lets go
     JoystickButton button1 = new JoystickButton(main_stick, 1);
     JoystickButton button2 = new JoystickButton(main_stick, 2);
@@ -88,32 +73,50 @@ public class MainRobotContainer {
     JoystickButton button6 = new JoystickButton(main_stick, 6);
     JoystickButton button7 = new JoystickButton(main_stick, 7);
 
-    JoystickButton AButton1 = new JoystickButton(arm_stick, 1);
-    JoystickButton AButton2 = new JoystickButton(arm_stick, 2);
-    JoystickButton AButton3 = new JoystickButton(arm_stick, 3);
-
-    
-    /*Below is not used, attempted to assign commands to triggers a while ago
-    XboxController controllerOne = new XboxController(0);
-    XboxController controllerTwo = new XboxController(1); 
-    Trigger retractTrigger = new JoystickButton(controllerOne,
-    XboxController.Trigger.kLeftTrigger.value); // Creates a new JoystickButton
-    object for the `Y` button on exampleController
-    */
-    private final RotationCommand rotationFlip = new RotationCommand(driveSubsystem, navigationSubsystem, 180);
+    JoystickButton Abutton1 = new JoystickButton(arm_stick, 1);
+    JoystickButton Abutton2 = new JoystickButton(arm_stick, 2);
+    JoystickButton Abutton3 = new JoystickButton(arm_stick, 3);
+    JoystickButton Abutton4 = new JoystickButton(arm_stick, 4);
+    JoystickButton Abutton5 = new JoystickButton(arm_stick, 5);
+    JoystickButton Abutton6 = new JoystickButton(arm_stick, 6);
 
     private void configureButtonBindings() {
+        final GrabOnCommand grabOnCommand = new GrabOnCommand(GrabOnSubsystem, main_stick);
+        final LetGoCommand letGoCommand = new LetGoCommand(GrabOnSubsystem, main_stick);
+        final RotationCommand rotate90 = new RotationCommand(driveSubsystem, navigationSubsystem, 90);
+        final TurnToTagCommand turnToTagCommand = new TurnToTagCommand(driveSubsystem, camSubsystem,
+                navigationSubsystem, rotate90);
+        final RetractCommand retractCommand = new RetractCommand(armSubsystem);
+        final StretchCommand stretchCommand = new StretchCommand(armSubsystem);
+        final Stretch1RevCommand stretch1RevCommand = new Stretch1RevCommand(armSubsystem);
+        final ResetArmEncoderCommand resetArmEncoderCommand = new ResetArmEncoderCommand(armSubsystem);
+        final ActiveBrakingCommand activeBraking = new ActiveBrakingCommand(driveSubsystem, navigationSubsystem);
+        /*
+         * Below is not used, attempted to assign commands to triggers a while ago
+         * XboxController controllerOne = new XboxController(0);
+         * XboxController controllerTwo = new XboxController(1);
+         * Trigger retractTrigger = new JoystickButton(controllerOne,
+         * XboxController.Trigger.kLeftTrigger.value); // Creates a new JoystickButton
+         * object for the `Y` button on exampleController
+         */
+        final RotationCommand rotationFlip = new RotationCommand(driveSubsystem, navigationSubsystem, 180);
+        final RotateUpCommand rotateUp = new RotateUpCommand(armSubsystem);
+        final RotateDownCommand rotateDown = new RotateDownCommand(armSubsystem);
+
         button4.whileTrue(activeBraking);
         button5.onTrue(turnToTagCommand);
         button6.onTrue(grabOnCommand);
         button7.onTrue(turnToTagCommand);
-
-         //final CommandBase majorCommand = createMajorsMainCommand();
-         
-        AButton1.onTrue(rotationFlip);
-        AButton2.onTrue(retractCommand);
-        AButton3.onTrue(stretchCommand);
-    
+        // final CommandBase majorCommand = createMajorsMainCommand();
+        Abutton1.onTrue(rotationFlip);
+        Abutton2.onTrue(retractCommand);
+        Abutton3.onTrue(stretchCommand);
+        // Abutton5.whileTrue(new InstantCommand(armSubsystem::rotateUp, armSubsystem));
+        // //can't use the instant command stuff when I need to use the stop function
+        // Abutton6.whileTrue(new InstantCommand(armSubsystem::rotateDown,
+        // armSubsystem)); //can't use the instant command stuff when I need to use the
+        // stop function
+        Abutton5.whileTrue(rotateUp);
+        Abutton6.whileTrue(rotateDown);
     }
-
 }
