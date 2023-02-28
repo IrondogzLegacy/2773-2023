@@ -17,7 +17,7 @@ public class Constants extends MainConstants {
   public static final MotorType motorType = MotorType.kBrushless;
 
   // constant (port #) for the ClawMotorChannel
-  public static final int ClawMotorCANID = 10;
+  public static final int ClawMotorCANID = -1; //10; 10 is the correct CANID but it is no longer on the bot
   // constant for the PickUpSpeed (motor for extending / closing the claw)
   public static final double ClawMotorSpeed = 0.05; // 0.25;
   // constant for the ReleaseSpeed
