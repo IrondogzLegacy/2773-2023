@@ -7,9 +7,11 @@ package frc.robot;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class RotateUpCommand extends CommandBase {
-  private static final ArmSubsystem armSubsytem = new ArmSubsystem();
+  private final ArmSubsystem armSubsytem;
 
-  public RotateUpCommand(ArmSubsystem armSubsystem) {}
+  public RotateUpCommand(ArmSubsystem armSubsystem) {
+    this.armSubsytem = armSubsystem;
+  }
 
   // Called when the command is initially scheduled.
   @Override
