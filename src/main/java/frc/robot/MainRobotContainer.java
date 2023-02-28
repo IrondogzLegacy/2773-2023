@@ -88,7 +88,9 @@ public class MainRobotContainer {
     JoystickButton button6 = new JoystickButton(main_stick, 6);
     JoystickButton button7 = new JoystickButton(main_stick, 7);
 
-    JoystickButton arm1 = new JoystickButton(arm_stick, 1);
+    JoystickButton AButton1 = new JoystickButton(arm_stick, 1);
+    JoystickButton AButton2 = new JoystickButton(arm_stick, 2);
+    JoystickButton AButton3 = new JoystickButton(arm_stick, 3);
 
     
     /*Below is not used, attempted to assign commands to triggers a while ago
@@ -101,18 +103,17 @@ public class MainRobotContainer {
     private final RotationCommand rotationFlip = new RotationCommand(driveSubsystem, navigationSubsystem, 180);
 
     private void configureButtonBindings() {
-        button1.onTrue(rotationFlip);
-        button2.whileTrue(retractCommand);
-        button3.whileTrue(stretchCommand);
         button4.whileTrue(activeBraking);
         button5.onTrue(turnToTagCommand);
         button6.onTrue(grabOnCommand);
-
-        //final CommandBase majorCommand = createMajorsMainCommand();
-
         button7.onTrue(turnToTagCommand);
 
-        //arm1.onTrue(null);
+         //final CommandBase majorCommand = createMajorsMainCommand();
+         
+        AButton1.onTrue(rotationFlip);
+        AButton2.onTrue(retractCommand);
+        AButton3.onTrue(stretchCommand);
+    
     }
 
 }
