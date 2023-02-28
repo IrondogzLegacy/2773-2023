@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -88,9 +89,12 @@ public class MainRobotContainer {
     JoystickButton button6 = new JoystickButton(main_stick, 6);
     JoystickButton button7 = new JoystickButton(main_stick, 7);
 
-    JoystickButton AButton1 = new JoystickButton(arm_stick, 1);
-    JoystickButton AButton2 = new JoystickButton(arm_stick, 2);
-    JoystickButton AButton3 = new JoystickButton(arm_stick, 3);
+    JoystickButton Abutton1 = new JoystickButton(arm_stick, 1);
+    JoystickButton Abutton2 = new JoystickButton(arm_stick, 2);
+    JoystickButton Abutton3 = new JoystickButton(arm_stick, 3);
+    JoystickButton Abutton4 = new JoystickButton(arm_stick, 4);
+    JoystickButton Abutton5 = new JoystickButton(arm_stick, 5);
+    JoystickButton Abutton6 = new JoystickButton(arm_stick, 6);
 
     
     /*Below is not used, attempted to assign commands to triggers a while ago
@@ -101,19 +105,18 @@ public class MainRobotContainer {
     object for the `Y` button on exampleController
     */
     private final RotationCommand rotationFlip = new RotationCommand(driveSubsystem, navigationSubsystem, 180);
+   
 
     private void configureButtonBindings() {
         button4.whileTrue(activeBraking);
         button5.onTrue(turnToTagCommand);
         button6.onTrue(grabOnCommand);
         button7.onTrue(turnToTagCommand);
-
          //final CommandBase majorCommand = createMajorsMainCommand();
-         
-        AButton1.onTrue(rotationFlip);
-        AButton2.onTrue(retractCommand);
-        AButton3.onTrue(stretchCommand);
-    
+        Abutton1.onTrue(rotationFlip);
+        Abutton2.onTrue(retractCommand);
+        Abutton3.onTrue(stretchCommand); 
+        //Abutton5.whileTrue(new InstantCommand(armSubsystem::rotateUp, armSubsystem)); can't use the instant command stuff when I need to use the stop function
+        //Abutton6.whileTrue(new InstantCommand(armSubsystem::rotateDown, armSubsystem)); can't use the instant command stuff when I need to use the stop function
     }
-
 }

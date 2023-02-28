@@ -28,7 +28,7 @@ public class StretchCommand extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    armSubsystem.stopArm();
+    armSubsystem.stopArmExtension();
   }
 
   // Returns true when the command should end.

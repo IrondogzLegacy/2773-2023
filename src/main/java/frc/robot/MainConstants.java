@@ -30,9 +30,12 @@ public class MainConstants {
     //constant for the default TankDrive
     public static final double genTankSpeed = 0.3;
     //constant for the ArmMotor
-    public static final int ArmMotorCANID = 17; //make 16 for extension/retraction, 12 for up/down
+    //public static final int ArmMotorCANID = 17; This is the correct CANID for testbot, NOT the main bot
+    public static final int ArmExtensionMotorCANID = 16;
+    public static final int ArmRotationMotorCANID = 12;
     // constant for ArmMotor Speed
     public static final double ArmMotorSpeed = 0.3;
+    public static final double ArmRotationSpeed = 0.3;
     public static final double ArmEncoderRatio = 0.04*0.75*3.14;
 
     public static final double BalanceSpeed = 0.3;
