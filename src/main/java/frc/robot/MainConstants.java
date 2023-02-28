@@ -9,10 +9,10 @@ public class MainConstants {
     public static boolean IsTestRobot = false;
 
     // constants for the CANIDs
-    public static final int leftForWheelsCANID = 11;
-    public static final int rightForWheelsCANID = 23;
-    public static final int leftBackWheelsCANID = 19;
-    public static final int rightBackWheelsCANID = 22;
+    public static final int leftForWheelsCANID = 15;
+    public static final int rightForWheelsCANID = 13;
+    public static final int leftBackWheelsCANID = 14;
+    public static final int rightBackWheelsCANID = 20;
 
     // testbot, NOT the main bot
     public static final int ArmExtensionMotorCANID = 12;

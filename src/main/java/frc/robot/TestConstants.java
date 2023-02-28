@@ -15,6 +15,6 @@ public class TestConstants {
   public static final int rightBackWheelsCANID = 22;
 
   // testbot, NOT the main bot
-  public static final int ArmExtensionMotorCANID = 17;
+  public static final int ArmExtensionMotorCANID = -1; //was 17 but arm was removed
   public static final int ArmRotationMotorCANID = -1;
 }

@@ -24,7 +24,6 @@ public class Constants extends MainConstants {
   public static final double ReleaseSpeed = -0.05; // -0.5;
   // constant for the default TankDrive
   public static final double genTankSpeed = 0.3;
-  // constant for the ArmMotor
 
   // constant for ArmMotor Speed
   public static final double ArmMotorSpeed = 0.3;
