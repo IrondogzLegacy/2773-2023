@@ -12,7 +12,7 @@ public class RotationCommand extends CommandBase {
   private final MainNavigationSubsystem navigationSubsystem;
   private final double turnAngle;
   
-  private final PIDController pid = new PIDController (MainConstants.RotateKP, MainConstants.RotateKI, MainConstants.RotateKD); 
+  private final PIDController pid = new PIDController (Constants.RotateKP, Constants.RotateKI, Constants.RotateKD); 
 
   public RotationCommand(MainDriveSubsystem driveSubsystem, MainNavigationSubsystem navigationSubsystem,
       double turnAngle) {
@@ -51,8 +51,8 @@ public class RotationCommand extends CommandBase {
     var speed = pid.calculate(navigationSubsystem.getAngle());
     //Speed is based on angle
     //System.out.println(navigationSubsystem.getAngle());
-    speed = Math.min(speed, MainConstants.MinRotationSpeed);
-    speed = Math.max(speed,-MainConstants.MaxRotationSpeed);
+    speed = Math.min(speed, Constants.MinRotationSpeed);
+    speed = Math.max(speed,-Constants.MaxRotationSpeed);
     //Speed is the range of rotationspeed.
     driveSubsystem.rotation(speed);
     //rotate

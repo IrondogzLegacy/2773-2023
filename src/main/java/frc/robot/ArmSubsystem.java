@@ -16,9 +16,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ArmSubsystem extends SubsystemBase {
 
-  private final CANSparkMax ArmMotor = new CANSparkMax(MainConstants.ArmExtensionMotorCANID, MainConstants.motorType);
-  private final RelativeEncoder armEncoder = ArmMotor.getEncoder();
-  private final CANSparkMax ArmRotationMotor = new CANSparkMax(MainConstants.ArmRotationMotorCANID, MainConstants.motorType);
+  private final CANSparkMax armMotor = new CANSparkMax(Constants.ArmExtensionMotorCANID, Constants.motorType);
+  private final RelativeEncoder armEncoder = armMotor.getEncoder();
+  private final CANSparkMax armRotationMotor = Constants.IsTestRobot ? null
+      : new CANSparkMax(Constants.ArmRotationMotorCANID, Constants.motorType);
 
   private final DigitalInput limitSwitch = new DigitalInput(9);
   private final AnalogInput lengthSensor = new AnalogInput(0);
@@ -30,26 +31,26 @@ public class ArmSubsystem extends SubsystemBase {
 
   public ArmSubsystem() {
     // unnecessary but I don't care
-    ArmMotor.setInverted(true);
-    armEncoder.setPositionConversionFactor(MainConstants.ArmEncoderRatio);
+    armMotor.setInverted(true);
+    armEncoder.setPositionConversionFactor(Constants.ArmEncoderRatio);
   }
 
   @Override
   public void periodic() {
-    //counterEntry.setDouble(armEncoder.getPosition());
+    // counterEntry.setDouble(armEncoder.getPosition());
     distanceEntry.setDouble(lengthSensor.getVoltage());
     switchEntry.setBoolean(limitSwitch.get());
   }
 
   public void stretch() {
-    ArmMotor.set(MainConstants.ArmMotorSpeed);
+    armMotor.set(Constants.ArmMotorSpeed);
   }
 
   public void retract() {
     if (limitSwitch.get()) {
-      ArmMotor.set(-MainConstants.ArmMotorSpeed);
+      armMotor.set(-Constants.ArmMotorSpeed);
     } else {
-      ArmMotor.set(0);
+      armMotor.set(0);
     }
   }
 
@@ -62,16 +63,28 @@ public class ArmSubsystem extends SubsystemBase {
     }
   }
 
-  public void stopArmExtension() {ArmMotor.stopMotor();}
+  public void stopArmExtension() {
+    armMotor.stopMotor();
+  }
 
-  public void printEncoder() {System.out.println(armEncoder.getPosition());}
+  public void printEncoder() {
+    System.out.println(armEncoder.getPosition());
+  }
 
   public void ResetArmEncoder() {
     armEncoder.setPosition(0);
     printEncoder();
   }
 
-  public void rotateUp() {ArmRotationMotor.set(MainConstants.ArmRotationSpeed);}
-  public void rotateDown() {ArmRotationMotor.set(-MainConstants.ArmRotationSpeed);}
-  public void rotateStop() {ArmRotationMotor.set(0);}
+  public void rotateUp() {
+    armRotationMotor.set(Constants.ArmRotationSpeed);
+  }
+
+  public void rotateDown() {
+    armRotationMotor.set(-Constants.ArmRotationSpeed);
+  }
+
+  public void rotateStop() {
+    armRotationMotor.set(0);
+  }
 }
