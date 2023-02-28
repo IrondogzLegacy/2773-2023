@@ -18,7 +18,7 @@ public class ArmSubsystem extends SubsystemBase {
 
   private final CANSparkMax ArmMotor = new CANSparkMax(MainConstants.ArmExtensionMotorCANID, MainConstants.motorType);
   private final RelativeEncoder armEncoder = ArmMotor.getEncoder();
-  private final CANSparkMax ArmRotationMotor = new CANSparkMax(16, MainConstants.motorType);
+  private final CANSparkMax ArmRotationMotor = new CANSparkMax(MainConstants.ArmRotationMotorCANID, MainConstants.motorType);
 
   private final DigitalInput limitSwitch = new DigitalInput(9);
   private final AnalogInput lengthSensor = new AnalogInput(0);
