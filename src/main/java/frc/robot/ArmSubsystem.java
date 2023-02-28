@@ -62,24 +62,16 @@ public class ArmSubsystem extends SubsystemBase {
     }
   }
 
-  public void stopArmExtension() {
-    ArmMotor.stopMotor();
-  }
+  public void stopArmExtension() {ArmMotor.stopMotor();}
 
-  public void printEncoder() {
-    System.out.println(armEncoder.getPosition());
-  }
+  public void printEncoder() {System.out.println(armEncoder.getPosition());}
 
   public void ResetArmEncoder() {
     armEncoder.setPosition(0);
     printEncoder();
   }
 
-  public void rotateUp() {
-    ArmRotationMotor.set(MainConstants.ArmRotationSpeed);
-  }
-
-  public void rotateDown() {
-    ArmRotationMotor.set(-MainConstants.ArmRotationSpeed);
-  }
+  public void rotateUp() {ArmRotationMotor.set(MainConstants.ArmRotationSpeed);}
+  public void rotateDown() {ArmRotationMotor.set(-MainConstants.ArmRotationSpeed);}
+  public void rotateStop() {ArmRotationMotor.set(0);}
 }

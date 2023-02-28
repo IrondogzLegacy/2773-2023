@@ -105,7 +105,8 @@ public class MainRobotContainer {
     object for the `Y` button on exampleController
     */
     private final RotationCommand rotationFlip = new RotationCommand(driveSubsystem, navigationSubsystem, 180);
-   
+    private final RotateUpCommand rotateUp = new RotateUpCommand(armSubsystem);
+    private final RotateDownCommand rotateDown = new RotateDownCommand(armSubsystem);
 
     private void configureButtonBindings() {
         button4.whileTrue(activeBraking);
@@ -116,7 +117,9 @@ public class MainRobotContainer {
         Abutton1.onTrue(rotationFlip);
         Abutton2.onTrue(retractCommand);
         Abutton3.onTrue(stretchCommand); 
-        //Abutton5.whileTrue(new InstantCommand(armSubsystem::rotateUp, armSubsystem)); can't use the instant command stuff when I need to use the stop function
-        //Abutton6.whileTrue(new InstantCommand(armSubsystem::rotateDown, armSubsystem)); can't use the instant command stuff when I need to use the stop function
+        //Abutton5.whileTrue(new InstantCommand(armSubsystem::rotateUp, armSubsystem)); //can't use the instant command stuff when I need to use the stop function
+        //Abutton6.whileTrue(new InstantCommand(armSubsystem::rotateDown, armSubsystem)); //can't use the instant command stuff when I need to use the stop function
+        Abutton5.whileTrue(rotateUp);
+        Abutton6.whileTrue(rotateDown);
     }
 }
