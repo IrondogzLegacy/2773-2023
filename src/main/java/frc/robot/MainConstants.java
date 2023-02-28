@@ -31,8 +31,8 @@ public class MainConstants {
     public static final double genTankSpeed = 0.3;
     //constant for the ArmMotor
     //public static final int ArmMotorCANID = 17; This is the correct CANID for testbot, NOT the main bot
-    public static final int ArmExtensionMotorCANID = 16;
-    public static final int ArmRotationMotorCANID = 12;
+    public static final int ArmExtensionMotorCANID = 12;
+    public static final int ArmRotationMotorCANID = 16;
     // constant for ArmMotor Speed
     public static final double ArmMotorSpeed = 0.3;
     public static final double ArmRotationSpeed = 0.3;
