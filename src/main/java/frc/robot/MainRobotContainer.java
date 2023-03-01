@@ -21,6 +21,7 @@ public class MainRobotContainer {
     private final ClawSubsystem GrabOnSubsystem = new ClawSubsystem();
     private final MainCamSubsystem camSubsystem = new MainCamSubsystem();
     private final ArmSubsystem armSubsystem = new ArmSubsystem();
+    private final PneumaticsSubsystem PnuematicsSubsystem = new PneumaticsSubsystem();
 
     // Autonomous Section
     public Command getAutonomousCommand1() {
@@ -103,6 +104,39 @@ public class MainRobotContainer {
         final RotateUpCommand rotateUp = new RotateUpCommand(armSubsystem);
         final RotateDownCommand rotateDown = new RotateDownCommand(armSubsystem);
 
+        // actuate
+        button1.whileTrue(
+                new CommandBase() {
+                    {
+                        addRequirements(PnuematicsSubsystem);
+                    }
+
+                    @Override
+                    public void initialize() {
+                        PnuematicsSubsystem.deployIntake();
+                    }
+
+                    @Override
+                    public boolean isFinished() {
+                        return true;
+                    }
+                });
+        // stop actuation
+        button2.whileTrue(new CommandBase() {
+            {
+                addRequirements(PnuematicsSubsystem);
+            }
+
+            @Override
+            public void initialize() {
+                PnuematicsSubsystem.retractIntake();
+            }
+
+            @Override
+            public boolean isFinished() {
+                return true;
+            }
+        });
         button4.whileTrue(activeBraking);
         button5.onTrue(turnToTagCommand);
         button6.onTrue(grabOnCommand);
