@@ -13,17 +13,16 @@ public class TurnToTagCommand extends CommandBase {
   private final MainDriveSubsystem driveSubsystem;
   private final MainCamSubsystem camSubsystem;
   private MainNavigationSubsystem navigationSubsystem;
-  private final NetworkTable table = NetworkTableInstance.getDefault().getTable("Id");
+  private final NetworkTable table = NetworkTableInstance.getDefault().getTable("April Tag");
+  private NetworkTableEntry tagIdEntry = table.getEntry("Id");
 
-
-  /** Creates a new TurnToTag. */
+  /* Creates a new TurnToTag. */
   public TurnToTagCommand(MainDriveSubsystem driveSubsystem, MainCamSubsystem camSubsystem,
       MainNavigationSubsystem navigationSubsystem, RotationCommand rotate90) {
     this.driveSubsystem = driveSubsystem;
     this.camSubsystem = camSubsystem;
     this.navigationSubsystem = navigationSubsystem;
   }
-
   double turnAngle;
   double angleToTag;
   double dis;
@@ -42,16 +41,14 @@ public class TurnToTagCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    var tagData = camSubsystem.apriltag(1);
-    var tagData2 = camSubsystem.apriltag(2);
-    System.out.println("tagData: " + tagData);
+    long id = tagIdEntry.getInteger(1);
+        var tagData = camSubsystem.apriltag((int)id);
     // angle = x < 0 ? -30 : 30;
     // turnAngle = x;
     if (tagData != null) { 
+    System.out.println(id);
     x = tagData.x;
     z = tagData.z;
-    System.out.println("x: " + x + " z: " + z);
-    System.out.println("tagData.x: " + tagData.x + " tagData.z: " + tagData.z);
     tagRotation = tagData.alpha;
     System.out.println("Alpha " + tagRotation);
     if (tagRotation > 0) {fullTurnAngle = 90-tagRotation*conversionToDeg;}
@@ -77,8 +74,6 @@ public class TurnToTagCommand extends CommandBase {
 
     //rotationCommand.andThen(moveDistanceB).andThen(rotate90).andThen(moveDistanceA).schedule();
     //rotationCommand.schedule();
-  } else if (tagData2 != null) { 
-    System.out.println("Tag Id 2 Found!");
   }
 }
 
