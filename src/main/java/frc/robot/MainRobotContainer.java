@@ -109,8 +109,8 @@ public class MainRobotContainer {
         button7.onTrue(turnToTagCommand);
         // final CommandBase majorCommand = createMajorsMainCommand();
         Abutton1.onTrue(rotationFlip);
-        Abutton2.onTrue(retractCommand);
-        Abutton3.onTrue(stretchCommand);
+        Abutton2.whileTrue(retractCommand);
+        Abutton3.whileTrue(stretchCommand);
         // Abutton5.whileTrue(new InstantCommand(armSubsystem::rotateUp, armSubsystem));
         // //can't use the instant command stuff when I need to use the stop function
         // Abutton6.whileTrue(new InstantCommand(armSubsystem::rotateDown,

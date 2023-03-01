@@ -16,7 +16,7 @@ public class ClawSubsystem extends SubsystemBase {
       : new CANSparkMax(Constants.ClawMotorCANID, Constants.motorType);
 
   public ClawSubsystem() {
-    ClawMotor.setInverted(true);
+    if(Constants.ClawMotorCANID < 0) {} else ClawMotor.setInverted(true);
   }
 
   @Override
