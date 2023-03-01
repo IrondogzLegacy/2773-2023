@@ -61,6 +61,7 @@ public class ArmSubsystem extends SubsystemBase {
     if (armEncoder.getPosition() < stretch_finish) {
       stretch();
     }
+    else stopArmExtension();
   }
 
   public void stopArmExtension() {
