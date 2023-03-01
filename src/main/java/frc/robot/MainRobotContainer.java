@@ -137,6 +137,7 @@ public class MainRobotContainer {
                 return true;
             }
         });
+        button3.onTrue(stretch1RevCommand);
         button4.whileTrue(activeBraking);
         button5.onTrue(turnToTagCommand);
         button6.onTrue(grabOnCommand);
