@@ -40,7 +40,7 @@ public class ArmSubsystem extends SubsystemBase {
     // counterEntry.setDouble(armEncoder.getPosition());
     distanceEntry.setDouble(lengthSensor.getVoltage());
     switchEntry.setBoolean(limitSwitch.get());
-    System.out.println(armEncoder.getPosition());
+    //System.out.println(armEncoder.getPosition());
   }
 
   public void stretch() {
