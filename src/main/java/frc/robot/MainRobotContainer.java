@@ -21,6 +21,7 @@ public class MainRobotContainer {
     private final ClawSubsystem GrabOnSubsystem = new ClawSubsystem();
     private final MainCamSubsystem camSubsystem = new MainCamSubsystem();
     private final ArmSubsystem armSubsystem = new ArmSubsystem();
+    private final PneumaticsSubsystem PnuematicsSubsystem = new PneumaticsSubsystem();
 
     // Autonomous Section
     public Command getAutonomousCommand1() {
@@ -103,14 +104,47 @@ public class MainRobotContainer {
         final RotateUpCommand rotateUp = new RotateUpCommand(armSubsystem);
         final RotateDownCommand rotateDown = new RotateDownCommand(armSubsystem);
 
+        // actuate
+        button1.whileTrue(
+                new CommandBase() {
+                    {
+                        addRequirements(PnuematicsSubsystem);
+                    }
+
+                    @Override
+                    public void initialize() {
+                        PnuematicsSubsystem.deployIntake();
+                    }
+
+                    @Override
+                    public boolean isFinished() {
+                        return true;
+                    }
+                });
+        // stop actuation
+        button2.whileTrue(new CommandBase() {
+            {
+                addRequirements(PnuematicsSubsystem);
+            }
+
+            @Override
+            public void initialize() {
+                PnuematicsSubsystem.retractIntake();
+            }
+
+            @Override
+            public boolean isFinished() {
+                return true;
+            }
+        });
         button4.whileTrue(activeBraking);
         button5.onTrue(turnToTagCommand);
         button6.onTrue(grabOnCommand);
         button7.onTrue(turnToTagCommand);
         // final CommandBase majorCommand = createMajorsMainCommand();
         Abutton1.onTrue(rotationFlip);
-        Abutton2.onTrue(retractCommand);
-        Abutton3.onTrue(stretchCommand);
+        Abutton2.whileTrue(retractCommand);
+        Abutton3.whileTrue(stretchCommand);
         // Abutton5.whileTrue(new InstantCommand(armSubsystem::rotateUp, armSubsystem));
         // //can't use the instant command stuff when I need to use the stop function
         // Abutton6.whileTrue(new InstantCommand(armSubsystem::rotateDown,

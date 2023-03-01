@@ -11,26 +11,32 @@ import com.revrobotics.CANSparkMax;
 
 //creates a public class FlagMotorSubsystem that is based off of SystemBase
 public class ClawSubsystem extends SubsystemBase {
- 
- private final CANSparkMax ClawMotor = new CANSparkMax(Constants.ClawMotorCANID, Constants.motorType);
 
-  public ClawSubsystem () { 
-   ClawMotor.setInverted(true);
+  private final CANSparkMax ClawMotor = Constants.ClawMotorCANID < 0 ? null
+      : new CANSparkMax(Constants.ClawMotorCANID, Constants.motorType);
+
+  public ClawSubsystem() {
+    if(Constants.ClawMotorCANID < 0) {} else ClawMotor.setInverted(true);
   }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
   }
+
   // Controls the claw motor
   public void stopClawMotor() {
     ClawMotor.set(0);
   }
+
   public void Grab() {
-   ClawMotor.set(Constants.ClawMotorSpeed);
+    ClawMotor.set(Constants.ClawMotorSpeed);
   }
+
   public void Release() {
-  ClawMotor.set(Constants.ReleaseSpeed);
+    ClawMotor.set(Constants.ReleaseSpeed);
   }
 }
-//Commented out code since this was removed from the bot, will add it back when it is added back!
-//2/16/2023 Added back!
+// Commented out code since this was removed from the bot, will add it back when
+// it is added back!
+// 2/16/2023 Added back!
