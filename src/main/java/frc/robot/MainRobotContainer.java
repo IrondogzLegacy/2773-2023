@@ -19,7 +19,7 @@ public class MainRobotContainer {
     private final MainDriveCommand driveCommand = new MainDriveCommand(driveSubsystem, main_stick);
     private final MainNavigationSubsystem navigationSubsystem = new MainNavigationSubsystem();
     private final ClawSubsystem GrabOnSubsystem = new ClawSubsystem();
-    private final MainCamSubsystem camSubsystem = new MainCamSubsystem();
+    //private final MainCamSubsystem camSubsystem = new MainCamSubsystem();
     private final ArmSubsystem armSubsystem = new ArmSubsystem();
     private final PneumaticsSubsystem PnuematicsSubsystem = new PneumaticsSubsystem();
 
@@ -85,8 +85,8 @@ public class MainRobotContainer {
         final GrabOnCommand grabOnCommand = new GrabOnCommand(GrabOnSubsystem, main_stick);
         final LetGoCommand letGoCommand = new LetGoCommand(GrabOnSubsystem, main_stick);
         final RotationCommand rotate90 = new RotationCommand(driveSubsystem, navigationSubsystem, 90);
-        final TurnToTagCommand turnToTagCommand = new TurnToTagCommand(driveSubsystem, camSubsystem,
-                navigationSubsystem, rotate90);
+        //final TurnToTagCommand turnToTagCommand = new TurnToTagCommand(driveSubsystem, camSubsystem,
+                //navigationSubsystem, rotate90);
         final RetractCommand retractCommand = new RetractCommand(armSubsystem);
         final StretchCommand stretchCommand = new StretchCommand(armSubsystem);
         final Stretch1RevCommand stretch1RevCommand = new Stretch1RevCommand(armSubsystem);
@@ -139,9 +139,9 @@ public class MainRobotContainer {
         });
         button3.onTrue(stretch1RevCommand);
         button4.whileTrue(activeBraking);
-        button5.onTrue(turnToTagCommand);
+        //button5.onTrue(turnToTagCommand);
         button6.onTrue(grabOnCommand);
-        button7.onTrue(turnToTagCommand);
+        //button7.onTrue(turnToTagCommand);
         // final CommandBase majorCommand = createMajorsMainCommand();
         Abutton1.onTrue(rotationFlip);
         Abutton2.whileTrue(retractCommand);
