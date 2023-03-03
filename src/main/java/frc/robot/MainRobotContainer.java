@@ -137,7 +137,7 @@ public class MainRobotContainer {
                 return true;
             }
         });
-        button3.whileTrue(new InstantCommand(navigationSubsystem::printGyroValues, navigationSubsystem));
+        button3.onTrue(new InstantCommand(navigationSubsystem::printGyroValues, navigationSubsystem));
         button4.whileTrue(activeBraking);
         //button5.onTrue(turnToTagCommand);
         button6.onTrue(grabOnCommand);
