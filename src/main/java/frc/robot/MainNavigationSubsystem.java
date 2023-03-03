@@ -54,14 +54,14 @@ public class MainNavigationSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     prevAngleZ = currentAngleZ;
-    currentAngleZ = ahrs.getYaw();
+    currentAngleZ = ahrs.getRoll() - 90;
     if (prevAngleZ < -90 && currentAngleZ > 90) {
       angleCorrectionZ -= 360;
     }
     if (prevAngleZ > 90 && currentAngleZ < -90) {
       angleCorrectionZ += 360;
     }
-    currentAngleX = ahrs.getRoll();
+    currentAngleX = 90 + ahrs.getYaw();
     // check if calibration period is in progress.
     if (calibrationTimer != null && calibrationTimer.hasElapsed(2)) {
       // set current angle as correction.
