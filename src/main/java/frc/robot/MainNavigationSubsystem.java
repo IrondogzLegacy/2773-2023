@@ -102,4 +102,10 @@ public void resetGyro()
   }
 
   public double getDistance() {return rightEncoder.getDistance();}
+
+  public void printGyroValues() {
+  System.out.println(ahrs.getRoll() + " roll");
+  System.out.println(ahrs.getYaw() + " yaw");
+  System.out.println(ahrs.getPitch() + " pitch");
+}
 }
