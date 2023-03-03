@@ -139,7 +139,7 @@ public class MainRobotContainer {
         });
         InstantCommand printGyroValues = new InstantCommand(navigationSubsystem::printGyroValues, navigationSubsystem);
         button3.onTrue(printGyroValues);
-        button4.whileTrue(activeBraking);
+        button4.whileTrue(rotate90);
         //button5.onTrue(turnToTagCommand);
         button6.onTrue(grabOnCommand);
         //button7.onTrue(turnToTagCommand);
