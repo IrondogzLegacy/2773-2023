@@ -41,6 +41,7 @@ public class MainNavigationSubsystem extends SubsystemBase {
   // Gyro :
   private AHRS ahrs = new AHRS(SPI.Port.kMXP); /* Alternatives:  SPI.Port.kMXP, I2C.Port.kMXP or SerialPort.Port.kUSB */
   
+  
   //The left/right angles
   private double prevAngleZ = 0;
   private double angleCorrectionZ = 0;
