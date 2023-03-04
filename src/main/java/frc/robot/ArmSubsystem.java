@@ -108,4 +108,7 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public void printVoltage() {System.out.println(armPotent2.getVoltage());}
+
+
+  public void printMap() {System.out.println(getRotationAngle());}
 }
