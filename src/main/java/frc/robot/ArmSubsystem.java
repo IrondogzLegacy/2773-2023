@@ -26,13 +26,16 @@ public class ArmSubsystem extends SubsystemBase {
       : new CANSparkMax(Constants.ArmRotationMotorCANID, Constants.motorType);
 
   private final DigitalInput limitSwitch = new DigitalInput(9);
-  private final SparkMaxLimitSwitch limit2 = armMotor.getForwardLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
+  private final SparkMaxLimitSwitch limit2 = armMotor.getReverseLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
   private final AnalogInput lengthSensor = new AnalogInput(0);
 
   private final NetworkTable table = NetworkTableInstance.getDefault().getTable("Arm");
   private final NetworkTableEntry counterEntry = table.getEntry("count");
   private final NetworkTableEntry distanceEntry = table.getEntry("length");
   private final NetworkTableEntry switchEntry = table.getEntry("switch");
+  private final NetworkTableEntry armAngleEntry = table.getEntry("angle");
+  private final NetworkTableEntry armVoltageEntry = table.getEntry("voltage");
+
 
   SparkMaxAnalogSensor armPotent = Constants.IsTestRobot ? null
       : armMotor.getAnalog(SparkMaxAnalogSensor.Mode.kAbsolute);
@@ -51,6 +54,8 @@ public class ArmSubsystem extends SubsystemBase {
     counterEntry.setDouble(armEncoder.getPosition());
     distanceEntry.setDouble(lengthSensor.getVoltage());
     switchEntry.setBoolean(limit2.isPressed());
+    armAngleEntry.setDouble(getRotationAngle());
+    armVoltageEntry.setDouble(armPotent2.getVoltage());
     // System.out.println(armEncoder.getPosition());
   }
 
@@ -59,10 +64,12 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public void retract() {
-    if (limit2.isPressed()) {
+    if (! limit2.isPressed()) {
       armMotor.set(-Constants.ArmMotorSpeed);
     } else {
       armMotor.set(0);
+      ResetArmEncoder();
+
     }
   }
 
