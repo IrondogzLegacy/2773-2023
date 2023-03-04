@@ -16,7 +16,7 @@ public class MainRobotContainer {
     private final Joystick main_stick = new Joystick(0);
     private final Joystick arm_stick = new Joystick(1);
     private final MainDriveSubsystem driveSubsystem = new MainDriveSubsystem();
-    private final MainDriveCommand driveCommand = new MainDriveCommand(driveSubsystem, main_stick);
+    private final MainDriveCommand driveCommand = new MainDriveCommand(driveSubsystem, main_stick, arm_stick);
     private final MainNavigationSubsystem navigationSubsystem = new MainNavigationSubsystem();
     private final ClawSubsystem GrabOnSubsystem = new ClawSubsystem();
     // private final MainCamSubsystem camSubsystem = new MainCamSubsystem();
