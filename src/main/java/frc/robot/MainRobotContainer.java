@@ -140,8 +140,9 @@ public class MainRobotContainer {
                 return true;
             }
         });
-        InstantCommand printGyroValues = new InstantCommand(navigationSubsystem::printGyroValues, navigationSubsystem);
-        button3.onTrue(printGyroValues);
+        InstantCommand printGyroValues = new InstantCommand(navigationSubsystem::printGyroValues);
+        InstantCommand printVoltage = new InstantCommand(armSubsystem::printVoltage);
+        button3.onTrue(printVoltage);
         button4.whileTrue(rotate90);
         //button5.onTrue(turnToTagCommand);
         button5.onTrue(move2);

@@ -46,8 +46,8 @@ public class Constants extends MainConstants {
 
   //Constants for the potentiometer values in the arm (using map function)
   public static final double ArmBottomVoltage = 1;
-  public static final double ArmTopVoltage = 3;
+  public static final double ArmTopVoltage = 0.12;
   public static final double ArmMinDeg = -45;
-  public static final double ArmMaxDeg = 30;
+  public static final double ArmMaxDeg = 25;
 }
 // Pseudocode updated 1/23/2023 last, MainConstants
