@@ -28,7 +28,7 @@ public class Constants extends MainConstants {
   // constant for ArmMotor Speed
   public static final double ArmMotorSpeed = 0.4;
   public static final double ArmRotationSpeed = 0.4;
-  public static final double ArmEncoderRatio = 0.04 * 0.75 * 3.14;
+  public static final double ArmEncoderRatio = 0.04 * 7./8. * 3.14;
 
   public static final double BalanceSpeed = 0.3;
 
@@ -45,8 +45,8 @@ public class Constants extends MainConstants {
   public static final double AutoBrakingSpeed = 0.2;
 
   //Constants for the potentiometer values in the arm (using map function)
-  public static final double ArmBottomVoltage = 3.922;
-  public static final double ArmTopVoltage = 1.944;
+  public static final double ArmBottomVoltage = 4.14;
+  public static final double ArmTopVoltage = 2.14;
   public static final double ArmMinDeg = -83;
   public static final double ArmMaxDeg = 20;
 }
