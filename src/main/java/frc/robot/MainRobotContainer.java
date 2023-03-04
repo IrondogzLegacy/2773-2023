@@ -85,6 +85,7 @@ public class MainRobotContainer {
         final GrabOnCommand grabOnCommand = new GrabOnCommand(GrabOnSubsystem, main_stick);
         final LetGoCommand letGoCommand = new LetGoCommand(GrabOnSubsystem, main_stick);
         final RotationCommand rotate90 = new RotationCommand(driveSubsystem, navigationSubsystem, 90);
+        final MoveDistanceCommand move2 = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, 2);
         //final TurnToTagCommand turnToTagCommand = new TurnToTagCommand(driveSubsystem, camSubsystem,
                 //navigationSubsystem, rotate90);
         final RetractCommand retractCommand = new RetractCommand(armSubsystem);
@@ -141,6 +142,7 @@ public class MainRobotContainer {
         button3.onTrue(printGyroValues);
         button4.whileTrue(rotate90);
         //button5.onTrue(turnToTagCommand);
+        button5.onTrue(move2);
         button6.onTrue(grabOnCommand);
         //button7.onTrue(turnToTagCommand);
         // final CommandBase majorCommand = createMajorsMainCommand();
