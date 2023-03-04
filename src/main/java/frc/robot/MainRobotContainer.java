@@ -43,6 +43,7 @@ public class MainRobotContainer {
     public Command getAutonomousCommand2() {
         final MoveDistanceCommand move2 = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, -10);
         final AutoBalanceCommand autoBalance = new AutoBalanceCommand(driveSubsystem, navigationSubsystem);
+        //AutoBalance requires gyro.
 
         var moveUntilandAutoBalance = move2
                 .until(() -> navigationSubsystem.getPitch() > 12 || navigationSubsystem.getPitch() < -12)
@@ -80,6 +81,7 @@ public class MainRobotContainer {
     JoystickButton Abutton4 = new JoystickButton(arm_stick, 4);
     JoystickButton Abutton5 = new JoystickButton(arm_stick, 5);
     JoystickButton Abutton6 = new JoystickButton(arm_stick, 6);
+    //Abuttons are for the second controller
 
     private void configureButtonBindings() {
         final GrabOnCommand grabOnCommand = new GrabOnCommand(GrabOnSubsystem, main_stick);
