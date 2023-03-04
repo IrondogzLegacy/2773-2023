@@ -93,7 +93,7 @@ public class ArmSubsystem extends SubsystemBase {
 
   public void ResetArmEncoder() {
     armEncoder.setPosition(0);
-    printEncoder();
+    //printEncoder();
   }
 
   public void rotateUp() {
