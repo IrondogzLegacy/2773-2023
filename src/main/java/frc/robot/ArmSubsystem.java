@@ -19,7 +19,8 @@ public class ArmSubsystem extends SubsystemBase {
 
   private final CANSparkMax armMotor = Constants.IsTestRobot ? null
       : new CANSparkMax(Constants.ArmExtensionMotorCANID, Constants.motorType);
-  private final RelativeEncoder armEncoder = armMotor.getEncoder();
+  private final RelativeEncoder armEncoder = Constants.IsTestRobot ? null
+  : armMotor.getEncoder();
   private final CANSparkMax armRotationMotor = Constants.IsTestRobot ? null
       : new CANSparkMax(Constants.ArmRotationMotorCANID, Constants.motorType);
 
