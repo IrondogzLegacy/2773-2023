@@ -17,7 +17,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ArmSubsystem extends SubsystemBase {
 
-  private final CANSparkMax armMotor = new CANSparkMax(Constants.ArmExtensionMotorCANID, Constants.motorType);
+  private final CANSparkMax armMotor = Constants.IsTestRobot ? null
+      : new CANSparkMax(Constants.ArmExtensionMotorCANID, Constants.motorType);
   private final RelativeEncoder armEncoder = armMotor.getEncoder();
   private final CANSparkMax armRotationMotor = Constants.IsTestRobot ? null
       : new CANSparkMax(Constants.ArmRotationMotorCANID, Constants.motorType);
@@ -30,7 +31,8 @@ public class ArmSubsystem extends SubsystemBase {
   private final NetworkTableEntry distanceEntry = table.getEntry("length");
   private final NetworkTableEntry switchEntry = table.getEntry("switch");
 
-  SparkMaxAnalogSensor armPotent = armMotor.getAnalog(SparkMaxAnalogSensor.Mode.kAbsolute);
+  SparkMaxAnalogSensor armPotent = Constants.IsTestRobot ? null
+      : armMotor.getAnalog(SparkMaxAnalogSensor.Mode.kAbsolute);
 
   public ArmSubsystem() {
     // unnecessary but I don't care
@@ -95,5 +97,10 @@ public class ArmSubsystem extends SubsystemBase {
 
   private static double map(double x, double x1, double x2, double y1, double y2) {
     return (x - x1) / (x2 - x1) * (y2 - y1) + y1;
+  }
+
+  public double getRotationAngle() {
+    return map(armPotent.getVoltage(), Constants.ArmBottomVoltage, Constants.ArmTopVoltage, Constants.ArmMinDeg,
+        Constants.ArmMaxDeg);
   }
 }
