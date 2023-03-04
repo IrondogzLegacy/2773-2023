@@ -7,6 +7,7 @@ package frc.robot;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxAnalogSensor;
+import com.revrobotics.SparkMaxLimitSwitch;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.NetworkTable;
@@ -25,6 +26,7 @@ public class ArmSubsystem extends SubsystemBase {
       : new CANSparkMax(Constants.ArmRotationMotorCANID, Constants.motorType);
 
   private final DigitalInput limitSwitch = new DigitalInput(9);
+  private final SparkMaxLimitSwitch limit2 = armMotor.getForwardLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
   private final AnalogInput lengthSensor = new AnalogInput(0);
 
   private final NetworkTable table = NetworkTableInstance.getDefault().getTable("Arm");
@@ -48,7 +50,7 @@ public class ArmSubsystem extends SubsystemBase {
   public void periodic() {
     counterEntry.setDouble(armEncoder.getPosition());
     distanceEntry.setDouble(lengthSensor.getVoltage());
-    switchEntry.setBoolean(limitSwitch.get());
+    switchEntry.setBoolean(limit2.isPressed());
     // System.out.println(armEncoder.getPosition());
   }
 
@@ -57,7 +59,7 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public void retract() {
-    if (limitSwitch.get()) {
+    if (limit2.isPressed()) {
       armMotor.set(-Constants.ArmMotorSpeed);
     } else {
       armMotor.set(0);
