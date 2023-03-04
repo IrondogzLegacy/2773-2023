@@ -46,7 +46,7 @@ public class ArmSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // counterEntry.setDouble(armEncoder.getPosition());
+    counterEntry.setDouble(armEncoder.getPosition());
     distanceEntry.setDouble(lengthSensor.getVoltage());
     switchEntry.setBoolean(limitSwitch.get());
     // System.out.println(armEncoder.getPosition());
