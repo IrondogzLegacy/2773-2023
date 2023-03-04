@@ -14,6 +14,8 @@ public class MainDriveCommand extends CommandBase {
   private final Joystick joystick;
   //creating a private class for the MainDriveSubsystem
   private final MainDriveSubsystem driveSubsystem;
+
+  // private final Joystick secondaryJoystick;
   /** Creates a new DriveCommand using the two above classes */
   public MainDriveCommand(MainDriveSubsystem driveSubsystem, Joystick joystick) {
     // Use addRequirements() here to declare subsystem dependencies, requiring references to those for it to run.
