@@ -103,4 +103,6 @@ public class ArmSubsystem extends SubsystemBase {
     return map(armPotent.getVoltage(), Constants.ArmBottomVoltage, Constants.ArmTopVoltage, Constants.ArmMinDeg,
         Constants.ArmMaxDeg);
   }
+
+  public void printVoltage() {System.out.println(armPotent.getVoltage());}
 }
