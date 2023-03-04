@@ -1,5 +1,7 @@
 package frc.robot;
 
+import java.time.Instant;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -142,6 +144,7 @@ public class MainRobotContainer {
         });
         InstantCommand printGyroValues = new InstantCommand(navigationSubsystem::printGyroValues);
         InstantCommand printVoltage = new InstantCommand(armSubsystem::printVoltage);
+        InstantCommand printMap = new InstantCommand(armSubsystem::printMap);
         button3.onTrue(printVoltage);
         button4.whileTrue(rotate90);
         //button5.onTrue(turnToTagCommand);
