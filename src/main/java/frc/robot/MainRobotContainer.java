@@ -176,7 +176,8 @@ public class MainRobotContainer {
             final RotateDownCommand rotateDown = new RotateDownCommand(armSubsystem);
             InstantCommand printVoltage = new InstantCommand(armSubsystem::printVoltage);
             InstantCommand printMap = new InstantCommand(armSubsystem::printMap);
-            button3.onTrue(printVoltage);
+            InstantCommand getArmAngle = new InstantCommand(armSubsystem::getRotationAngle);
+            button3.onTrue(getArmAngle);
             Abutton3.whileTrue(retractCommand);
             Abutton4.whileTrue(stretchCommand);
             // Abutton5.whileTrue(new InstantCommand(armSubsystem::rotateUp, armSubsystem));
