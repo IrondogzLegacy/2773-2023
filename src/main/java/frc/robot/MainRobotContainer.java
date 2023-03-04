@@ -91,7 +91,11 @@ public class MainRobotContainer {
         final MoveDistanceCommand move2 = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, 2);
         final RotationCommand rotationFlip = new RotationCommand(driveSubsystem, navigationSubsystem, 180);
         final ActiveBrakingCommand activeBraking = new ActiveBrakingCommand(driveSubsystem, navigationSubsystem);
+        final AutoBalanceCommand autoBalance = new AutoBalanceCommand(driveSubsystem, navigationSubsystem);
+
         // actuate
+        
+        
         button1.whileTrue(
                 new CommandBase() {
                     {
@@ -125,13 +129,43 @@ public class MainRobotContainer {
             }
         });
         InstantCommand printGyroValues = new InstantCommand(navigationSubsystem::printGyroValues);
-        button4.whileTrue(rotate90);
+        button4.whileTrue(activeBraking);
         // button5.onTrue(turnToTagCommand);
-        button5.onTrue(move2);
-        button6.onTrue(grabOnCommand);
+        //button5.onTrue(move2);
+        //button6.onTrue(grabOnCommand);
         // button7.onTrue(turnToTagCommand);
         // final CommandBase majorCommand = createMajorsMainCommand();
-        Abutton1.onTrue(rotationFlip);
+        Abutton1.onTrue(new CommandBase() {
+            {
+                addRequirements(PnuematicsSubsystem);
+            }
+
+            @Override
+            public void initialize() {
+                PnuematicsSubsystem.deployIntake();
+            }
+
+            @Override
+            public boolean isFinished() {
+                return true;
+            }
+        });
+        Abutton2.whileTrue(new CommandBase() {
+            {
+                addRequirements(PnuematicsSubsystem);
+            }
+
+            @Override
+            public void initialize() {
+                PnuematicsSubsystem.retractIntake();
+            }
+
+            @Override
+            public boolean isFinished() {
+                return true;
+            }
+        });
+
         if (!Constants.IsTestRobot) {
             final RetractCommand retractCommand = new RetractCommand(armSubsystem);
             final StretchCommand stretchCommand = new StretchCommand(armSubsystem);
@@ -141,9 +175,9 @@ public class MainRobotContainer {
             final RotateDownCommand rotateDown = new RotateDownCommand(armSubsystem);
             InstantCommand printVoltage = new InstantCommand(armSubsystem::printVoltage);
             InstantCommand printMap = new InstantCommand(armSubsystem::printMap);
-            button3.onTrue(printVoltage);
-            Abutton2.whileTrue(retractCommand);
-            Abutton3.whileTrue(stretchCommand);
+            button3.onTrue(autoBalance);
+            Abutton3.whileTrue(retractCommand);
+            Abutton4.whileTrue(stretchCommand);
             // Abutton5.whileTrue(new InstantCommand(armSubsystem::rotateUp, armSubsystem));
             // //can't use the instant command stuff when I need to use the stop function
             // Abutton6.whileTrue(new InstantCommand(armSubsystem::rotateDown,
