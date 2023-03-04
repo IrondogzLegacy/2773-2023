@@ -22,7 +22,7 @@ public class MainRobotContainer {
     // private final MainCamSubsystem camSubsystem = new MainCamSubsystem();
     private final ArmSubsystem armSubsystem = Constants.IsTestRobot ? null
             : new ArmSubsystem();
-    private final PneumaticsSubsystem PnuematicsSubsystem = new PneumaticsSubsystem();
+    private final PneumaticsSubsystem pnuematicsSubsystem = new PneumaticsSubsystem();
 
     // Autonomous Section
     public Command getAutonomousCommand1() {
@@ -65,6 +65,7 @@ public class MainRobotContainer {
         configureButtonBindings();
 
         driveSubsystem.setDefaultCommand(driveCommand);
+        armSubsystem.setDefaultCommand(armControlCommand);
     }
 
     // Controls how it grabs or lets go
@@ -96,38 +97,9 @@ public class MainRobotContainer {
         // actuate
         
         
-        button1.whileTrue(
-                new CommandBase() {
-                    {
-                        addRequirements(PnuematicsSubsystem);
-                    }
-
-                    @Override
-                    public void initialize() {
-                        PnuematicsSubsystem.deployIntake();
-                    }
-
-                    @Override
-                    public boolean isFinished() {
-                        return true;
-                    }
-                });
+        button1.whileTrue(new InstantCommand(pnuematicsSubsystem::deployIntake, pnuematicsSubsystem));
         // stop actuation
-        button2.whileTrue(new CommandBase() {
-            {
-                addRequirements(PnuematicsSubsystem);
-            }
-
-            @Override
-            public void initialize() {
-                PnuematicsSubsystem.retractIntake();
-            }
-
-            @Override
-            public boolean isFinished() {
-                return true;
-            }
-        });
+        button2.whileTrue(new InstantCommand (pnuematicsSubsystem::retractIntake, pnuematicsSubsystem));
         button3.whileTrue(autoBalance);
         InstantCommand printGyroValues = new InstantCommand(navigationSubsystem::printGyroValues);
         button4.whileTrue(activeBraking);
@@ -138,12 +110,12 @@ public class MainRobotContainer {
         // final CommandBase majorCommand = createMajorsMainCommand();
         Abutton1.onTrue(new CommandBase() {
             {
-                addRequirements(PnuematicsSubsystem);
+                addRequirements(pnuematicsSubsystem);
             }
 
             @Override
             public void initialize() {
-                PnuematicsSubsystem.deployIntake();
+                pnuematicsSubsystem.deployIntake();
             }
 
             @Override
@@ -153,12 +125,12 @@ public class MainRobotContainer {
         });
         Abutton2.whileTrue(new CommandBase() {
             {
-                addRequirements(PnuematicsSubsystem);
+                addRequirements(pnuematicsSubsystem);
             }
 
             @Override
             public void initialize() {
-                PnuematicsSubsystem.retractIntake();
+                pnuematicsSubsystem.retractIntake();
             }
 
             @Override
