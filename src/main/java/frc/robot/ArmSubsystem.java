@@ -107,5 +107,5 @@ public class ArmSubsystem extends SubsystemBase {
         Constants.ArmMaxDeg);
   }
 
-  public void printVoltage() {System.out.println(armPotent.getVoltage());}
+  public void printVoltage() {System.out.println(armPotent2.getVoltage());}
 }
