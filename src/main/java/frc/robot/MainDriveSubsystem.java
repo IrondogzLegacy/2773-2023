@@ -40,14 +40,14 @@ public class MainDriveSubsystem extends SubsystemBase {
 
   // Creates a SlewRateLimiter that limits the rate of change of the signal to 0.5 units per second
   SlewRateLimiter filter = new SlewRateLimiter(0.5);
-  LinearFilter linfilter = LinearFilter.singlePoleIIR(0.1, 0.02);
+  LinearFilter linfilter = LinearFilter.singlePoleIIR(0.05, 0.02);
 
   public void arcadeDrive(double speed, double rotation) {
     // Drive with arcade drive.
     // That means that the Y axis drives forward and backward, and the X turns left and right.
    
     mainDrive.arcadeDrive(// Calculates the next value of the output
-    linfilter.calculate(speed * Constants.SpeedFactor), rotation * Constants.RotationFactor);
+    (speed * Constants.SpeedFactor), (rotation * Constants.RotationFactor));
 
   }
   public void rotation(double speed) {
