@@ -34,7 +34,7 @@ public class ArmSubsystem extends SubsystemBase {
   SparkMaxAnalogSensor armPotent = Constants.IsTestRobot ? null
       : armMotor.getAnalog(SparkMaxAnalogSensor.Mode.kAbsolute);
 
-    AnalogInput armPotent2 = new AnalogInput(0);
+    AnalogInput armPotent2 = new AnalogInput(1);
 
 
   public ArmSubsystem() {
