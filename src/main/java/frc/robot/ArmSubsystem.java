@@ -34,6 +34,9 @@ public class ArmSubsystem extends SubsystemBase {
   SparkMaxAnalogSensor armPotent = Constants.IsTestRobot ? null
       : armMotor.getAnalog(SparkMaxAnalogSensor.Mode.kAbsolute);
 
+    AnalogInput armPotent2 = new AnalogInput(0);
+
+
   public ArmSubsystem() {
     // unnecessary but I don't care
     armMotor.setInverted(true);
@@ -100,7 +103,7 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public double getRotationAngle() {
-    return map(armPotent.getVoltage(), Constants.ArmBottomVoltage, Constants.ArmTopVoltage, Constants.ArmMinDeg,
+    return map(armPotent2.getVoltage(), Constants.ArmBottomVoltage, Constants.ArmTopVoltage, Constants.ArmMinDeg,
         Constants.ArmMaxDeg);
   }
 }
