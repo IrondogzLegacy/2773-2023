@@ -38,7 +38,7 @@ public class MainDriveSubsystem extends SubsystemBase {
   }
 
   // Creates a SlewRateLimiter that limits the rate of change of the signal to 0.5 units per second
-  SlewRateLimiter filter = new SlewRateLimiter(0.5);
+  SlewRateLimiter filter = new SlewRateLimiter(0.8);
   
   public void arcadeDrive(double speed, double rotation) {
     // Drive with arcade drive.
