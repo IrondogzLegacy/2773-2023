@@ -62,7 +62,7 @@ public class MainNavigationSubsystem extends SubsystemBase {
     if (prevAngleZ > 90 && currentAngleZ < -90) {
       angleCorrectionZ += 360;
     }
-    currentAngleX = ahrs.getRoll();
+    currentAngleX = Constants.IsTestRobot ? ahrs.getRoll() : ahrs.getPitch();
     // check if calibration period is in progress.
     if (calibrationTimer != null && calibrationTimer.hasElapsed(2)) {
       // set current angle as correction.
@@ -75,6 +75,7 @@ public class MainNavigationSubsystem extends SubsystemBase {
     rightEncoderEntry.setDouble(rightEncoder.getDistance());
     directionEntry.setDouble(getAngle());
     pitchEntry.setDouble(getPitch());
+
   }
 
   public double getRightEncoder()
