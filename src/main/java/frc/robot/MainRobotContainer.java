@@ -112,8 +112,8 @@ public class MainRobotContainer {
         //button5.onTrue(move2);
         //button6.onTrue(grabOnCommand);
         // final CommandBase majorCommand = createMajorsMainCommand();
-        Abutton1.onTrue(closeArm);
-        Abutton2.whileTrue(openArm);
+        Abutton1.onTrue(openCloseArm);
+        //Abutton2.whileTrue(openArm);
 
         if (!Constants.IsTestRobot) {
             final RetractCommand retractCommand = new RetractCommand(armSubsystem);
@@ -124,6 +124,7 @@ public class MainRobotContainer {
             final RotateDownCommand rotateDown = new RotateDownCommand(armSubsystem);
             InstantCommand printVoltage = new InstantCommand(armSubsystem::printVoltage);
             InstantCommand printMap = new InstantCommand(armSubsystem::printMap);
+            button2.onTrue(printVoltage);
             //button3.onTrue(printMap);
             Abutton3.whileTrue(retractCommand);
             Abutton4.whileTrue(stretchCommand);
