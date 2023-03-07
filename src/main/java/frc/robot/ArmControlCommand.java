@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class ArmControlCommand extends CommandBase {
   /** Creates a new ArmControlCommand. */
   private final ArmSubsystem armSubsystem;
-  private final JoystickButton armControlStick;
+  private final Trigger armControlStick;
 
   public ArmControlCommand(ArmSubsystem armSubsystem, Trigger armControlStick) {
     this.armSubsystem = armSubsystem;

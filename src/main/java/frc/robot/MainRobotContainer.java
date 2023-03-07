@@ -23,6 +23,7 @@ public class MainRobotContainer {
     private final ArmSubsystem armSubsystem = Constants.IsTestRobot ? null
             : new ArmSubsystem();
     private final PneumaticsSubsystem pnuematicsSubsystem = new PneumaticsSubsystem();
+    private final ArmControlCommand armControlCommand = new ArmControlCommand(armSubsystem, arm_stick);
 
     // Autonomous Section
     public Command getAutonomousCommand1() {
@@ -95,11 +96,12 @@ public class MainRobotContainer {
         final AutoBalanceCommand autoBalance = new AutoBalanceCommand(driveSubsystem, navigationSubsystem);
 
         // actuate
+        InstantCommand closeArm = new InstantCommand(pnuematicsSubsystem::deployIntake, pnuematicsSubsystem);
+        InstantCommand openArm = new InstantCommand (pnuematicsSubsystem::retractIntake, pnuematicsSubsystem);
         
-        
-        button1.whileTrue(new InstantCommand(pnuematicsSubsystem::deployIntake, pnuematicsSubsystem));
+        button1.whileTrue(closeArm);
         // stop actuation
-        button2.whileTrue(new InstantCommand (pnuematicsSubsystem::retractIntake, pnuematicsSubsystem));
+        button2.whileTrue(openArm);
         button3.whileTrue(autoBalance);
         InstantCommand printGyroValues = new InstantCommand(navigationSubsystem::printGyroValues);
         button4.whileTrue(activeBraking);
