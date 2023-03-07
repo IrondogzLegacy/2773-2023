@@ -94,16 +94,15 @@ public class MainRobotContainer {
         final RotationCommand rotationFlip = new RotationCommand(driveSubsystem, navigationSubsystem, 180);
         final ActiveBrakingCommand activeBraking = new ActiveBrakingCommand(driveSubsystem, navigationSubsystem);
         final AutoBalanceCommand autoBalance = new AutoBalanceCommand(driveSubsystem, navigationSubsystem);
-
-        // actuate
         InstantCommand closeArm = new InstantCommand(pnuematicsSubsystem::deployIntake, pnuematicsSubsystem);
         InstantCommand openArm = new InstantCommand (pnuematicsSubsystem::retractIntake, pnuematicsSubsystem);
+        //The below commands are used for printing values / calibration
+        InstantCommand printGyroValues = new InstantCommand(navigationSubsystem::printGyroValues);
+
         
         button1.whileTrue(closeArm);
-        // stop actuation
         button2.whileTrue(openArm);
         button3.whileTrue(autoBalance);
-        InstantCommand printGyroValues = new InstantCommand(navigationSubsystem::printGyroValues);
         button4.whileTrue(activeBraking);
         // button5.onTrue(turnToTagCommand);
         //button5.onTrue(move2);
