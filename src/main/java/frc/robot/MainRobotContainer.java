@@ -23,7 +23,7 @@ public class MainRobotContainer {
     private final ArmSubsystem armSubsystem = Constants.IsTestRobot ? null
             : new ArmSubsystem();
     private final PneumaticsSubsystem pnuematicsSubsystem = new PneumaticsSubsystem();
-    private final ArmControlCommand armControlCommand = new ArmControlCommand(armSubsystem, arm_stick);
+    private final ArmControlCommand armControlCommand = new ArmControlCommand(armSubsystem);
 
     // Autonomous Section
     public Command getAutonomousCommand1() {
