@@ -2,6 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.event.EventLoop;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -77,6 +78,12 @@ public class MainRobotContainer {
     JoystickButton button5 = new JoystickButton(main_stick, 5);
     JoystickButton button6 = new JoystickButton(main_stick, 6);
     JoystickButton button7 = new JoystickButton(main_stick, 7);
+    EventLoop bind = new EventLoop();
+    
+    public Trigger leftTrigger(EventLoop bind,
+            double threshold) {
+        return leftTrigger(bind, 0.5);
+}
 
     JoystickButton Abutton1 = new JoystickButton(arm_stick, 1);
     JoystickButton Abutton2 = new JoystickButton(arm_stick, 2);
