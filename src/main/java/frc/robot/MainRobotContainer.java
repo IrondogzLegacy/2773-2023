@@ -103,6 +103,7 @@ public class MainRobotContainer {
         final RotationCommand rotationFlip = new RotationCommand(driveSubsystem, navigationSubsystem, 180);
         final ActiveBrakingCommand activeBraking = new ActiveBrakingCommand(driveSubsystem, navigationSubsystem);
         final AutoBalanceCommand autoBalance = new AutoBalanceCommand(driveSubsystem, navigationSubsystem);
+        final ReturnArmTo0Command returnArmTo0 = new ReturnArmTo0Command(armSubsystem);
         InstantCommand closeArm = new InstantCommand(pnuematicsSubsystem::deployIntake, pnuematicsSubsystem);
         InstantCommand openArm = new InstantCommand (pnuematicsSubsystem::retractIntake, pnuematicsSubsystem);
         InstantCommand openCloseArm = new InstantCommand(pnuematicsSubsystem::openCloseArm, pnuematicsSubsystem);
@@ -111,15 +112,15 @@ public class MainRobotContainer {
 
         
         button1.whileTrue(openCloseArm);
-        //button2.whileTrue(openArm);
+        button2.whileTrue(returnArmTo0);
         button3.whileTrue(autoBalance);
         button4.whileTrue(activeBraking);
         //button5.onTrue(turnToTagCommand);
         //button5.onTrue(move2);
         //button6.onTrue(grabOnCommand);
         // final CommandBase majorCommand = createMajorsMainCommand();
-        Abutton1.onTrue(closeArm);
-        Abutton2.whileTrue(openArm);
+        Abutton1.onTrue(openCloseArm);
+        //Abutton2.whileTrue(openArm);
 
         if (!Constants.IsTestRobot) {
             final RetractCommand retractCommand = new RetractCommand(armSubsystem);
@@ -130,7 +131,7 @@ public class MainRobotContainer {
             final RotateDownCommand rotateDown = new RotateDownCommand(armSubsystem);
             InstantCommand printVoltage = new InstantCommand(armSubsystem::printVoltage);
             InstantCommand printMap = new InstantCommand(armSubsystem::printMap);
-            button2.onTrue(printVoltage);
+            //button2.onTrue(printVoltage);
             //button3.onTrue(printMap);
             Abutton3.whileTrue(retractCommand);
             Abutton4.whileTrue(stretchCommand);

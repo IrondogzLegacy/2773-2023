@@ -45,8 +45,8 @@ public class Constants extends MainConstants {
   public static final double AutoBrakingSpeed = 0.2;
 
   //Constants for the potentiometer values in the arm (using map function)
-  public static final double ArmBottomVoltage = 4.14;
-  public static final double ArmTopVoltage = 2.14;
+  public static final double ArmBottomVoltage = 4.39;
+  public static final double ArmTopVoltage = 2.28;
   public static final double ArmMinDeg = -83;
   public static final double ArmMaxDeg = 20;
 }
