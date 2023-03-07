@@ -96,6 +96,7 @@ public class MainRobotContainer {
         final RotationCommand rotationFlip = new RotationCommand(driveSubsystem, navigationSubsystem, 180);
         final ActiveBrakingCommand activeBraking = new ActiveBrakingCommand(driveSubsystem, navigationSubsystem);
         final AutoBalanceCommand autoBalance = new AutoBalanceCommand(driveSubsystem, navigationSubsystem);
+        final ReturnArmTo0Command returnArmTo0 = new ReturnArmTo0Command(armSubsystem);
         InstantCommand closeArm = new InstantCommand(pnuematicsSubsystem::deployIntake, pnuematicsSubsystem);
         InstantCommand openArm = new InstantCommand (pnuematicsSubsystem::retractIntake, pnuematicsSubsystem);
         InstantCommand openCloseArm = new InstantCommand(pnuematicsSubsystem::openCloseArm, pnuematicsSubsystem);
