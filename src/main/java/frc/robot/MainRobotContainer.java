@@ -111,8 +111,8 @@ public class MainRobotContainer {
         //button5.onTrue(move2);
         //button6.onTrue(grabOnCommand);
         // final CommandBase majorCommand = createMajorsMainCommand();
-        Abutton1.onTrue(closeArm);
-        Abutton2.whileTrue(openArm);
+        Abutton1.onTrue(openCloseArm);
+        //Abutton2.whileTrue(openArm);
 
         if (!Constants.IsTestRobot) {
             final RetractCommand retractCommand = new RetractCommand(armSubsystem);
