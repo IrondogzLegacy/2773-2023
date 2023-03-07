@@ -112,7 +112,7 @@ public class MainRobotContainer {
 
         
         button1.whileTrue(openCloseArm);
-        button2.whileTrue(returnArmTo0);
+        //button2.whileTrue(returnArmTo0);
         button3.whileTrue(autoBalance);
         button4.whileTrue(activeBraking);
         //button5.onTrue(turnToTagCommand);

@@ -30,10 +30,12 @@ public class ReturnArmTo0Command extends CommandBase {
     if (startingArmAngle < -1) {
       while (currentArmAngle < -1)
       {armSubsystem.rotateUp();}
+      armSubsystem.rotateStop();
     }
     if (startingArmAngle > 1) {
       while (currentArmAngle > 1)
       {armSubsystem.rotateDown();}
+      armSubsystem.rotateStop();
     }
   }
 
@@ -44,6 +46,7 @@ public class ReturnArmTo0Command extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    armSubsystem.rotateStop();
     return true;
   }
 }
