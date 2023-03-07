@@ -110,36 +110,8 @@ public class MainRobotContainer {
         //button6.onTrue(grabOnCommand);
         // button7.onTrue(turnToTagCommand);
         // final CommandBase majorCommand = createMajorsMainCommand();
-        Abutton1.onTrue(new CommandBase() {
-            {
-                addRequirements(pnuematicsSubsystem);
-            }
-
-            @Override
-            public void initialize() {
-                pnuematicsSubsystem.deployIntake();
-            }
-
-            @Override
-            public boolean isFinished() {
-                return true;
-            }
-        });
-        Abutton2.whileTrue(new CommandBase() {
-            {
-                addRequirements(pnuematicsSubsystem);
-            }
-
-            @Override
-            public void initialize() {
-                pnuematicsSubsystem.retractIntake();
-            }
-
-            @Override
-            public boolean isFinished() {
-                return true;
-            }
-        });
+        Abutton1.onTrue(closeArm);
+        Abutton2.whileTrue(openArm);
 
         if (!Constants.IsTestRobot) {
             final RetractCommand retractCommand = new RetractCommand(armSubsystem);
