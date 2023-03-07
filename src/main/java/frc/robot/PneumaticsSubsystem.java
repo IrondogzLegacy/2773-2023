@@ -16,6 +16,7 @@ public class PneumaticsSubsystem extends SubsystemBase {
   private final Solenoid deploySolendoidPCM = new Solenoid(PneumaticsModuleType.CTREPCM, 7);
   private final Solenoid retractSolenoidPCM = new Solenoid(PneumaticsModuleType.CTREPCM, 6);
   public Object retractIntake;
+  public static boolean clawState; //false is open, true is closed
   Compressor pcmCompressor = new Compressor(0, PneumaticsModuleType.CTREPCM);
   /** Creates a new TestPneumaticsSubsystem. */
   public PneumaticsSubsystem() {
@@ -31,15 +32,25 @@ public class PneumaticsSubsystem extends SubsystemBase {
   public void deployIntake() {
     deploySolendoidPCM.set(true);
     retractSolenoidPCM.set(false);
+    clawState = true;
   }
 
   public void retractIntake() {
     deploySolendoidPCM.set(false);
     retractSolenoidPCM.set(true);
+    clawState = false;
   }
 
   public void stopIntake() {
     deploySolendoidPCM.set(false);
     retractSolenoidPCM.set(false);
+  }
+
+  public void openCloseArm()
+  {
+    if (clawState = false) {
+      deployIntake();
+    }
+    else retractIntake();
   }
 }

@@ -84,6 +84,8 @@ public class MainRobotContainer {
     JoystickButton Abutton4 = new JoystickButton(arm_stick, 4);
     JoystickButton Abutton5 = new JoystickButton(arm_stick, 5);
     JoystickButton Abutton6 = new JoystickButton(arm_stick, 6);
+    JoystickButton Abutton7 = new JoystickButton(arm_stick, 7);
+
     // Abuttons are for the second controller
 
     private void configureButtonBindings() {
@@ -96,18 +98,18 @@ public class MainRobotContainer {
         final AutoBalanceCommand autoBalance = new AutoBalanceCommand(driveSubsystem, navigationSubsystem);
         InstantCommand closeArm = new InstantCommand(pnuematicsSubsystem::deployIntake, pnuematicsSubsystem);
         InstantCommand openArm = new InstantCommand (pnuematicsSubsystem::retractIntake, pnuematicsSubsystem);
+        InstantCommand openCloseArm = new InstantCommand(pnuematicsSubsystem::openCloseArm, pnuematicsSubsystem);
         //The below commands are used for printing values / calibration
         InstantCommand printGyroValues = new InstantCommand(navigationSubsystem::printGyroValues);
 
         
-        button1.whileTrue(closeArm);
-        button2.whileTrue(openArm);
+        button1.whileTrue(openCloseArm);
+        //button2.whileTrue(openArm);
         button3.whileTrue(autoBalance);
         button4.whileTrue(activeBraking);
-        // button5.onTrue(turnToTagCommand);
+        //button5.onTrue(turnToTagCommand);
         //button5.onTrue(move2);
         //button6.onTrue(grabOnCommand);
-        // button7.onTrue(turnToTagCommand);
         // final CommandBase majorCommand = createMajorsMainCommand();
         Abutton1.onTrue(closeArm);
         Abutton2.whileTrue(openArm);
