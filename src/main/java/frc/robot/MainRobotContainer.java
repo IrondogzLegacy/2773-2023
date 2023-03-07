@@ -123,6 +123,7 @@ public class MainRobotContainer {
             final RotateDownCommand rotateDown = new RotateDownCommand(armSubsystem);
             InstantCommand printVoltage = new InstantCommand(armSubsystem::printVoltage);
             InstantCommand printMap = new InstantCommand(armSubsystem::printMap);
+            button2.onTrue(printVoltage);
             //button3.onTrue(printMap);
             Abutton3.whileTrue(retractCommand);
             Abutton4.whileTrue(stretchCommand);
