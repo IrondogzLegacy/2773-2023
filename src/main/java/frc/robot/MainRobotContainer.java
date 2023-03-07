@@ -105,7 +105,7 @@ public class MainRobotContainer {
 
         
         button1.whileTrue(openCloseArm);
-        //button2.whileTrue(openArm);
+        button2.whileTrue(returnArmTo0);
         button3.whileTrue(autoBalance);
         button4.whileTrue(activeBraking);
         //button5.onTrue(turnToTagCommand);
@@ -124,7 +124,7 @@ public class MainRobotContainer {
             final RotateDownCommand rotateDown = new RotateDownCommand(armSubsystem);
             InstantCommand printVoltage = new InstantCommand(armSubsystem::printVoltage);
             InstantCommand printMap = new InstantCommand(armSubsystem::printMap);
-            button2.onTrue(printVoltage);
+            //button2.onTrue(printVoltage);
             //button3.onTrue(printMap);
             Abutton3.whileTrue(retractCommand);
             Abutton4.whileTrue(stretchCommand);
