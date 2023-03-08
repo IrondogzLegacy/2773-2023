@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.Joystick;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.XboxController;
 
 
 public class LetGoCommand extends CommandBase {
@@ -16,7 +17,7 @@ public class LetGoCommand extends CommandBase {
   private final ClawSubsystem ReleaseSubsystem;
   private final Timer timer = new Timer();
 
-  public LetGoCommand(ClawSubsystem ReleaseSubsystem, Joystick m_stick) {
+  public LetGoCommand(ClawSubsystem ReleaseSubsystem, XboxController m_stick) {
     this.ReleaseSubsystem = ReleaseSubsystem;
     addRequirements(ReleaseSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
