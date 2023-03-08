@@ -1,6 +1,7 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.util.concurrent.Event;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.event.BooleanEvent;
 import edu.wpi.first.wpilibj.event.EventLoop;
@@ -15,8 +16,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 //imports joystick controls and functions
 public class MainRobotContainer {
-    private final Joystick main_stick = new Joystick(0);
-    private final Joystick arm_stick = new Joystick(1);
+    private final XboxController main_stick = new XboxController(0);
+    private final XboxController arm_stick = new XboxController(1);
     private final MainDriveSubsystem driveSubsystem = new MainDriveSubsystem();
     private final MainDriveCommand driveCommand = new MainDriveCommand(driveSubsystem, main_stick, arm_stick);
     private final MainNavigationSubsystem navigationSubsystem = new MainNavigationSubsystem();
@@ -26,7 +27,6 @@ public class MainRobotContainer {
             : new ArmSubsystem();
     private final PneumaticsSubsystem pnuematicsSubsystem = new PneumaticsSubsystem();
     private final ArmControlCommand armControlCommand = new ArmControlCommand(armSubsystem);
-    private final EventLoop m_loop = new EventLoop();
 
 
     // Autonomous Section
@@ -44,7 +44,7 @@ public class MainRobotContainer {
                 new WaitCommand(1), new StretchCommand(armSubsystem));
 
         return move2.andThen(letGoCommand).andThen(moveBack2)
-                .andThen(rotationFlip).andThen(stretchCommand).andThen(retractCommand);
+                .andThen(rotationFlip).andThen(stretchCommand).andThen(retractCommand); 
     }
 
     public Command getAutonomousCommand2() {
@@ -73,6 +73,14 @@ public class MainRobotContainer {
         driveSubsystem.setDefaultCommand(driveCommand);
         armSubsystem.setDefaultCommand(armControlCommand);
     }
+    private final EventLoop m_loop = new EventLoop();
+
+    BooleanEvent leftTrigger1 = new BooleanEvent(m_loop, () -> {return arm_stick.getLeftTriggerAxis() > 0.5;});
+    BooleanEvent rightTrigger1 = new BooleanEvent(m_loop, () -> {return arm_stick.getRightTriggerAxis() > 0.5;});
+
+    public void checkTriggers() { 
+        m_loop.poll();
+    }
 
     // Controls how it grabs or lets go
     JoystickButton button1 = new JoystickButton(main_stick, 1);
@@ -82,25 +90,6 @@ public class MainRobotContainer {
     JoystickButton button5 = new JoystickButton(main_stick, 5);
     JoystickButton button6 = new JoystickButton(main_stick, 6);
     JoystickButton button7 = new JoystickButton(main_stick, 7);
-    EventLoop bind = new EventLoop();
-    EventLoop RbindA = new EventLoop();
-    EventLoop bindA = new EventLoop();
-
-    public void bindA(Runnable RotateDownCommand) {
-        //m_loop.add(RotateDownCommand);
-    
-    }
-
-    
-
-    public Trigger rightTriggerA(EventLoop RbindA,
-            double threshold) {
-        return rightTriggerA(RbindA, 0.5);
-}
-    public Trigger leftTriggerA(EventLoop bindA, 
-            double threshold) { 
-        return leftTriggerA(bindA, 0.5);
-    }
 
     JoystickButton Abutton1 = new JoystickButton(arm_stick, 1);
     JoystickButton Abutton2 = new JoystickButton(arm_stick, 2);

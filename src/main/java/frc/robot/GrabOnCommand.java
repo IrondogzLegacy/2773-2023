@@ -5,13 +5,14 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class GrabOnCommand extends CommandBase {
   /** Creates a new FlagMotorCommand. */
   private final ClawSubsystem GrabOnSubsystem;
 
-  public GrabOnCommand(ClawSubsystem GrabOnSubsystem, Joystick m_stick) {
+  public GrabOnCommand(ClawSubsystem GrabOnSubsystem, XboxController m_stick) {
     this.GrabOnSubsystem = GrabOnSubsystem;
     addRequirements(GrabOnSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
