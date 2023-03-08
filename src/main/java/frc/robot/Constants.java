@@ -6,8 +6,8 @@ package frc.robot;
 
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-//public class Constants extends TestConstants { 
-public class Constants extends MainConstants {
+public class Constants extends TestConstants { 
+//public class Constants extends MainConstants {
   // constants for MainDriveSubsystem, speed + rotation factor (was for the PWMs
   // not the Neos...)
   public static final double SpeedFactor = 0.45;
