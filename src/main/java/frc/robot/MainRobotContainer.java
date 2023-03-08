@@ -111,15 +111,16 @@ public class MainRobotContainer {
         InstantCommand printGyroValues = new InstantCommand(navigationSubsystem::printGyroValues);
 
         
-        button1.whileTrue(openCloseArm);
+        button1.whileTrue(autoBalance);
+        button2.whileTrue(activeBraking);
+        button3.whileTrue(rotationFlip);
+        button4.whileTrue(openCloseArm);
         //button2.whileTrue(returnArmTo0);
-        button3.whileTrue(autoBalance);
-        button4.whileTrue(activeBraking);
         //button5.onTrue(turnToTagCommand);
         //button5.onTrue(move2);
         //button6.onTrue(grabOnCommand);
         // final CommandBase majorCommand = createMajorsMainCommand();
-        Abutton1.onTrue(openCloseArm);
+        //Abutton1.onTrue(openCloseArm);
         //Abutton2.whileTrue(openArm);
 
         if (!Constants.IsTestRobot) {
@@ -133,8 +134,8 @@ public class MainRobotContainer {
             InstantCommand printMap = new InstantCommand(armSubsystem::printMap);
             //button2.onTrue(printVoltage);
             //button3.onTrue(printMap);
-            Abutton3.whileTrue(retractCommand);
-            Abutton4.whileTrue(stretchCommand);
+            Abutton3.whileTrue(openCloseArm);
+            //Abutton4.whileTrue();
             // Abutton5.whileTrue(new InstantCommand(armSubsystem::rotateUp, armSubsystem));
             // //can't use the instant command stuff when I need to use the stop function
             // Abutton6.whileTrue(new InstantCommand(armSubsystem::rotateDown,
