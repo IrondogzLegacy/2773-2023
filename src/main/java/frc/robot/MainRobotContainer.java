@@ -150,6 +150,9 @@ public class MainRobotContainer {
 
             Abutton5.whileTrue(rotateDown);
             Abutton6.whileTrue(rotateUp);
+            leftTrigger1.castTo(Trigger::new).whileTrue(retractCommand);
+            rightTrigger1.castTo(Trigger::new).whileTrue(stretchCommand);
+
         }
     }
 }
