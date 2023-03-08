@@ -18,4 +18,7 @@ public class MainConstants {
     public static final int ArmExtensionMotorCANID = 12;
     public static final int ArmRotationMotorCANID = 16;
 
+    public static final int PnuematicsPort1 = 7;
+    public static final int PnuematicsPort2 = 6;
+
 }

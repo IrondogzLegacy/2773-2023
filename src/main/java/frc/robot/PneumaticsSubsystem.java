@@ -13,11 +13,14 @@ public class PneumaticsSubsystem extends SubsystemBase {
 
   // Initializes the intake motor
   public static final int intakePneumaticsController = 0;
-  private final Solenoid deploySolendoidPCM = new Solenoid(PneumaticsModuleType.CTREPCM, 7);
-  private final Solenoid retractSolenoidPCM = new Solenoid(PneumaticsModuleType.CTREPCM, 6);
+  private final Solenoid deploySolendoidPCM = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.IsTestRobot ? null
+  : MainConstants.PnuematicsPort1);
+  private final Solenoid retractSolenoidPCM = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.IsTestRobot ? null
+  : MainConstants.PnuematicsPort2);
   public Object retractIntake;
   public static boolean clawIsClosed = false; //false is open, true is closed
-  Compressor pcmCompressor = new Compressor(0, PneumaticsModuleType.CTREPCM);
+  Compressor pcmCompressor = new Compressor(Constants.IsTestRobot ? null
+  : 0, PneumaticsModuleType.CTREPCM);
   /** Creates a new TestPneumaticsSubsystem. */
   public PneumaticsSubsystem() {
     boolean pressureSwitch = pcmCompressor.getPressureSwitchValue();
