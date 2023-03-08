@@ -2,6 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.event.BooleanEvent;
 import edu.wpi.first.wpilibj.event.EventLoop;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -25,6 +26,8 @@ public class MainRobotContainer {
             : new ArmSubsystem();
     private final PneumaticsSubsystem pnuematicsSubsystem = new PneumaticsSubsystem();
     private final ArmControlCommand armControlCommand = new ArmControlCommand(armSubsystem);
+    private final EventLoop m_loop = new EventLoop();
+
 
     // Autonomous Section
     public Command getAutonomousCommand1() {
@@ -79,11 +82,24 @@ public class MainRobotContainer {
     JoystickButton button6 = new JoystickButton(main_stick, 6);
     JoystickButton button7 = new JoystickButton(main_stick, 7);
     EventLoop bind = new EventLoop();
+    EventLoop RbindA = new EventLoop();
+    EventLoop bindA = new EventLoop();
+
+    public void bindA(Runnable RotateDownCommand) {
+        //m_loop.add(RotateDownCommand);
     
-    public Trigger leftTrigger(EventLoop bind,
+    }
+
+    
+
+    public Trigger rightTriggerA(EventLoop RbindA,
             double threshold) {
-        return leftTrigger(bind, 0.5);
+        return rightTriggerA(RbindA, 0.5);
 }
+    public Trigger leftTriggerA(EventLoop bindA, 
+            double threshold) { 
+        return leftTriggerA(bindA, 0.5);
+    }
 
     JoystickButton Abutton1 = new JoystickButton(arm_stick, 1);
     JoystickButton Abutton2 = new JoystickButton(arm_stick, 2);
