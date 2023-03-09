@@ -42,8 +42,11 @@ public class MainRobotContainer {
         var turnAndRetract = new ParallelRaceGroup(
             rotationFlip, retractFull
         );
+        var rotateAndExtend = new ParallelRaceGroup(
+            rotateUpCommand, stretchFull
+        );
 
-        return /*move2.andThen*/(rotateUpCommand).andThen(stretchFull).andThen(openArm)
+        return /*move2.andThen*/(rotateAndExtend).andThen(openArm)
                 .andThen(turnAndRetract).andThen(move5);
                 //.andThen(rotationFlip).andThen(move2);
     }
