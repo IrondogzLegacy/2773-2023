@@ -26,25 +26,25 @@ public class MainRobotContainer {
     private final ArmSubsystem armSubsystem = Constants.IsTestRobot ? null
             : new ArmSubsystem();
     private final PneumaticsSubsystem pnuematicsSubsystem = new PneumaticsSubsystem();
-    private final ArmControlCommand armControlCommand = new ArmControlCommand(armSubsystem);
-
-
     // Autonomous Section
     public Command getAutonomousCommand1() {
         final MoveDistanceCommand move2 = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, 2);
         final MoveDistanceCommand moveBack2 = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, -2);
-        
         final LetGoCommand letGoCommand = new LetGoCommand(GrabOnSubsystem, main_stick);
         final RotationCommand rotationFlip = new RotationCommand(driveSubsystem, navigationSubsystem, 180);
+        final Stretch1RevCommand stretchFull = new Stretch1RevCommand(armSubsystem, 23);
 
         var retractCommand = new ParallelRaceGroup(
                 new WaitCommand(1),
                 new RetractCommand(armSubsystem));
         var stretchCommand = new ParallelRaceGroup(
                 new WaitCommand(1), new StretchCommand(armSubsystem));
+        var rotateUpCommand = new ParallelRaceGroup(
+            new WaitCommand(0.5), new RotateUpCommand(armSubsystem));
 
-        return move2.andThen(letGoCommand).andThen(moveBack2)
-                .andThen(rotationFlip).andThen(stretchCommand).andThen(retractCommand); 
+        return move2.andThen(rotateUpCommand).andThen(stretchFull).andThen(letGoCommand).andThen(moveBack2)
+                .andThen(rotationFlip);
+                //.andThen(stretchCommand).andThen(retractCommand); 
     }
 
     public Command getAutonomousCommand2() {
@@ -71,14 +71,18 @@ public class MainRobotContainer {
         configureButtonBindings();
 
         driveSubsystem.setDefaultCommand(driveCommand);
-        armSubsystem.setDefaultCommand(armControlCommand);
     }
+
     private final EventLoop m_loop = new EventLoop();
 
-    BooleanEvent leftTrigger1 = new BooleanEvent(m_loop, () -> {return arm_stick.getLeftTriggerAxis() > 0.5;});
-    BooleanEvent rightTrigger1 = new BooleanEvent(m_loop, () -> {return arm_stick.getRightTriggerAxis() > 0.5;});
+    BooleanEvent leftTrigger1 = new BooleanEvent(m_loop, () -> {
+        return arm_stick.getLeftTriggerAxis() > 0.5;
+    });
+    BooleanEvent rightTrigger1 = new BooleanEvent(m_loop, () -> {
+        return arm_stick.getRightTriggerAxis() > 0.5;
+    });
 
-    public void checkTriggers() { 
+    public void checkTriggers() {
         m_loop.poll();
     }
 
@@ -111,47 +115,45 @@ public class MainRobotContainer {
         final AutoBalanceCommand autoBalance = new AutoBalanceCommand(driveSubsystem, navigationSubsystem);
         final ReturnArmTo0Command returnArmTo0 = new ReturnArmTo0Command(armSubsystem);
         InstantCommand closeArm = new InstantCommand(pnuematicsSubsystem::deployIntake, pnuematicsSubsystem);
-        InstantCommand openArm = new InstantCommand (pnuematicsSubsystem::retractIntake, pnuematicsSubsystem);
+        InstantCommand openArm = new InstantCommand(pnuematicsSubsystem::retractIntake, pnuematicsSubsystem);
         InstantCommand openCloseArm = new InstantCommand(pnuematicsSubsystem::openCloseArm, pnuematicsSubsystem);
-        //The below commands are used for printing values / calibration
+        // The below commands are used for printing values / calibration
         InstantCommand printGyroValues = new InstantCommand(navigationSubsystem::printGyroValues);
 
-        
         button1.whileTrue(autoBalance);
         button2.whileTrue(activeBraking);
         button3.whileTrue(rotationFlip);
         button4.whileTrue(openCloseArm);
-        //button2.whileTrue(returnArmTo0);
-        //button5.onTrue(turnToTagCommand);
-        //button5.onTrue(move2);
-        //button6.onTrue(grabOnCommand);
+        // button2.whileTrue(returnArmTo0);
+        // button5.onTrue(turnToTagCommand);
+        // button5.onTrue(move2);
+        // button6.onTrue(grabOnCommand);
         // final CommandBase majorCommand = createMajorsMainCommand();
-        //Abutton1.onTrue(openCloseArm);
-        //Abutton2.whileTrue(openArm);
+        // Abutton1.onTrue(openCloseArm);
+        // Abutton2.whileTrue(openArm);
 
         if (!Constants.IsTestRobot) {
             final RetractCommand retractCommand = new RetractCommand(armSubsystem);
             final StretchCommand stretchCommand = new StretchCommand(armSubsystem);
-            final Stretch1RevCommand stretch1RevCommand = new Stretch1RevCommand(armSubsystem);
             final ResetArmEncoderCommand resetArmEncoderCommand = new ResetArmEncoderCommand(armSubsystem);
             final RotateUpCommand rotateUp = new RotateUpCommand(armSubsystem);
             final RotateDownCommand rotateDown = new RotateDownCommand(armSubsystem);
             InstantCommand printVoltage = new InstantCommand(armSubsystem::printVoltage);
             InstantCommand printMap = new InstantCommand(armSubsystem::printMap);
-            //button2.onTrue(printVoltage);
-            //button3.onTrue(printMap);
-            Abutton4.whileTrue(openCloseArm);
-            //Abutton4.whileTrue();
+            // button2.onTrue(printVoltage);
+            // button3.onTrue(printMap);
+            Abutton3.whileTrue(openCloseArm);
+            // Abutton4.whileTrue();
             // Abutton5.whileTrue(new InstantCommand(armSubsystem::rotateUp, armSubsystem));
             // //can't use the instant command stuff when I need to use the stop function
             // Abutton6.whileTrue(new InstantCommand(armSubsystem::rotateDown,
             // armSubsystem)); //can't use the instant command stuff when I need to use the
             // stop function
 
-            Abutton5.whileTrue(retractCommand);
-            Abutton6.whileTrue(stretchCommand);
-            leftTrigger1.castTo(Trigger::new).whileTrue(rotateDown);
-            rightTrigger1.castTo(Trigger::new).whileTrue(rotateUp);
+            Abutton5.whileTrue(rotateDown);
+            Abutton6.whileTrue(rotateUp);
+            leftTrigger1.castTo(Trigger::new).whileTrue(retractCommand);
+            rightTrigger1.castTo(Trigger::new).whileTrue(stretchCommand);
 
         }
     }

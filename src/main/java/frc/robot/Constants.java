@@ -17,7 +17,7 @@ public class Constants extends MainConstants {
   public static final MotorType motorType = MotorType.kBrushless;
 
   // constant (port #) for the ClawMotorChannel
-  public static final int ClawMotorCANID = -1; //10; 10 is the correct CANID but it is no longer on the bot
+  public static final int ClawMotorCANID = -1; // 10; 10 is the correct CANID but it is no longer on the bot
   // constant for the PickUpSpeed (motor for extending / closing the claw)
   public static final double ClawMotorSpeed = 0.05; // 0.25;
   // constant for the ReleaseSpeed
@@ -28,7 +28,7 @@ public class Constants extends MainConstants {
   // constant for ArmMotor Speed
   public static final double ArmMotorSpeed = 0.4;
   public static final double ArmRotationSpeed = 0.4;
-  public static final double ArmEncoderRatio = 0.04 * 7./8. * 3.14;
+  public static final double ArmEncoderRatio = 0.04 * 9. / 8. * 3.14;
 
   public static final double BalanceSpeed = 0.3;
 
@@ -44,9 +44,9 @@ public class Constants extends MainConstants {
 
   public static final double AutoBrakingSpeed = 0.4;
 
-  //Constants for the potentiometer values in the arm (using map function)
-  public static final double ArmBottomVoltage = 4.39;
-  public static final double ArmTopVoltage = 2.28;
+  // Constants for the potentiometer values in the arm (using map function)
+  public static final double ArmBottomVoltage = 4.47;
+  public static final double ArmTopVoltage = 2.399;
   public static final double ArmMinDeg = -83;
   public static final double ArmMaxDeg = 20;
 }
