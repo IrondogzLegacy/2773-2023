@@ -22,7 +22,7 @@ public class ArmSubsystem extends SubsystemBase {
   private final CANSparkMax armMotor = Constants.IsTestRobot ? null
       : new CANSparkMax(Constants.ArmExtensionMotorCANID, Constants.motorType);
   private final RelativeEncoder armEncoder = Constants.IsTestRobot ? null
-  : armMotor.getEncoder();
+      : armMotor.getEncoder();
   private final CANSparkMax armRotationMotor = Constants.IsTestRobot ? null
       : new CANSparkMax(Constants.ArmRotationMotorCANID, Constants.motorType);
 
@@ -37,12 +37,10 @@ public class ArmSubsystem extends SubsystemBase {
   private final NetworkTableEntry armAngleEntry = table.getEntry("angle");
   private final NetworkTableEntry armVoltageEntry = table.getEntry("voltage");
 
-
   SparkMaxAnalogSensor armPotent = Constants.IsTestRobot ? null
       : armMotor.getAnalog(SparkMaxAnalogSensor.Mode.kAbsolute);
 
-    AnalogInput armPotent2 = new AnalogInput(1);
-
+  AnalogInput armPotent2 = new AnalogInput(1);
 
   public ArmSubsystem() {
     // unnecessary but I don't care
@@ -61,11 +59,12 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public void stretch() {
-    armMotor.set(Constants.ArmMotorSpeed);
+    if ((getRotationAngle() > -70))
+      armMotor.set(Constants.ArmMotorSpeed);
   }
 
   public void retract() {
-    if (! limit2.isPressed()) {
+    if (!limit2.isPressed()) {
       armMotor.set(-Constants.ArmMotorSpeed);
     } else {
       armMotor.set(0);
@@ -74,12 +73,21 @@ public class ArmSubsystem extends SubsystemBase {
     }
   }
 
-  public void stretch1Rev() {
+  public void stretchLength(double stretchDistance) {
     double stretch_start = armEncoder.getPosition();
     double ratio = armEncoder.getPositionConversionFactor();
-    double stretch_finish = stretch_start + 1 * ratio;
-    if (armEncoder.getPosition() < stretch_finish) {
-      stretch();
+    double stretch_finish = stretch_start + stretchDistance / ratio;
+    if (stretchDistance > 0) {
+      if (armEncoder.getPosition() < stretch_finish) {
+        stretch();
+      } else
+        stopArmExtension();
+    }
+    if (stretchDistance < 0) {
+      if (armEncoder.getPosition() > stretch_finish) {
+        retract();
+      } else
+        stopArmExtension();
     } else
       stopArmExtension();
   }
@@ -94,7 +102,7 @@ public class ArmSubsystem extends SubsystemBase {
 
   public void ResetArmEncoder() {
     armEncoder.setPosition(0);
-    //printEncoder();
+    // printEncoder();
   }
 
   public void rotateUp() {
@@ -118,8 +126,11 @@ public class ArmSubsystem extends SubsystemBase {
         Constants.ArmMaxDeg);
   }
 
-  public void printVoltage() {System.out.println(armPotent2.getVoltage());}
+  public void printVoltage() {
+    System.out.println(armPotent2.getVoltage());
+  }
 
-
-  public void printMap() {System.out.println(getRotationAngle());}
+  public void printMap() {
+    System.out.println(getRotationAngle());
+  }
 }
