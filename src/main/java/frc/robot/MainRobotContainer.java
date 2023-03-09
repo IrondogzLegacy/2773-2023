@@ -34,12 +34,13 @@ public class MainRobotContainer {
         final RotationCommand rotationFlip = new RotationCommand(driveSubsystem, navigationSubsystem, 180);
         final Stretch1RevCommand stretchFull = new Stretch1RevCommand(armSubsystem, 23);
         final Stretch1RevCommand retractFull = new Stretch1RevCommand(armSubsystem, -23);
-        final InstantCommand openCloseArm = new InstantCommand(pnuematicsSubsystem::openCloseArm, pnuematicsSubsystem);
+        InstantCommand openArm = new InstantCommand(pnuematicsSubsystem::retractIntake, pnuematicsSubsystem);
+
 
         var rotateUpCommand = new ParallelRaceGroup(
                 new WaitCommand(6.5), new RotateUpCommand(armSubsystem));
 
-        return /*move2.andThen*/(rotateUpCommand).andThen(stretchFull).andThen(openCloseArm)
+        return /*move2.andThen*/(rotateUpCommand).andThen(stretchFull).andThen(openArm)
                 .andThen(retractFull);
                 //.andThen(rotationFlip).andThen(move2);
     }
