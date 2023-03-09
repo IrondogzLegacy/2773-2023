@@ -29,7 +29,7 @@ public class MainRobotContainer {
 
     // Autonomous Section
     public Command getAutonomousCommand1() {
-        final MoveDistanceCommand move2 = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, 2);
+        final MoveDistanceCommand move5 = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, 5);
         final MoveDistanceCommand moveBack2 = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, -2);
         final RotationCommand rotationFlip = new RotationCommand(driveSubsystem, navigationSubsystem, 180);
         final Stretch1RevCommand stretchFull = new Stretch1RevCommand(armSubsystem, 23);
@@ -39,9 +39,12 @@ public class MainRobotContainer {
 
         var rotateUpCommand = new ParallelRaceGroup(
                 new WaitCommand(6.5), new RotateUpCommand(armSubsystem));
+        var turnAndRetract = new ParallelRaceGroup(
+            rotationFlip, retractFull
+        );
 
         return /*move2.andThen*/(rotateUpCommand).andThen(stretchFull).andThen(openArm)
-                .andThen(retractFull);
+                .andThen(turnAndRetract).andThen(move5);
                 //.andThen(rotationFlip).andThen(move2);
     }
 
