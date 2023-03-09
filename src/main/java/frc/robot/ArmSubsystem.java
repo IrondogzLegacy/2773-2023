@@ -76,7 +76,7 @@ public class ArmSubsystem extends SubsystemBase {
   public void stretchLength(double stretchDistance) {
     double stretch_start = armEncoder.getPosition();
     double ratio = armEncoder.getPositionConversionFactor();
-    double stretch_finish = stretch_start + stretchDistance / ratio;
+    double stretch_finish = stretch_start + stretchDistance;
     if (stretchDistance > 0) {
       if (armEncoder.getPosition() < stretch_finish) {
         stretch();

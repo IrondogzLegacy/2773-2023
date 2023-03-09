@@ -53,7 +53,6 @@ public class MainDriveSubsystem extends SubsystemBase {
   }
   public void rotation(double speed) {
     mainDrive.tankDrive(speed, -speed);
-
   }
   // Drive with tank drive
   public void driveLine (double speed)

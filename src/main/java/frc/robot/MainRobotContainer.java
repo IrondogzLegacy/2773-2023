@@ -26,25 +26,22 @@ public class MainRobotContainer {
     private final ArmSubsystem armSubsystem = Constants.IsTestRobot ? null
             : new ArmSubsystem();
     private final PneumaticsSubsystem pnuematicsSubsystem = new PneumaticsSubsystem();
+
     // Autonomous Section
     public Command getAutonomousCommand1() {
         final MoveDistanceCommand move2 = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, 2);
         final MoveDistanceCommand moveBack2 = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, -2);
-        final LetGoCommand letGoCommand = new LetGoCommand(GrabOnSubsystem, main_stick);
         final RotationCommand rotationFlip = new RotationCommand(driveSubsystem, navigationSubsystem, 180);
         final Stretch1RevCommand stretchFull = new Stretch1RevCommand(armSubsystem, 23);
+        final Stretch1RevCommand retractFull = new Stretch1RevCommand(armSubsystem, -23);
+        final InstantCommand openCloseArm = new InstantCommand(pnuematicsSubsystem::openCloseArm, pnuematicsSubsystem);
 
-        var retractCommand = new ParallelRaceGroup(
-                new WaitCommand(1),
-                new RetractCommand(armSubsystem));
-        var stretchCommand = new ParallelRaceGroup(
-                new WaitCommand(1), new StretchCommand(armSubsystem));
         var rotateUpCommand = new ParallelRaceGroup(
-            new WaitCommand(0.5), new RotateUpCommand(armSubsystem));
+                new WaitCommand(6.5), new RotateUpCommand(armSubsystem));
 
-        return move2.andThen(rotateUpCommand).andThen(stretchFull).andThen(letGoCommand).andThen(moveBack2)
-                .andThen(rotationFlip);
-                //.andThen(stretchCommand).andThen(retractCommand); 
+        return /*move2.andThen*/(rotateUpCommand).andThen(stretchFull).andThen(openCloseArm)
+                .andThen(retractFull);
+                //.andThen(rotationFlip).andThen(move2);
     }
 
     public Command getAutonomousCommand2() {
