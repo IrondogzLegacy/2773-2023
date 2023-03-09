@@ -48,7 +48,7 @@ public class MainDriveSubsystem extends SubsystemBase {
     // That means that the Y axis drives forward and backward, and the X turns left and right.
    
     mainDrive.arcadeDrive(// Calculates the next value of the output
-    moveAvgFilter.calculate(speed * Constants.SpeedFactor), moveAvgFilter.calculate(rotation * Constants.RotationFactor));
+    (speed * Constants.SpeedFactor), (rotation * Constants.RotationFactor));
 
   }
   public void rotation(double speed) {

@@ -140,7 +140,7 @@ public class MainRobotContainer {
             InstantCommand printMap = new InstantCommand(armSubsystem::printMap);
             //button2.onTrue(printVoltage);
             //button3.onTrue(printMap);
-            Abutton3.whileTrue(openCloseArm);
+            Abutton4.whileTrue(openCloseArm);
             //Abutton4.whileTrue();
             // Abutton5.whileTrue(new InstantCommand(armSubsystem::rotateUp, armSubsystem));
             // //can't use the instant command stuff when I need to use the stop function
@@ -148,10 +148,10 @@ public class MainRobotContainer {
             // armSubsystem)); //can't use the instant command stuff when I need to use the
             // stop function
 
-            Abutton5.whileTrue(rotateDown);
-            Abutton6.whileTrue(rotateUp);
-            leftTrigger1.castTo(Trigger::new).whileTrue(retractCommand);
-            rightTrigger1.castTo(Trigger::new).whileTrue(stretchCommand);
+            Abutton5.whileTrue(retractCommand);
+            Abutton6.whileTrue(stretchCommand);
+            leftTrigger1.castTo(Trigger::new).whileTrue(rotateDown);
+            rightTrigger1.castTo(Trigger::new).whileTrue(rotateUp);
 
         }
     }
