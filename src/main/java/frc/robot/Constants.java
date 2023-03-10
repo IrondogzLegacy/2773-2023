@@ -10,7 +10,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 public class Constants extends MainConstants {
   // constants for MainDriveSubsystem, speed + rotation factor (was for the PWMs
   // not the Neos...)
-  public static final double SpeedFactor = 0.45;
+  public static final double SpeedFactor = 0.6;
   public static final double RotationFactor = 0.4;
 
   // create a private class for the motorType, brushless motors
@@ -26,8 +26,8 @@ public class Constants extends MainConstants {
   public static final double genTankSpeed = 0.3;
 
   // constant for ArmMotor Speed
-  public static final double ArmMotorSpeed = 0.4;
-  public static final double ArmRotationSpeed = 0.4;
+  public static final double ArmMotorSpeed = 0.5;
+  public static final double ArmRotationSpeed = 0.5;
   public static final double ArmEncoderRatio = 0.04 * 9. / 8. * 3.14;
 
   public static final double BalanceSpeed = 0.3;

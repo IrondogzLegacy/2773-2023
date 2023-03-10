@@ -34,19 +34,24 @@ public class MainRobotContainer {
         final RotationCommand rotationFlip = new RotationCommand(driveSubsystem, navigationSubsystem, 180);
         final Stretch1RevCommand stretchFull = new Stretch1RevCommand(armSubsystem, 23);
         final Stretch1RevCommand retractFull = new Stretch1RevCommand(armSubsystem, -23);
+        final RetractCommand retractCommand = new RetractCommand(armSubsystem);
+        final StretchCommand stretchCommand = new StretchCommand(armSubsystem);
         InstantCommand openArm = new InstantCommand(pnuematicsSubsystem::retractIntake, pnuematicsSubsystem);
+        InstantCommand closeArm = new InstantCommand(pnuematicsSubsystem::deployIntake, pnuematicsSubsystem);
 
 
         var rotateUpCommand = new ParallelRaceGroup(
                 new WaitCommand(6.5), new RotateUpCommand(armSubsystem));
+        var extendArmCommand = new ParallelRaceGroup(new WaitCommand (4), new StretchCommand(armSubsystem));
+        var retractArmCommand = new ParallelRaceGroup(new WaitCommand (4), new RetractCommand(armSubsystem));
         var turnAndRetract = new ParallelRaceGroup(
-            rotationFlip, retractFull
+            rotationFlip, retractArmCommand
         );
         var rotateAndExtend = new ParallelRaceGroup(
-            rotateUpCommand, stretchFull
+            rotateUpCommand, extendArmCommand
         );
 
-        return /*move2.andThen*/(rotateAndExtend).andThen(openArm)
+        return /*move2.andThen*/ closeArm.andThen(rotateAndExtend).andThen(openArm)
                 .andThen(turnAndRetract).andThen(move5);
                 //.andThen(rotationFlip).andThen(move2);
     }
@@ -126,7 +131,7 @@ public class MainRobotContainer {
 
         button1.whileTrue(autoBalance);
         button2.whileTrue(activeBraking);
-        button3.whileTrue(rotationFlip);
+        button3.onTrue(rotationFlip);
         button4.whileTrue(openCloseArm);
         // button2.whileTrue(returnArmTo0);
         // button5.onTrue(turnToTagCommand);

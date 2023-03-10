@@ -42,17 +42,17 @@ public class MainDriveCommand extends CommandBase {
   // error message if the below code fails
   @Override
   public void execute() {
-    if (Math.abs(joystick.getLeftY()) > 0.01 || Math.abs(joystick.getLeftX()) > 0.01) {
+    //if (Math.abs(joystick.getLeftY()) > 0.01 || Math.abs(joystick.getLeftX()) > 0.01) {
       driveSubsystem.arcadeDrive(-joystick.getLeftY(), -joystick.getLeftX());
       return;
-    }
+    /* }
     switch (secondaryJoystick.getPOV() ) {
       case 0: driveSubsystem.driveLine(0.3); return;
       case 90: driveSubsystem.rotation(0.2); return;
       case 180: driveSubsystem.driveLine(-0.3); return;
       case 270: driveSubsystem.rotation(-0.2); return;
     }
-    driveSubsystem.stopAllDrive();
+    driveSubsystem.stopAllDrive();*/
   }
 
   // error message if the below code fails
