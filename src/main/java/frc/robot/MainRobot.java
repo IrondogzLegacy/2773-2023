@@ -37,7 +37,7 @@ public class MainRobot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
-    m_robotContainer.checkTriggers();
+   m_robotContainer.checkTriggers();
   }
 
   @Override

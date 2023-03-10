@@ -9,10 +9,12 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import edu.wpi.first.wpilibj.Timer;
 
 //imports joystick controls and functions
 public class MainRobotContainer {
@@ -30,31 +32,37 @@ public class MainRobotContainer {
     // Autonomous Section
     public Command getAutonomousCommand1() {
         final MoveDistanceCommand move5 = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, 5);
-        final MoveDistanceCommand moveBack2 = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, -2);
+        //final MoveDistanceCommand moveBack2 = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, -2);
         final RotationCommand rotationFlip = new RotationCommand(driveSubsystem, navigationSubsystem, 180);
-        final Stretch1RevCommand stretchFull = new Stretch1RevCommand(armSubsystem, 23);
-        final Stretch1RevCommand retractFull = new Stretch1RevCommand(armSubsystem, -23);
+        //final Stretch1RevCommand stretchFull = new Stretch1RevCommand(armSubsystem, 23);
+        //final Stretch1RevCommand retractFull = new Stretch1RevCommand(armSubsystem, -23);
         final RetractCommand retractCommand = new RetractCommand(armSubsystem);
         final StretchCommand stretchCommand = new StretchCommand(armSubsystem);
         InstantCommand openArm = new InstantCommand(pnuematicsSubsystem::retractIntake, pnuematicsSubsystem);
         InstantCommand closeArm = new InstantCommand(pnuematicsSubsystem::deployIntake, pnuematicsSubsystem);
+        var driveBack = new RunCommand(driveSubsystem::driveBack, driveSubsystem);
 
-
+        //Jackson uncommented - new times
         var rotateUpCommand = new ParallelRaceGroup(
-                new WaitCommand(7.5), new RotateUpCommand(armSubsystem));
-        var extendArmCommand = new WaitCommand(1).andThen(new ParallelRaceGroup(new WaitCommand (5), new StretchCommand(armSubsystem)));
-        var retractArmCommand = new ParallelRaceGroup(new WaitCommand (4.0), new RetractCommand(armSubsystem));
-        var turnAndRetract = new ParallelRaceGroup(
-            rotationFlip, retractArmCommand
-        );
+                new WaitCommand(6), new RotateUpCommand(armSubsystem));
+        var extendArmCommand = //new WaitCommand(1).andThen(
+            new ParallelRaceGroup(new WaitCommand (4), new StretchCommand(armSubsystem));//);
+        var retractArmCommand = new ParallelRaceGroup(new WaitCommand (4), new RetractCommand(armSubsystem));
+        var retractArm2 = new ParallelRaceGroup(new WaitCommand(1), retractArmCommand);
+        var retractBack = new ParallelRaceGroup(new WaitCommand(4), new RetractCommand(armSubsystem));
+        /*var turnAndRetract = new ParallelRaceGroup(
+            rotationFlip, retractArPmCommand
+        );//*/
+        var goBackCommand = new ParallelRaceGroup (new WaitCommand(12), driveBack);
         //var rotateAndExtend = new ParallelRaceGroup(
         //    rotateUpCommand, extendArmCommand
         //);
 
-        return /*move2.andThen*/ closeArm.andThen(rotateUpCommand).andThen(extendArmCommand).andThen(openArm);
-                //.andThen(turnAndRetract).andThen(move5);
-                //.andThen(rotationFlip).andThen(move2);
+        return goBackCommand; /*move2.andThen closeArm.andThen(retractArm2).andThen(rotateUpCommand)
+                // .andThen(extendArmCommand).andThen(openArm).andThen(retractBack);//.andThen(retractArmCommand);//.andThen(move5);
+                //.andThen(rotationFlip).andThen(move2); */ 
     }
+
 
     public Command getAutonomousCommand2() {
         final MoveDistanceCommand move2 = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, -10);
