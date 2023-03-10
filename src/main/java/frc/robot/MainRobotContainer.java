@@ -41,18 +41,18 @@ public class MainRobotContainer {
 
 
         var rotateUpCommand = new ParallelRaceGroup(
-                new WaitCommand(6.5), new RotateUpCommand(armSubsystem));
-        var extendArmCommand = new ParallelRaceGroup(new WaitCommand (4), new StretchCommand(armSubsystem));
-        var retractArmCommand = new ParallelRaceGroup(new WaitCommand (4), new RetractCommand(armSubsystem));
+                new WaitCommand(7.5), new RotateUpCommand(armSubsystem));
+        var extendArmCommand = new WaitCommand(1).andThen(new ParallelRaceGroup(new WaitCommand (5), new StretchCommand(armSubsystem)));
+        var retractArmCommand = new ParallelRaceGroup(new WaitCommand (4.0), new RetractCommand(armSubsystem));
         var turnAndRetract = new ParallelRaceGroup(
             rotationFlip, retractArmCommand
         );
-        var rotateAndExtend = new ParallelRaceGroup(
-            rotateUpCommand, extendArmCommand
-        );
+        //var rotateAndExtend = new ParallelRaceGroup(
+        //    rotateUpCommand, extendArmCommand
+        //);
 
-        return /*move2.andThen*/ closeArm.andThen(rotateAndExtend).andThen(openArm)
-                .andThen(turnAndRetract).andThen(move5);
+        return /*move2.andThen*/ closeArm.andThen(rotateUpCommand).andThen(extendArmCommand).andThen(openArm);
+                //.andThen(turnAndRetract).andThen(move5);
                 //.andThen(rotationFlip).andThen(move2);
     }
 
