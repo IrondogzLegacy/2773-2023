@@ -11,7 +11,6 @@ public class RetractCommand extends CommandBase {
   /** Creates a new ArmCommand. */
   public RetractCommand(ArmSubsystem armSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(armSubsystem);
     this.armSubsystem = armSubsystem;
   }
 
