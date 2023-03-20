@@ -1,5 +1,7 @@
 package frc.robot;
 
+import java.time.Instant;
+
 import edu.wpi.first.util.concurrent.Event;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController;
@@ -44,10 +46,10 @@ public class MainRobotContainer {
 
         //Jackson uncommented - new times
         var rotateUpCommand = new ParallelRaceGroup(
-                new WaitCommand(6), new RotateUpCommand(armSubsystem));
+                new WaitCommand(5.25), new RotateUpCommand(armSubsystem));
         var extendArmCommand = //new WaitCommand(1).andThen(
-            new ParallelRaceGroup(new WaitCommand (4), new StretchCommand(armSubsystem));//);
-        var retractArmCommand = new ParallelRaceGroup(new WaitCommand (4), new RetractCommand(armSubsystem));
+            new ParallelRaceGroup(new WaitCommand (2.05), new StretchCommand(armSubsystem));//);
+        var retractArmCommand = new ParallelRaceGroup(new WaitCommand (2.05), new RetractCommand(armSubsystem));
         var retractArm2 = new ParallelRaceGroup(new WaitCommand(1), retractArmCommand);
         var retractBack = new ParallelRaceGroup(new WaitCommand(4), new RetractCommand(armSubsystem));
         /*var turnAndRetract = new ParallelRaceGroup(
@@ -58,9 +60,9 @@ public class MainRobotContainer {
         //    rotateUpCommand, extendArmCommand
         //);
 
-        return goBackCommand; /*move2.andThen closeArm.andThen(retractArm2).andThen(rotateUpCommand)
-                // .andThen(extendArmCommand).andThen(openArm).andThen(retractBack);//.andThen(retractArmCommand);//.andThen(move5);
-                //.andThen(rotationFlip).andThen(move2); */ 
+        return /*goBackCommand;*/ /*move2.andThen */closeArm.andThen(retractArm2).andThen(rotateUpCommand)
+                .andThen(extendArmCommand).andThen(openArm).andThen(retractBack).andThen(goBackCommand);//.andThen(move5);
+                //.andThen(rotationFlip).andThen(move2);  
     }
 
 
@@ -136,11 +138,12 @@ public class MainRobotContainer {
         InstantCommand openCloseArm = new InstantCommand(pnuematicsSubsystem::openCloseArm, pnuematicsSubsystem);
         // The below commands are used for printing values / calibration
         InstantCommand printGyroValues = new InstantCommand(navigationSubsystem::printGyroValues);
+        InstantCommand speedChange = new InstantCommand(driveSubsystem::changeSpeedMode);
 
-        button1.whileTrue(autoBalance);
-        button2.whileTrue(activeBraking);
-        button3.onTrue(rotationFlip);
-        button4.whileTrue(openCloseArm);
+        button1.onTrue(openCloseArm);
+        button2.whileTrue(speedChange);
+        button3.whileTrue(activeBraking);
+        button4.whileTrue(rotationFlip);
         // button2.whileTrue(returnArmTo0);
         // button5.onTrue(turnToTagCommand);
         // button5.onTrue(move2);
