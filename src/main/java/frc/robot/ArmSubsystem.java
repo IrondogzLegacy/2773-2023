@@ -13,8 +13,6 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -27,10 +25,8 @@ public class ArmSubsystem extends SubsystemBase {
   private final CANSparkMax armRotationMotor = Constants.IsTestRobot ? null
       : new CANSparkMax(Constants.ArmRotationMotorCANID, MotorType.kBrushless);
 
-  private final DigitalInput limitSwitch = new DigitalInput(9);
   private final SparkMaxLimitSwitch limit2 = armMotor.getReverseLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
   private final AnalogInput lengthSensor = new AnalogInput(0);
-
   private final NetworkTable table = NetworkTableInstance.getDefault().getTable("Arm");
   private final NetworkTableEntry counterEntry = table.getEntry("count");
   private final NetworkTableEntry distanceEntry = table.getEntry("length");
@@ -63,7 +59,6 @@ public class ArmSubsystem extends SubsystemBase {
     if ((getRotationAngle() > -70))
       armMotor.set(Constants.ArmMotorSpeed);
   }
-
 
   public void retract() {
     if (!limit2.isPressed()) {
