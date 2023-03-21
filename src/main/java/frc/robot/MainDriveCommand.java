@@ -18,8 +18,11 @@ public class MainDriveCommand extends CommandBase {
 
   private final XboxController secondaryJoystick;
 
+  
+
   /** Creates a new DriveCommand using the two above classes */
-  public MainDriveCommand(MainDriveSubsystem driveSubsystem, XboxController joystick, XboxController secondaryJoystick) {
+  public MainDriveCommand(MainDriveSubsystem driveSubsystem, XboxController joystick,
+      XboxController secondaryJoystick) {
     // Use addRequirements() here to declare subsystem dependencies, requiring
     // references to those for it to run.
     addRequirements(driveSubsystem);
@@ -35,6 +38,7 @@ public class MainDriveCommand extends CommandBase {
   @Override
   // called when the robot is started
   public void initialize() {
+    driveSubsystem.lowSpeed = false;
     // no code atm
   }
 
@@ -42,17 +46,25 @@ public class MainDriveCommand extends CommandBase {
   // error message if the below code fails
   @Override
   public void execute() {
-    //if (Math.abs(joystick.getLeftY()) > 0.01 || Math.abs(joystick.getLeftX()) > 0.01) {
+    // if (Math.abs(joystick.getLeftY()) > 0.01 || Math.abs(joystick.getLeftX()) >
+    // 0.01) {
+    if (driveSubsystem.lowSpeed == false) {
       driveSubsystem.arcadeDrive(-joystick.getLeftY(), -joystick.getLeftX());
-      return;
-    /* }
-    switch (secondaryJoystick.getPOV() ) {
-      case 0: driveSubsystem.driveLine(0.3); return;
-      case 90: driveSubsystem.rotation(0.2); return;
-      case 180: driveSubsystem.driveLine(-0.3); return;
-      case 270: driveSubsystem.rotation(-0.2); return;
     }
-    driveSubsystem.stopAllDrive();*/
+    if (driveSubsystem.lowSpeed == true) {
+      driveSubsystem.slowDrive(-joystick.getLeftY(), -joystick.getLeftY());
+    }
+    return;
+    /*
+     * }
+     * switch (secondaryJoystick.getPOV() ) {
+     * case 0: driveSubsystem.driveLine(0.3); return;
+     * case 90: driveSubsystem.rotation(0.2); return;
+     * case 180: driveSubsystem.driveLine(-0.3); return;
+     * case 270: driveSubsystem.rotation(-0.2); return;
+     * }
+     * driveSubsystem.stopAllDrive();
+     */
   }
 
   // error message if the below code fails
