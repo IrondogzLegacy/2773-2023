@@ -84,7 +84,7 @@ public class MainNavigationSubsystem extends SubsystemBase {
   public double getLeftEncoder()
   {return leftEncoder.getDistance();}
 
-  //Reset Gyro method
+  /*Reset Gyro method*/
 public void resetGyro()
 {
   ahrs.calibrate();
