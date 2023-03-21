@@ -16,7 +16,7 @@ public class Constants extends MainConstants {
   public static final double RotationFactorLow = 0.4;
 
   // create a private class for the motorType, brushless motors
-  public static final MotorType motorType = MotorType.kBrushless;
+  public static final MotorType DriveMotorType = MotorType.kBrushless;
 
   // constant (port #) for the ClawMotorChannel
   public static final int ClawMotorCANID = -1; // 10; 10 is the correct CANID but it is no longer on the bot
@@ -25,7 +25,7 @@ public class Constants extends MainConstants {
   // constant for the ReleaseSpeed
   public static final double ReleaseSpeed = -0.05; // -0.5;
   // constant for the default TankDrive
-  public static final double genTankSpeed = 0.3;
+  public static final double GeneralTankSpeed = 0.3;
 
   // constant for ArmMotor Speed
   public static final double ArmMotorSpeed = 0.5;

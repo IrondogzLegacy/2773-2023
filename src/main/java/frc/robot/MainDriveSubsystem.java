@@ -20,10 +20,10 @@ public class MainDriveSubsystem extends SubsystemBase {
   // DifferentialDrive(m_leftMotor, m_rightMotor);
   // Above is our old DifferentialDrive, now we are using MotorControllerGroups
   // specific drive motors
-  private final CANSparkMax leftForMotor = new CANSparkMax(Constants.leftForWheelsCANID, Constants.motorType);
-  private final CANSparkMax rightForMotor = new CANSparkMax(Constants.rightForWheelsCANID, Constants.motorType);
-  private final CANSparkMax leftBackMotor = new CANSparkMax(Constants.leftBackWheelsCANID, Constants.motorType);
-  private final CANSparkMax rightBackMotor = new CANSparkMax(Constants.rightBackWheelsCANID, Constants.motorType);
+  private final CANSparkMax leftForMotor = new CANSparkMax(Constants.leftForWheelsCANID, Constants.DriveMotorType);
+  private final CANSparkMax rightForMotor = new CANSparkMax(Constants.rightForWheelsCANID, Constants.DriveMotorType);
+  private final CANSparkMax leftBackMotor = new CANSparkMax(Constants.leftBackWheelsCANID, Constants.DriveMotorType);
+  private final CANSparkMax rightBackMotor = new CANSparkMax(Constants.rightBackWheelsCANID, Constants.DriveMotorType);
   private final MotorControllerGroup leftGroup = new MotorControllerGroup(leftBackMotor, leftForMotor);
   private final MotorControllerGroup rightGroup = new MotorControllerGroup(rightBackMotor, rightForMotor);
   private final DifferentialDrive mainDrive = new DifferentialDrive(leftGroup, rightGroup);

@@ -1,22 +1,15 @@
 package frc.robot;
 
-import java.time.Instant;
-
-import edu.wpi.first.util.concurrent.Event;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.event.BooleanEvent;
 import edu.wpi.first.wpilibj.event.EventLoop;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import edu.wpi.first.wpilibj.Timer;
 
 //imports joystick controls and functions
 public class MainRobotContainer {
@@ -25,46 +18,28 @@ public class MainRobotContainer {
     private final MainDriveSubsystem driveSubsystem = new MainDriveSubsystem();
     private final MainDriveCommand driveCommand = new MainDriveCommand(driveSubsystem, main_stick, arm_stick);
     private final MainNavigationSubsystem navigationSubsystem = new MainNavigationSubsystem();
-    private final ClawSubsystem GrabOnSubsystem = new ClawSubsystem();
-    // private final MainCamSubsystem camSubsystem = new MainCamSubsystem();
     private final ArmSubsystem armSubsystem = Constants.IsTestRobot ? null
             : new ArmSubsystem();
     private final PneumaticsSubsystem pnuematicsSubsystem = new PneumaticsSubsystem();
 
     // Autonomous Section
     public Command getAutonomousCommand1() {
-        final MoveDistanceCommand move5 = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, 5);
-        //final MoveDistanceCommand moveBack2 = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, -2);
-        final RotationCommand rotationFlip = new RotationCommand(driveSubsystem, navigationSubsystem, 180);
-        //final Stretch1RevCommand stretchFull = new Stretch1RevCommand(armSubsystem, 23);
-        //final Stretch1RevCommand retractFull = new Stretch1RevCommand(armSubsystem, -23);
-        final RetractCommand retractCommand = new RetractCommand(armSubsystem);
-        final StretchCommand stretchCommand = new StretchCommand(armSubsystem);
         InstantCommand openArm = new InstantCommand(pnuematicsSubsystem::retractIntake, pnuematicsSubsystem);
         InstantCommand closeArm = new InstantCommand(pnuematicsSubsystem::deployIntake, pnuematicsSubsystem);
         var driveBack = new RunCommand(driveSubsystem::driveBack, driveSubsystem);
 
-        //Jackson uncommented - new times
+        // Jackson uncommented - new times
         var rotateUpCommand = new ParallelRaceGroup(
                 new WaitCommand(5.25), new RotateUpCommand(armSubsystem));
-        var extendArmCommand = //new WaitCommand(1).andThen(
-            new ParallelRaceGroup(new WaitCommand (2.05), new StretchCommand(armSubsystem));//);
-        var retractArmCommand = new ParallelRaceGroup(new WaitCommand (2.05), new RetractCommand(armSubsystem));
+        var extendArmCommand = new ParallelRaceGroup(new WaitCommand(2.05), new StretchCommand(armSubsystem));
+        var retractArmCommand = new ParallelRaceGroup(new WaitCommand(2.05), new RetractCommand(armSubsystem));
         var retractArm2 = new ParallelRaceGroup(new WaitCommand(1), retractArmCommand);
         var retractBack = new ParallelRaceGroup(new WaitCommand(4), new RetractCommand(armSubsystem));
-        /*var turnAndRetract = new ParallelRaceGroup(
-            rotationFlip, retractArPmCommand
-        );//*/
-        var goBackCommand = new ParallelRaceGroup (new WaitCommand(12), driveBack);
-        //var rotateAndExtend = new ParallelRaceGroup(
-        //    rotateUpCommand, extendArmCommand
-        //);
+        var goBackCommand = new ParallelRaceGroup(new WaitCommand(12), driveBack);
 
-        return /*goBackCommand;*/ /*move2.andThen */closeArm.andThen(retractArm2).andThen(rotateUpCommand)
-                .andThen(extendArmCommand).andThen(openArm).andThen(retractBack).andThen(goBackCommand);//.andThen(move5);
-                //.andThen(rotationFlip).andThen(move2);  
+        return closeArm.andThen(retractArm2).andThen(rotateUpCommand)
+                .andThen(extendArmCommand).andThen(openArm).andThen(retractBack).andThen(goBackCommand);
     }
-
 
     public Command getAutonomousCommand2() {
         final MoveDistanceCommand move2 = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, -10);
@@ -92,21 +67,21 @@ public class MainRobotContainer {
         driveSubsystem.setDefaultCommand(driveCommand);
     }
 
-    private final EventLoop m_loop = new EventLoop();
+    private final EventLoop triggerLoop = new EventLoop();
 
-    BooleanEvent leftTrigger1 = new BooleanEvent(m_loop, () -> {
+    BooleanEvent leftTrigger1 = new BooleanEvent(triggerLoop, () -> {
         return arm_stick.getLeftTriggerAxis() > 0.5;
     });
-    BooleanEvent rightTrigger1 = new BooleanEvent(m_loop, () -> {
+    BooleanEvent rightTrigger1 = new BooleanEvent(triggerLoop, () -> {
         return arm_stick.getRightTriggerAxis() > 0.5;
     });
 
     public void checkTriggers() {
-        m_loop.poll();
+        triggerLoop.poll();
     }
 
     // Controls how it grabs or lets go
-    JoystickButton button1 = new JoystickButton(main_stick, 1);
+    JoystickButton openCloseButton = new JoystickButton(main_stick, 1);
     JoystickButton button2 = new JoystickButton(main_stick, 2);
     JoystickButton button3 = new JoystickButton(main_stick, 3);
     JoystickButton button4 = new JoystickButton(main_stick, 4);
@@ -116,65 +91,36 @@ public class MainRobotContainer {
 
     JoystickButton Abutton1 = new JoystickButton(arm_stick, 1);
     JoystickButton Abutton2 = new JoystickButton(arm_stick, 2);
-    JoystickButton Abutton3 = new JoystickButton(arm_stick, 3);
+    JoystickButton openCloseButtonAtArmStick = new JoystickButton(arm_stick, 3);
     JoystickButton Abutton4 = new JoystickButton(arm_stick, 4);
-    JoystickButton Abutton5 = new JoystickButton(arm_stick, 5);
-    JoystickButton Abutton6 = new JoystickButton(arm_stick, 6);
+    JoystickButton rotateDownButton = new JoystickButton(arm_stick, 5);
+    JoystickButton rotateUpButton = new JoystickButton(arm_stick, 6);
     JoystickButton Abutton7 = new JoystickButton(arm_stick, 7);
 
     // Abuttons are for the second controller
 
     private void configureButtonBindings() {
-        final GrabOnCommand grabOnCommand = new GrabOnCommand(GrabOnSubsystem, main_stick);
-        final LetGoCommand letGoCommand = new LetGoCommand(GrabOnSubsystem, main_stick);
-        final RotationCommand rotate90 = new RotationCommand(driveSubsystem, navigationSubsystem, 90);
-        final MoveDistanceCommand move2 = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, 2);
         final RotationCommand rotationFlip = new RotationCommand(driveSubsystem, navigationSubsystem, 180);
         final ActiveBrakingCommand activeBraking = new ActiveBrakingCommand(driveSubsystem, navigationSubsystem);
-        final AutoBalanceCommand autoBalance = new AutoBalanceCommand(driveSubsystem, navigationSubsystem);
-        final ReturnArmTo0Command returnArmTo0 = new ReturnArmTo0Command(armSubsystem);
-        InstantCommand closeArm = new InstantCommand(pnuematicsSubsystem::deployIntake, pnuematicsSubsystem);
-        InstantCommand openArm = new InstantCommand(pnuematicsSubsystem::retractIntake, pnuematicsSubsystem);
         InstantCommand openCloseArm = new InstantCommand(pnuematicsSubsystem::openCloseArm, pnuematicsSubsystem);
         // The below commands are used for printing values / calibration
-        InstantCommand printGyroValues = new InstantCommand(navigationSubsystem::printGyroValues);
         InstantCommand speedChange = new InstantCommand(driveSubsystem::changeSpeedMode);
 
-        button1.onTrue(openCloseArm);
+        openCloseButton.onTrue(openCloseArm);
         button2.whileTrue(speedChange);
         button3.whileTrue(activeBraking);
         button4.whileTrue(rotationFlip);
-        // button2.whileTrue(returnArmTo0);
-        // button5.onTrue(turnToTagCommand);
-        // button5.onTrue(move2);
-        // button6.onTrue(grabOnCommand);
-        // final CommandBase majorCommand = createMajorsMainCommand();
-        // Abutton1.onTrue(openCloseArm);
-        // Abutton2.whileTrue(openArm);
 
         if (!Constants.IsTestRobot) {
             final RetractCommand retractCommand = new RetractCommand(armSubsystem);
             final StretchCommand stretchCommand = new StretchCommand(armSubsystem);
-            final ResetArmEncoderCommand resetArmEncoderCommand = new ResetArmEncoderCommand(armSubsystem);
             final RotateUpCommand rotateUp = new RotateUpCommand(armSubsystem);
             final RotateDownCommand rotateDown = new RotateDownCommand(armSubsystem);
-            InstantCommand printVoltage = new InstantCommand(armSubsystem::printVoltage);
-            InstantCommand printMap = new InstantCommand(armSubsystem::printMap);
-            // button2.onTrue(printVoltage);
-            // button3.onTrue(printMap);
-            Abutton3.whileTrue(openCloseArm);
-            // Abutton4.whileTrue();
-            // Abutton5.whileTrue(new InstantCommand(armSubsystem::rotateUp, armSubsystem));
-            // //can't use the instant command stuff when I need to use the stop function
-            // Abutton6.whileTrue(new InstantCommand(armSubsystem::rotateDown,
-            // armSubsystem)); //can't use the instant command stuff when I need to use the
-            // stop function
-
-            Abutton5.whileTrue(rotateDown);
-            Abutton6.whileTrue(rotateUp);
+            openCloseButtonAtArmStick.onTrue(openCloseArm);
+            rotateDownButton.whileTrue(rotateDown);
+            rotateUpButton.whileTrue(rotateUp);
             leftTrigger1.castTo(Trigger::new).whileTrue(retractCommand);
             rightTrigger1.castTo(Trigger::new).whileTrue(stretchCommand);
-
         }
     }
 }

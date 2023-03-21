@@ -8,6 +8,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxAnalogSensor;
 import com.revrobotics.SparkMaxLimitSwitch;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.NetworkTable;
@@ -20,11 +21,11 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class ArmSubsystem extends SubsystemBase {
 
   private final CANSparkMax armMotor = Constants.IsTestRobot ? null
-      : new CANSparkMax(Constants.ArmExtensionMotorCANID, Constants.motorType);
+      : new CANSparkMax(Constants.ArmExtensionMotorCANID, MotorType.kBrushless);
   private final RelativeEncoder armEncoder = Constants.IsTestRobot ? null
       : armMotor.getEncoder();
   private final CANSparkMax armRotationMotor = Constants.IsTestRobot ? null
-      : new CANSparkMax(Constants.ArmRotationMotorCANID, Constants.motorType);
+      : new CANSparkMax(Constants.ArmRotationMotorCANID, MotorType.kBrushless);
 
   private final DigitalInput limitSwitch = new DigitalInput(9);
   private final SparkMaxLimitSwitch limit2 = armMotor.getReverseLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);

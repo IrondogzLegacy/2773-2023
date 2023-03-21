@@ -3,6 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
+
 import edu.wpi.first.wpilibj.TimedRobot;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -11,29 +12,32 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 public class MainRobot extends TimedRobot {
 
-  MainRobotContainer m_robotContainer;
-  Command m_autonomousCommand;
+  MainRobotContainer robotContainer;
+  Command autonomousCommand;
+
   @Override
   public void robotInit() {
-    m_robotContainer = new MainRobotContainer();
-    m_robotContainer.resetGyro();
+    robotContainer = new MainRobotContainer();
+    robotContainer.resetGyro();
   }
+
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand1();
+    autonomousCommand = robotContainer.getAutonomousCommand1();
 
     // schedule the autonomous command (example)
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.schedule();
+    if (autonomousCommand != null) {
+      autonomousCommand.schedule();
     }
   }
 
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
-   m_robotContainer.checkTriggers();
+    robotContainer.checkTriggers();
   }
 
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+  }
 }

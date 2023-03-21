@@ -13,7 +13,7 @@ import com.revrobotics.CANSparkMax;
 public class ClawSubsystem extends SubsystemBase {
 
   private final CANSparkMax ClawMotor = Constants.ClawMotorCANID < 0 ? null
-      : new CANSparkMax(Constants.ClawMotorCANID, Constants.motorType);
+      : new CANSparkMax(Constants.ClawMotorCANID, Constants.DriveMotorType);
 
   public ClawSubsystem() {
     if(Constants.ClawMotorCANID < 0) {} else ClawMotor.setInverted(true);
