@@ -55,6 +55,12 @@ public class MainRobotContainer {
         return moveOnCommand;
     }
 
+    public Command getAutonomousCommandTest() { 
+        var move3 = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, 3);
+        return move3;
+
+    }
+
     public void resetGyro() {
         navigationSubsystem.resetGyro();
     }
