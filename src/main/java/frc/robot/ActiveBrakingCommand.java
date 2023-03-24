@@ -17,36 +17,32 @@ public class ActiveBrakingCommand extends CommandBase {
   }
 
   double startRightEncoder;
-  double startLeftEncoder;
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     startRightEncoder = navigationSubsystem.getRightEncoder();
     System.out.println("Start-right" + startRightEncoder);
-    System.out.println("Start-left" + startLeftEncoder);
-    //startLeftEncoder = navigationSubsystem.getLeftEncoder();
   }
-
+  private static final double ActionDistance = 1./10;
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     var currentRightEncoder = navigationSubsystem.getRightEncoder();
-    //var currentLeftEncoder = navigationSubsystem.getLeftEncoder();
     double deltaRightEncoder = currentRightEncoder - startRightEncoder;
-    //double deltaLeftEncoder = currentLeftEncoder - startLeftEncoder;
+
+    //If the change in distance is greater than ActionDistance, the robot will move back. 
+    //
     //deadzone is 2 inches
-    if (deltaRightEncoder > 1./6. /*&& deltaLeftEncoder > 1./6.*/)
-    {
-      driveSubsystem.driveLine(Constants.AutoBrakingSpeed);
-      //System.out.println("Delta-right" + deltaRightEncoder);
-      //System.out.println("Delta-left" + deltaRightEncoder);
-    }
-    //deadzone is 2 inches
-    if (deltaRightEncoder < -1./6. /*&& deltaLeftEncoder < -1./6.*/)
+    if (deltaRightEncoder > ActionDistance)
     {
       driveSubsystem.driveLine(-Constants.AutoBrakingSpeed);
-      //System.out.println("Delta-right" + deltaRightEncoder);
-      //System.out.println("Delta-left" + deltaRightEncoder);
+      System.out.println("Delta-right" + deltaRightEncoder);
+    }
+    //deadzone is 2 inches
+    if (deltaRightEncoder < -ActionDistance)
+    {
+      driveSubsystem.driveLine(Constants.AutoBrakingSpeed);
+      System.out.println("Delta-right" + deltaRightEncoder);
     }
   }
 

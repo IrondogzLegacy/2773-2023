@@ -56,9 +56,9 @@ public class MainRobotContainer {
     }
 
     public Command getAutonomousCommandTest() { 
-        var move3 = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, 3);
-        return move3;
-
+        var move3 = new MoveDistanceCommandPID(driveSubsystem, navigationSubsystem, 3);
+        var rotate90 = new RotationCommand(driveSubsystem, navigationSubsystem, 90);
+        return move3.andThen(rotate90);
     }
 
     public void resetGyro() {

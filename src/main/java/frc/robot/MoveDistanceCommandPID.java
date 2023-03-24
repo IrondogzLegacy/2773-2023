@@ -11,7 +11,7 @@ public class MoveDistanceCommandPID extends CommandBase {
     private final MainDriveSubsystem driveSubsystem;
     private final double distance;
 
-    private final PIDController pid = new PIDController(1, 0, 0);
+    private final PIDController pid = new PIDController(0.5, 0, 0);
 
     public MoveDistanceCommandPID(MainDriveSubsystem driveSubsystem, MainNavigationSubsystem navigationSubsystem,
             double distance) {
@@ -32,7 +32,7 @@ public class MoveDistanceCommandPID extends CommandBase {
         StopDistance = StartDistance + distance;
         // Goal = Start + Action
         pid.setSetpoint(StopDistance);
-        pid.setTolerance(2);
+        pid.setTolerance(0.1);
         /*
          * //Tolerance is the amount of difference the robot will allow between the goal
          * //location when finished
@@ -47,7 +47,7 @@ public class MoveDistanceCommandPID extends CommandBase {
         // Speed is based on the distance left. Longer distance creates higher speed and
         // vice versa.
 
-        speed = Math.min(speed, Constants.SpeedFactorLow);
+        speed = Math.min(speed, Constants.SpeedFactor);
         speed = Math.max(speed, -Constants.SpeedFactor);
 
         driveSubsystem.driveLine(speed);
