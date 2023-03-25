@@ -47,6 +47,7 @@ public class MainDriveSubsystem extends SubsystemBase {
   LinearFilter moveAvgFilter = LinearFilter.movingAverage(3);
 
   public boolean lowSpeed;
+  public boolean isMoving;
 
   public void changeSpeedMode() {
     if (lowSpeed = false) {
@@ -61,9 +62,10 @@ public class MainDriveSubsystem extends SubsystemBase {
     // Drive with arcade drive.
     // That means that the Y axis drives forward and backward, and the X turns left
     // and right.
-
+    double filterOutput = filter.calculate(speed * Constants.SpeedFactor);
     mainDrive.arcadeDrive(// Calculates the next value of the output
-        filter.calculate(speed * Constants.SpeedFactor), ((rotation * Constants.RotationFactor)));
+        filterOutput, ((rotation * Constants.RotationFactor)));
+        isMoving = Math.abs(filterOutput)>0.01 || Math.abs(rotation) > 0.01;
 
   }
 
