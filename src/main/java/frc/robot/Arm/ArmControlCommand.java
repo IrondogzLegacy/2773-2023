@@ -35,8 +35,8 @@ public class ArmControlCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    armSubsystem.rotate(0.3 * armStick.getLeftY());
-    if (Math.abs(armStick.getLeftY()) < 0.001) {
+    armSubsystem.rotate(-0.3 * armStick.getLeftY());
+    if (Math.abs(armStick.getLeftY()) < 0.01) {
       double speed = holdAnglePID.calculate(armSubsystem.getRotationAngle());
       speed = MathUtil.clamp(speed, -0.2, 0.2);
       armSubsystem.rotate(speed);
