@@ -16,6 +16,7 @@ import frc.robot.Arm.RetractCommand;
 import frc.robot.Arm.RotateDownCommand;
 import frc.robot.Arm.RotateUpCommand;
 import frc.robot.Arm.StretchCommand;
+import frc.robot.Arm.ArmControlCommand;
 import frc.robot.Claw.ClawSubsystem;
 import frc.robot.Claw.GrabOnCommand;
 import frc.robot.Claw.LetGoCommand;
@@ -132,6 +133,9 @@ public class MainRobotContainer {
         button4.whileTrue(rotationFlip);
 
         if (!Constants.IsTestRobot) {
+            final ArmControlCommand armControl = new ArmControlCommand(armSubsystem, arm_stick);
+            armSubsystem.setDefaultCommand(armControl);
+            armControl.ensureStarted();
             final RetractCommand retractCommand = new RetractCommand(armSubsystem);
             final StretchCommand stretchCommand = new StretchCommand(armSubsystem);
             final RotateUpCommand rotateUp = new RotateUpCommand(armSubsystem);

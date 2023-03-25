@@ -11,6 +11,7 @@ public class RotateDownCommand extends CommandBase {
 
   public RotateDownCommand(ArmSubsystem armSubsystem) {
     this.armSubsytem = armSubsystem;
+    addRequirements(armSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -23,7 +24,7 @@ public class RotateDownCommand extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {armSubsytem.rotateStop();}
+  public void end(boolean interrupted) {armSubsytem.rotateStop(); }
 
   // Returns true when the command should end.
   @Override

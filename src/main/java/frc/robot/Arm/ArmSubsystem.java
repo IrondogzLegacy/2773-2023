@@ -47,6 +47,8 @@ public class ArmSubsystem extends SubsystemBase {
     // unnecessary but I don't care
     armMotor.setInverted(true);
     armExtensionEncoder.setPositionConversionFactor(Constants.ArmEncoderRatio);
+    armRotationEncoder.setPositionConversionFactor(3.0);
+
   }
 
   @Override
@@ -119,11 +121,19 @@ public class ArmSubsystem extends SubsystemBase {
     armRotationMotor.set(0);
   }
 
+  public void rotate(double speed) {
+    armRotationMotor.set(speed);
+  }
+
   private static double map(double x, double x1, double x2, double y1, double y2) {
     return (x - x1) / (x2 - x1) * (y2 - y1) + y1;
   }
 
   public double getRotationAngle() {
+    return armRotationEncoder.getPosition();
+  }
+
+  public double getRotationAngle2() {
     return map(armPotent2.getVoltage(), Constants.ArmBottomVoltage, Constants.ArmTopVoltage, Constants.ArmMinDeg,
         Constants.ArmMaxDeg);
   }
@@ -133,6 +143,6 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public void printMap() {
-    System.out.println(getRotationAngle());
+    System.out.println(getRotationAngle2());
   }
 }

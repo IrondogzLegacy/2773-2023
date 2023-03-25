@@ -11,6 +11,7 @@ public class RotateUpCommand extends CommandBase {
 
   public RotateUpCommand(ArmSubsystem armSubsystem) {
     this.armSubsytem = armSubsystem;
+    addRequirements(armSubsystem);
   }
 
   // Called when the command is initially scheduled.
