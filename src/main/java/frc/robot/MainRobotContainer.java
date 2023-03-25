@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Arm.ArmSubsystem;
-import frc.robot.Arm.ResetArmEncoderCommand;
 import frc.robot.Arm.RetractCommand;
 import frc.robot.Arm.RotateDownCommand;
 import frc.robot.Arm.RotateUpCommand;
@@ -139,13 +138,13 @@ public class MainRobotContainer {
             final StretchCommand stretchCommand = new StretchCommand(armSubsystem);
             final RotateUpCommand rotateUp = new RotateUpCommand(armSubsystem);
             final RotateDownCommand rotateDown = new RotateDownCommand(armSubsystem);
-            final ResetArmEncoderCommand resetArmEncoderCommand = new ResetArmEncoderCommand(armSubsystem);
+            InstantCommand resetArmEncoder = new InstantCommand(armSubsystem::ResetArmEncoder);
             openCloseButtonAtArmStick.onTrue(openCloseArm);
             grabOnButton.whileTrue(grabOnCommand);
             letGoButton.whileTrue(letGoCommand);
             rotateDownButton.whileTrue(rotateDown);
             rotateUpButton.whileTrue(rotateUp);
-            resetArmEncoderButton.onTrue(resetArmEncoderCommand);
+            resetArmEncoderButton.onTrue(resetArmEncoder);
             leftTrigger1.castTo(Trigger::new).whileTrue(retractCommand);
             rightTrigger1.castTo(Trigger::new).whileTrue(stretchCommand);
         }

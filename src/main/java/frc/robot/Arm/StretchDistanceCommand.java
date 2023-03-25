@@ -6,34 +6,36 @@ package frc.robot.Arm;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class ResetArmEncoderCommand extends CommandBase {
-  /** Creates a new ResetArmEncoderCommand. */
+public class StretchDistanceCommand extends CommandBase {
   private final ArmSubsystem armSubsystem;
-
-  public ResetArmEncoderCommand(ArmSubsystem armSubsystem) {
-    this.armSubsystem = armSubsystem;
-    addRequirements(armSubsystem);
+  private final double stretchDistance;
+  /** Creates a new ArmCommand. */
+  public StretchDistanceCommand(ArmSubsystem armSubsystem, double stretchDistance) {
     // Use addRequirements() here to declare subsystem dependencies.
+    this.armSubsystem = armSubsystem;
+    this.stretchDistance = stretchDistance;
+    addRequirements(armSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    armSubsystem.ResetArmEncoder();
-
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    armSubsystem.stretchLength(stretchDistance);
+    }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    armSubsystem.stopArmExtension();
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 }
