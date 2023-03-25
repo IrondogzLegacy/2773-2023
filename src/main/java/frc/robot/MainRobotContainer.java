@@ -135,7 +135,6 @@ public class MainRobotContainer {
         if (!Constants.IsTestRobot) {
             final ArmControlCommand armControl = new ArmControlCommand(armSubsystem, arm_stick);
             armSubsystem.setDefaultCommand(armControl);
-            armControl.ensureStarted();
             final RetractCommand retractCommand = new RetractCommand(armSubsystem);
             final StretchCommand stretchCommand = new StretchCommand(armSubsystem);
             final RotateUpCommand rotateUp = new RotateUpCommand(armSubsystem);

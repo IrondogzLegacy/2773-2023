@@ -14,7 +14,6 @@ public class ArmControlCommand extends CommandBase {
   private final ArmSubsystem armSubsystem;
 
   private PIDController holdAnglePID = new PIDController(0.01, 0, 0);
-  private boolean holdStarted = false;
 
   /** Creates a new ArmControlCommand. */
   public ArmControlCommand(ArmSubsystem armSubsystem, XboxController armStick) {
@@ -23,11 +22,9 @@ public class ArmControlCommand extends CommandBase {
     this.armStick = armStick;
   }
 
-  public void ensureStarted() {
-    holdStarted = true;
-  }
 
   double holdAt;
+
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
@@ -38,13 +35,15 @@ public class ArmControlCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    armSubsystem.rotate(0.3*armStick.getLeftY());
+    armSubsystem.rotate(0.3 * armStick.getLeftY());
     if (Math.abs(armStick.getLeftY()) < 0.001) {
       double speed = holdAnglePID.calculate(armSubsystem.getRotationAngle());
       speed = MathUtil.clamp(speed, -0.2, 0.2);
       armSubsystem.rotate(speed);
+    } else {
+      holdAt = armSubsystem.getRotationAngle();
+      holdAnglePID.setSetpoint(holdAt);
     }
-    else holdAt = armSubsystem.getRotationAngle();
   }
 
   // Called once the command ends or is interrupted.
