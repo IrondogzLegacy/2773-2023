@@ -2,44 +2,48 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot;
+package frc.robot.Claw;
 
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+//import the wpilib folder for Joysticks
+import edu.wpi.first.wpilibj.Joystick;
 
-public class GrabOnCommand extends CommandBase {
-  /** Creates a new FlagMotorCommand. */
-  private final ClawSubsystem GrabOnSubsystem;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.XboxController;
 
-  public GrabOnCommand(ClawSubsystem GrabOnSubsystem, XboxController m_stick) {
-    this.GrabOnSubsystem = GrabOnSubsystem;
-    addRequirements(GrabOnSubsystem);
+
+public class LetGoCommand extends CommandBase {
+  /** Creates a new LetGoCommand. */
+  private final ClawSubsystem ReleaseSubsystem;
+  private final Timer timer = new Timer();
+
+  public LetGoCommand(ClawSubsystem ReleaseSubsystem, XboxController m_stick) {
+    this.ReleaseSubsystem = ReleaseSubsystem;
+    addRequirements(ReleaseSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {  
+  public void initialize() {
+    timer.start();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    GrabOnSubsystem.Grab();
+    ReleaseSubsystem.Release();
   }
 
-  
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    GrabOnSubsystem.stopClawMotor();
+    ReleaseSubsystem.stopClawMotor();
   }
 
-  
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return false; // timer.hasElapsed(1);
   }
 }

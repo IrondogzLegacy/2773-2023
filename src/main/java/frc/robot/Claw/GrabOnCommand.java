@@ -2,39 +2,44 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot;
+package frc.robot.Claw;
 
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class ResetArmEncoderCommand extends CommandBase {
-  /** Creates a new ResetArmEncoderCommand. */
-  private final ArmSubsystem armSubsystem;
+public class GrabOnCommand extends CommandBase {
+  /** Creates a new FlagMotorCommand. */
+  private final ClawSubsystem GrabOnSubsystem;
 
-  public ResetArmEncoderCommand(ArmSubsystem armSubsystem) {
-    this.armSubsystem = armSubsystem;
-    addRequirements(armSubsystem);
+  public GrabOnCommand(ClawSubsystem GrabOnSubsystem, XboxController m_stick) {
+    this.GrabOnSubsystem = GrabOnSubsystem;
+    addRequirements(GrabOnSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    armSubsystem.ResetArmEncoder();
-
+  public void initialize() {  
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    GrabOnSubsystem.Grab();
+  }
 
+  
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    GrabOnSubsystem.stopClawMotor();
+  }
 
+  
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    armSubsystem.printEncoder();
-    return true;
+    return false;
   }
 }

@@ -2,48 +2,37 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot;
+package frc.robot.Arm;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-//import the wpilib folder for Joysticks
-import edu.wpi.first.wpilibj.Joystick;
 
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.XboxController;
-
-
-public class LetGoCommand extends CommandBase {
-  /** Creates a new LetGoCommand. */
-  private final ClawSubsystem ReleaseSubsystem;
-  private final Timer timer = new Timer();
-
-  public LetGoCommand(ClawSubsystem ReleaseSubsystem, XboxController m_stick) {
-    this.ReleaseSubsystem = ReleaseSubsystem;
-    addRequirements(ReleaseSubsystem);
+public class RetractCommand extends CommandBase {
+  private final ArmSubsystem armSubsystem;
+  /** Creates a new ArmCommand. */
+  public RetractCommand(ArmSubsystem armSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
+    this.armSubsystem = armSubsystem;
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    timer.start();
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    ReleaseSubsystem.Release();
-  }
+    armSubsystem.retract();
+    }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    ReleaseSubsystem.stopClawMotor();
+    armSubsystem.stopArmExtension();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false; // timer.hasElapsed(1);
+    return false;
   }
 }

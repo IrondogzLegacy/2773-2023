@@ -10,6 +10,12 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Arm.ArmSubsystem;
+import frc.robot.Arm.RetractCommand;
+import frc.robot.Arm.RotateDownCommand;
+import frc.robot.Arm.RotateUpCommand;
+import frc.robot.Arm.StretchCommand;
+import frc.robot.Constants.Constants;
 
 //imports joystick controls and functions
 public class MainRobotContainer {
