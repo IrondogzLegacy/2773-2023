@@ -21,19 +21,22 @@ public class ArmSubsystem extends SubsystemBase {
 
   private final CANSparkMax armMotor = Constants.IsTestRobot ? null
       : new CANSparkMax(Constants.ArmExtensionMotorCANID, MotorType.kBrushless);
-  private final RelativeEncoder armEncoder = Constants.IsTestRobot ? null
+  private final RelativeEncoder armExtensionEncoder = Constants.IsTestRobot ? null
+      : armMotor.getEncoder();
+  private final RelativeEncoder armRotationEncoder = Constants.IsTestRobot ? null
       : armMotor.getEncoder();
   private final CANSparkMax armRotationMotor = Constants.IsTestRobot ? null
       : new CANSparkMax(Constants.ArmRotationMotorCANID, MotorType.kBrushless);
 
   private final SparkMaxLimitSwitch limit2 = armMotor.getReverseLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
   private final AnalogInput lengthSensor = new AnalogInput(0);
-  private final NetworkTable table = NetworkTableInstance.getDefault().getTable("Arm");
-  private final NetworkTableEntry counterEntry = table.getEntry("count");
-  private final NetworkTableEntry distanceEntry = table.getEntry("length");
-  private final NetworkTableEntry switchEntry = table.getEntry("switch");
-  private final NetworkTableEntry armAngleEntry = table.getEntry("angle");
-  private final NetworkTableEntry armVoltageEntry = table.getEntry("voltage");
+  private final NetworkTable armTable = NetworkTableInstance.getDefault().getTable("Arm");
+  private final NetworkTableEntry counterEntry = armTable.getEntry("count");
+  private final NetworkTableEntry distanceEntry = armTable.getEntry("length");
+  private final NetworkTableEntry angTableEntry = armTable.getEntry("encoderAngle");
+  private final NetworkTableEntry switchEntry = armTable.getEntry("switch");
+  private final NetworkTableEntry armAngleEntry = armTable.getEntry("angle");
+  private final NetworkTableEntry armVoltageEntry = armTable.getEntry("voltage");
 
   SparkMaxAnalogSensor armPotent = Constants.IsTestRobot ? null
       : armMotor.getAnalog(SparkMaxAnalogSensor.Mode.kAbsolute);
@@ -43,16 +46,17 @@ public class ArmSubsystem extends SubsystemBase {
   public ArmSubsystem() {
     // unnecessary but I don't care
     armMotor.setInverted(true);
-    armEncoder.setPositionConversionFactor(Constants.ArmEncoderRatio);
+    armExtensionEncoder.setPositionConversionFactor(Constants.ArmEncoderRatio);
   }
 
   @Override
   public void periodic() {
-    counterEntry.setDouble(armEncoder.getPosition());
+    counterEntry.setDouble(armExtensionEncoder.getPosition());
     distanceEntry.setDouble(lengthSensor.getVoltage());
     switchEntry.setBoolean(limit2.isPressed());
-    armAngleEntry.setDouble(getRotationAngle());
+    angTableEntry.setDouble(getRotationAngle());
     armVoltageEntry.setDouble(armPotent2.getVoltage());
+    armAngleEntry.setDouble(armRotationEncoder.getPosition());
     // System.out.println(armEncoder.getPosition());
   }
 
@@ -72,17 +76,17 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public void stretchLength(double stretchDistance) {
-    double stretch_start = armEncoder.getPosition();
-    double ratio = armEncoder.getPositionConversionFactor();
+    double stretch_start = armExtensionEncoder.getPosition();
+    double ratio = armExtensionEncoder.getPositionConversionFactor();
     double stretch_finish = stretch_start + stretchDistance;
     if (stretchDistance > 0) {
-      if (armEncoder.getPosition() < stretch_finish) {
+      if (armExtensionEncoder.getPosition() < stretch_finish) {
         stretch();
       } else
         stopArmExtension();
     }
     if (stretchDistance < 0) {
-      if (armEncoder.getPosition() > stretch_finish) {
+      if (armExtensionEncoder.getPosition() > stretch_finish) {
         retract();
       } else
         stopArmExtension();
@@ -95,11 +99,11 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public void printEncoder() {
-    System.out.println(armEncoder.getPosition());
+    System.out.println(armExtensionEncoder.getPosition());
   }
 
   public void ResetArmEncoder() {
-    armEncoder.setPosition(0);
+    armExtensionEncoder.setPosition(0);
     // printEncoder();
   }
 
