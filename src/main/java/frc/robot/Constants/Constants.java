@@ -29,7 +29,7 @@ public class Constants extends MainConstants {
 
   // constant for ArmMotor Speed
   public static final double ArmMotorSpeed = 0.5;
-  public static final double ArmRotationSpeed = 0.04;
+  public static final double ArmRotationSpeed = 0.1;
   public static final double ArmEncoderRatio = 0.04 * 9. / 8. * 3.14;
 
   public static final double BalanceSpeed = 0.3;
