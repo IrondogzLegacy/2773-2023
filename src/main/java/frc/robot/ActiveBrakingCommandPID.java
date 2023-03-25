@@ -2,6 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.Constants;
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 
 
@@ -28,34 +29,19 @@ public class ActiveBrakingCommandPID extends CommandBase {
 
         pid.setSetpoint(StartDistance);
         //Goal is where the bot started
-        pid.setTolerance(0.2);
     }
-    private static final double ErrorDistance = 1./10;
 
     @Override
     public void execute() {
-        var CurrentDistance = navigationSubsystem.getDistance();
-        //Current Distance, not goal distance
-        double DeltaDistance = CurrentDistance - startDistance; 
-        //DeltaDistance is error from start. The error will be moved
-
-        if (DeltaDistance > ErrorDistance)
-        {
-          driveSubsystem.driveLine(-Constants.AutoBrakingSpeed);
-          System.out.println("Delta:" + DeltaDistance);
-        }
-        //If the error, which is DeltaDistance, is greater than the error threshold, which is ErrorDistance,
-        //then the AutoBrakingSpeed will be used.
-
-        if (DeltaDistance < -ErrorDistance)
-        {
-          driveSubsystem.driveLine(Constants.AutoBrakingSpeed);
-          System.out.println("Delta:" + DeltaDistance);
-        }
+    double speed = pid.calculate(navigationSubsystem.getDistance());
+      speed = MathUtil.clamp(speed, -Constants.SpeedFactorLow, Constants.SpeedFactorLow);
+      driveSubsystem.driveLine(speed);
     }
 
     @Override
-    public void end(boolean interrupted) {}
+    public void end(boolean interrupted) {
+        driveSubsystem.stopAllDrive();
+    }
 
     // Returns true when the command should end.
     @Override

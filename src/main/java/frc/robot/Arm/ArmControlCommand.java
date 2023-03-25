@@ -50,6 +50,7 @@ public class ArmControlCommand extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    armSubsystem.rotateStop();
   }
 
   // Returns true when the command should end.
