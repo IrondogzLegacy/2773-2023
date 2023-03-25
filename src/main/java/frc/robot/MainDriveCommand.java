@@ -16,7 +16,7 @@ public class MainDriveCommand extends CommandBase {
   // creating a private class for the MainDriveSubsystem
   private final MainDriveSubsystem driveSubsystem;
 
-  private final XboxController secondaryJoystick;
+  private final XboxController armStick;
 
   /** Creates a new DriveCommand using the two above classes */
   public MainDriveCommand(MainDriveSubsystem driveSubsystem, XboxController joystick,
@@ -29,7 +29,7 @@ public class MainDriveCommand extends CommandBase {
     // specifying which subsystem to use for driving
     this.driveSubsystem = driveSubsystem;
 
-    this.secondaryJoystick = secondaryJoystick;
+    this.armStick = secondaryJoystick;
   }
 
   // error message if the below code fails
@@ -49,21 +49,25 @@ public class MainDriveCommand extends CommandBase {
     } else {
       driveSubsystem.slowDrive(-joystick.getLeftY(), -joystick.getLeftY());
     }
+    double DpadSpeed = 0.3;
     if (!driveSubsystem.isMoving) {
-      switch (secondaryJoystick.getPOV()) {
+      switch (armStick.getPOV()) {
         case 0:
-          driveSubsystem.driveLine(0.3);
+          driveSubsystem.driveLine(DpadSpeed);
           return;
         case 90:
-          driveSubsystem.rotation(0.2);
+          driveSubsystem.rotation(DpadSpeed);
           return;
         case 180:
-          driveSubsystem.driveLine(-0.3);
+          driveSubsystem.driveLine(-DpadSpeed);
           return;
         case 270:
-          driveSubsystem.rotation(-0.2);
+          driveSubsystem.rotation(-DpadSpeed);
           return;
       }
+      if (Math.abs(armStick.getLeftX()) > 0.01) {
+        driveSubsystem.rotation(armStick.getLeftX() * DpadSpeed);
+      } 
     }
   }
 
