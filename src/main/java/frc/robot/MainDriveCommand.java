@@ -18,8 +18,6 @@ public class MainDriveCommand extends CommandBase {
 
   private final XboxController secondaryJoystick;
 
-  
-
   /** Creates a new DriveCommand using the two above classes */
   public MainDriveCommand(MainDriveSubsystem driveSubsystem, XboxController joystick,
       XboxController secondaryJoystick) {
@@ -46,25 +44,27 @@ public class MainDriveCommand extends CommandBase {
   // error message if the below code fails
   @Override
   public void execute() {
-    // if (Math.abs(joystick.getLeftY()) > 0.01 || Math.abs(joystick.getLeftX()) >
-    // 0.01) {
     if (driveSubsystem.lowSpeed == false) {
       driveSubsystem.arcadeDrive(-joystick.getLeftY(), -joystick.getLeftX());
-    }
-    if (driveSubsystem.lowSpeed == true) {
+    } else {
       driveSubsystem.slowDrive(-joystick.getLeftY(), -joystick.getLeftY());
     }
-    return;
-    /*
-     * }
-     * switch (secondaryJoystick.getPOV() ) {
-     * case 0: driveSubsystem.driveLine(0.3); return;
-     * case 90: driveSubsystem.rotation(0.2); return;
-     * case 180: driveSubsystem.driveLine(-0.3); return;
-     * case 270: driveSubsystem.rotation(-0.2); return;
-     * }
-     * driveSubsystem.stopAllDrive();
-     */
+    if (!driveSubsystem.isMoving) {
+      switch (secondaryJoystick.getPOV()) {
+        case 0:
+          driveSubsystem.driveLine(0.3);
+          return;
+        case 90:
+          driveSubsystem.rotation(0.2);
+          return;
+        case 180:
+          driveSubsystem.driveLine(-0.3);
+          return;
+        case 270:
+          driveSubsystem.rotation(-0.2);
+          return;
+      }
+    }
   }
 
   // error message if the below code fails
