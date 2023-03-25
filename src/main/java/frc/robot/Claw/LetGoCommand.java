@@ -6,8 +6,6 @@ package frc.robot.Claw;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 //import the wpilib folder for Joysticks
-import edu.wpi.first.wpilibj.Joystick;
-
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 
