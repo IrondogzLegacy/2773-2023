@@ -10,7 +10,7 @@ public class ActiveBrakingCommandPID extends CommandBase {
     private final MainDriveSubsystem driveSubsystem;
     private final MainNavigationSubsystem navigationSubsystem;
 
-    private final PIDController pid = new PIDController(0.5, 0, 0);
+    private final PIDController activeBreakingPID = new PIDController(0.5, 0, 0);
     //Change the parameters to change how PID is calculated.
 
     public ActiveBrakingCommandPID(MainDriveSubsystem driveSubsystem, MainNavigationSubsystem navigationSubsystem) {
@@ -27,13 +27,13 @@ public class ActiveBrakingCommandPID extends CommandBase {
     public void initialize() {
         StartDistance = navigationSubsystem.getDistance();
 
-        pid.setSetpoint(StartDistance);
+        activeBreakingPID.setSetpoint(StartDistance);
         //Goal is where the bot started
     }
 
     @Override
     public void execute() {
-    double speed = pid.calculate(navigationSubsystem.getDistance());
+    double speed = activeBreakingPID.calculate(navigationSubsystem.getDistance());
       speed = MathUtil.clamp(speed, -Constants.SpeedFactorLow, Constants.SpeedFactorLow);
       driveSubsystem.driveLine(speed);
     }
