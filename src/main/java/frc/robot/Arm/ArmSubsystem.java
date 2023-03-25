@@ -23,10 +23,10 @@ public class ArmSubsystem extends SubsystemBase {
       : new CANSparkMax(Constants.ArmExtensionMotorCANID, MotorType.kBrushless);
   private final RelativeEncoder armExtensionEncoder = Constants.IsTestRobot ? null
       : armMotor.getEncoder();
-  private final RelativeEncoder armRotationEncoder = Constants.IsTestRobot ? null
-      : armMotor.getEncoder();
   private final CANSparkMax armRotationMotor = Constants.IsTestRobot ? null
       : new CANSparkMax(Constants.ArmRotationMotorCANID, MotorType.kBrushless);
+  private final RelativeEncoder armRotationEncoder = Constants.IsTestRobot ? null
+      : armRotationMotor.getEncoder();
 
   private final SparkMaxLimitSwitch limit2 = armMotor.getReverseLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
   private final AnalogInput lengthSensor = new AnalogInput(0);
