@@ -114,13 +114,14 @@ public class MainRobotContainer {
     private void configureButtonBindings() {
         final RotationCommand rotationFlip = new RotationCommand(driveSubsystem, navigationSubsystem, 180);
         final ActiveBrakingCommand activeBraking = new ActiveBrakingCommand(driveSubsystem, navigationSubsystem);
+        final ActiveBrakingCommandPID activeBrakingPID = new ActiveBrakingCommandPID(driveSubsystem, navigationSubsystem);
         InstantCommand openCloseArm = new InstantCommand(pnuematicsSubsystem::openCloseArm, pnuematicsSubsystem);
         // The below commands are used for printing values / calibration
         InstantCommand speedChange = new InstantCommand(driveSubsystem::changeSpeedMode);
 
         openCloseButton.onTrue(openCloseArm);
         button2.whileTrue(speedChange);
-        button3.whileTrue(activeBraking);
+        button3.whileTrue(activeBrakingPID);
         button4.whileTrue(rotationFlip);
 
         if (!Constants.IsTestRobot) {
