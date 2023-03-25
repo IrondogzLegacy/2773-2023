@@ -19,6 +19,7 @@ public class ClawSubsystem extends SubsystemBase {
 
   public ClawSubsystem() {
     if(Constants.ClawMotorCANID < 0) {} else ClawMotor.setInverted(true);
+    ClawMotor.setSmartCurrentLimit (15);
   }
 
   @Override

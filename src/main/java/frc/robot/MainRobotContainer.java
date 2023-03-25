@@ -15,6 +15,9 @@ import frc.robot.Arm.RetractCommand;
 import frc.robot.Arm.RotateDownCommand;
 import frc.robot.Arm.RotateUpCommand;
 import frc.robot.Arm.StretchCommand;
+import frc.robot.Claw.ClawSubsystem;
+import frc.robot.Claw.GrabOnCommand;
+import frc.robot.Claw.LetGoCommand;
 import frc.robot.Constants.Constants;
 
 //imports joystick controls and functions
@@ -27,6 +30,7 @@ public class MainRobotContainer {
     private final ArmSubsystem armSubsystem = Constants.IsTestRobot ? null
             : new ArmSubsystem();
     private final PneumaticsSubsystem pnuematicsSubsystem = new PneumaticsSubsystem();
+    private final ClawSubsystem clawSubsystem = new ClawSubsystem();
 
     // Autonomous Section
     public Command getAutonomousCommand1() {
@@ -101,8 +105,8 @@ public class MainRobotContainer {
     JoystickButton button6 = new JoystickButton(main_stick, 6);
     JoystickButton button7 = new JoystickButton(main_stick, 7);
 
-    JoystickButton Abutton1 = new JoystickButton(arm_stick, 1);
-    JoystickButton Abutton2 = new JoystickButton(arm_stick, 2);
+    JoystickButton grabOnButton = new JoystickButton(arm_stick, 1);
+    JoystickButton letGoButton = new JoystickButton(arm_stick, 2);
     JoystickButton openCloseButtonAtArmStick = new JoystickButton(arm_stick, 3);
     JoystickButton Abutton4 = new JoystickButton(arm_stick, 4);
     JoystickButton rotateDownButton = new JoystickButton(arm_stick, 5);
@@ -118,6 +122,8 @@ public class MainRobotContainer {
         InstantCommand openCloseArm = new InstantCommand(pnuematicsSubsystem::openCloseArm, pnuematicsSubsystem);
         // The below commands are used for printing values / calibration
         InstantCommand speedChange = new InstantCommand(driveSubsystem::changeSpeedMode);
+        final GrabOnCommand grabOnCommand = new GrabOnCommand(clawSubsystem, arm_stick);
+        final LetGoCommand letGoCommand = new LetGoCommand(clawSubsystem, arm_stick);
 
         openCloseButton.onTrue(openCloseArm);
         button2.whileTrue(speedChange);
@@ -130,6 +136,8 @@ public class MainRobotContainer {
             final RotateUpCommand rotateUp = new RotateUpCommand(armSubsystem);
             final RotateDownCommand rotateDown = new RotateDownCommand(armSubsystem);
             openCloseButtonAtArmStick.onTrue(openCloseArm);
+            grabOnButton.whileTrue(grabOnCommand);
+            letGoButton.whileTrue(letGoCommand);
             rotateDownButton.whileTrue(rotateDown);
             rotateUpButton.whileTrue(rotateUp);
             leftTrigger1.castTo(Trigger::new).whileTrue(retractCommand);
