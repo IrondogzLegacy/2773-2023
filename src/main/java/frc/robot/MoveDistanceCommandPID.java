@@ -12,6 +12,7 @@ public class MoveDistanceCommandPID extends CommandBase {
     private final double distance;
 
     private final PIDController pid = new PIDController(0.5, 0, 0);
+    //Change the parameters to change how PID is calculated.
 
     public MoveDistanceCommandPID(MainDriveSubsystem driveSubsystem, MainNavigationSubsystem navigationSubsystem,
             double distance) {

@@ -23,7 +23,7 @@ public class ActiveBrakingCommand extends CommandBase {
     startRightEncoder = navigationSubsystem.getRightEncoder();
     System.out.println("Start-right" + startRightEncoder);
   }
-  private static final double ActionDistance = 1./10;
+  private static final double ErrorDistance = 1./10;
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
@@ -33,13 +33,13 @@ public class ActiveBrakingCommand extends CommandBase {
     //If the change in distance is greater than ActionDistance, the robot will move back. 
     //
     //deadzone is 2 inches
-    if (deltaRightEncoder > ActionDistance)
+    if (deltaRightEncoder > ErrorDistance)
     {
       driveSubsystem.driveLine(-Constants.AutoBrakingSpeed);
       System.out.println("Delta-right" + deltaRightEncoder);
     }
     //deadzone is 2 inches
-    if (deltaRightEncoder < -ActionDistance)
+    if (deltaRightEncoder < -ErrorDistance)
     {
       driveSubsystem.driveLine(Constants.AutoBrakingSpeed);
       System.out.println("Delta-right" + deltaRightEncoder);

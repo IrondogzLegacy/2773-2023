@@ -1,0 +1,48 @@
+package frc.robot;
+
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.math.controller.PIDController;
+
+
+public class ActiveBrakingCommandPID extends CommandBase {
+    private final MainDriveSubsystem driveSubsystem;
+    private final MainNavigationSubsystem navigationSubsystem;
+
+    private final PIDController pid = new PIDController(0.5, 0, 0);
+    //Change the parameters to change how PID is calculated.
+
+    public ActiveBrakingCommandPID(MainDriveSubsystem driveSubsystem, MainNavigationSubsystem navigationSubsystem) {
+        this.driveSubsystem = driveSubsystem;
+        this.navigationSubsystem = navigationSubsystem;
+        addRequirements(driveSubsystem);
+    }
+
+    double startRightDistance;
+    private double StartDistance;
+
+
+    // Called when the command is initially scheduled.
+    @Override
+    public void initialize() {
+        StartDistance = navigationSubsystem.getDistance();
+
+        pid.setSetpoint(StartDistance);
+        pid.setTolerance(0.2);
+    }
+
+    @Override
+    public void execute() {
+        var currentRightDistance = navigationSubsystem.getDistance();
+        double deltaRightDistance = currentRightDistance - startRightDistance; 
+    }
+
+    @Override
+    public void end(boolean interrupted) {}
+
+    // Returns true when the command should end.
+    @Override
+    public boolean isFinished() {
+        return false;
+    }
+}
+
