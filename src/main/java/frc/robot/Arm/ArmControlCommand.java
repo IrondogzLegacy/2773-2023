@@ -8,6 +8,7 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants.Constants;
 
 public class ArmControlCommand extends CommandBase {
   private final XboxController armStick;
@@ -38,7 +39,7 @@ public class ArmControlCommand extends CommandBase {
     armSubsystem.rotate(-0.3 * armStick.getLeftY());
     if (Math.abs(armStick.getLeftY()) < 0.01) {
       double speed = holdAnglePID.calculate(armSubsystem.getRotationAngle());
-      speed = MathUtil.clamp(speed, -0.2, 0.2);
+      speed = MathUtil.clamp(speed, -Constants.armMaxRotationSpeed, Constants.armMaxRotationSpeed);
       armSubsystem.rotate(speed);
     } else {
       holdAt = armSubsystem.getRotationAngle();

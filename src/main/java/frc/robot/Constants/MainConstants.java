@@ -14,11 +14,11 @@ public class MainConstants {
     public static final int leftBackWheelsCANID = 14;
     public static final int rightBackWheelsCANID = 20;
 
-    // testbot, NOT the main bot
     public static final int ArmExtensionMotorCANID = 12;
     public static final int ArmRotationMotorCANID = 16;
 
     public static final int PnuematicsPort1 = 7;
     public static final int PnuematicsPort2 = 6;
 
+    public static final double armMaxRotationSpeed = 0.2;
 }

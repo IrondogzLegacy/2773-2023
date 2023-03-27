@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Arm.ArmSubsystem;
+import frc.robot.Arm.MoveArmToAngleCommand;
 import frc.robot.Arm.RetractCommand;
 import frc.robot.Arm.RotateDownCommand;
 import frc.robot.Arm.RotateUpCommand;
@@ -66,11 +67,11 @@ public class MainRobotContainer {
         return moveOnCommand;
     }
 
-    public Command getAutonomousCommandTest() { 
+    public Command getAutonomousCommandTest() {
         var move3 = new MoveDistanceCommandPID(driveSubsystem, navigationSubsystem, 3);
         var rotate90 = new RotationCommand(driveSubsystem, navigationSubsystem, 90);
         return move3;
-        }
+    }
 
     public void resetGyro() {
         navigationSubsystem.resetGyro();
@@ -119,7 +120,8 @@ public class MainRobotContainer {
     private void configureButtonBindings() {
         final RotationCommand rotationFlip = new RotationCommand(driveSubsystem, navigationSubsystem, 180);
         final ActiveBrakingCommand activeBraking = new ActiveBrakingCommand(driveSubsystem, navigationSubsystem);
-        final ActiveBrakingCommandPID activeBrakingPID = new ActiveBrakingCommandPID(driveSubsystem, navigationSubsystem);
+        final ActiveBrakingCommandPID activeBrakingPID = new ActiveBrakingCommandPID(driveSubsystem,
+                navigationSubsystem);
         InstantCommand openCloseArm = new InstantCommand(pnuematicsSubsystem::openCloseArm, pnuematicsSubsystem);
         // The below commands are used for printing values / calibration
         InstantCommand speedChange = new InstantCommand(driveSubsystem::changeSpeedMode);
@@ -138,7 +140,9 @@ public class MainRobotContainer {
             final StretchCommand stretchCommand = new StretchCommand(armSubsystem);
             final RotateUpCommand rotateUp = new RotateUpCommand(armSubsystem);
             final RotateDownCommand rotateDown = new RotateDownCommand(armSubsystem);
-            InstantCommand resetArmEncoder = new InstantCommand(armSubsystem::ResetArmEncoder);
+            InstantCommand resetArmEncoder = new InstantCommand(armSubsystem::ResetArmEncoders);
+            final MoveArmToAngleCommand moveArmTo0 = new MoveArmToAngleCommand(armSubsystem, 90);
+
             openCloseButtonAtArmStick.onTrue(openCloseArm);
             grabOnButton.whileTrue(grabOnCommand);
             letGoButton.whileTrue(letGoCommand);

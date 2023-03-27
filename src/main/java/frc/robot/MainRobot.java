@@ -10,16 +10,19 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 //import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
+import frc.robot.Arm.ArmSubsystem;
 
 public class MainRobot extends TimedRobot {
 
   MainRobotContainer robotContainer;
   Command autonomousCommand;
+  ArmSubsystem armSubsystem;
 
   @Override
   public void robotInit() {
     robotContainer = new MainRobotContainer();
     robotContainer.resetGyro();
+    armSubsystem.ResetArmEncoders();
     CameraServer.startAutomaticCapture();
   }
 
