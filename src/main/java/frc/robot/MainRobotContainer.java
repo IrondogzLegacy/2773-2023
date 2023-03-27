@@ -131,7 +131,7 @@ public class MainRobotContainer {
         openCloseButton.onTrue(openCloseArm);
         button2.whileTrue(speedChange);
         button3.whileTrue(activeBrakingPID);
-        button4.whileTrue(rotationFlip);
+        
 
         if (!Constants.IsTestRobot) {
             final ArmControlCommand armControl = new ArmControlCommand(armSubsystem, arm_stick);
@@ -142,7 +142,8 @@ public class MainRobotContainer {
             final RotateDownCommand rotateDown = new RotateDownCommand(armSubsystem);
             InstantCommand resetArmEncoder = new InstantCommand(armSubsystem::ResetArmEncoders);
             final MoveArmToAngleCommand moveArmTo0 = new MoveArmToAngleCommand(armSubsystem, 90);
-
+            
+            button4.whileTrue(moveArmTo0);
             openCloseButtonAtArmStick.onTrue(openCloseArm);
             grabOnButton.whileTrue(grabOnCommand);
             letGoButton.whileTrue(letGoCommand);
