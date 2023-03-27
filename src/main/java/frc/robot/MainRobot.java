@@ -16,13 +16,11 @@ public class MainRobot extends TimedRobot {
 
   MainRobotContainer robotContainer;
   Command autonomousCommand;
-  ArmSubsystem armSubsystem;
 
   @Override
   public void robotInit() {
     robotContainer = new MainRobotContainer();
     robotContainer.resetGyro();
-    armSubsystem.ResetArmEncoders();
     CameraServer.startAutomaticCapture();
   }
 
