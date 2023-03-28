@@ -104,6 +104,10 @@ public class ArmSubsystem extends SubsystemBase {
     System.out.println(armExtensionEncoder.getPosition());
   }
 
+  public double getArmDistance() {
+    return armExtensionEncoder.getPosition();
+  }
+
   public void ResetArmEncoders() {
     armExtensionEncoder.setPosition(0);
     armRotationEncoder.setPosition(0);
