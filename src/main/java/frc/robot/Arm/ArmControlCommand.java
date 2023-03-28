@@ -33,6 +33,7 @@ public class ArmControlCommand extends CommandBase {
   @Override
   public void initialize() {
     holdAt = armSubsystem.getRotationAngle();
+    endPosition = armSubsystem.getArmDistance();
     rotateAnglePID.setSetpoint(holdAt);
     StretchDistancePID.setSetpoint(endPosition);
     StretchDistancePID.setTolerance(1);
