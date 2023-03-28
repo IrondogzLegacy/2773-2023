@@ -16,11 +16,15 @@ public class ArmControlCommand extends CommandBase {
 
   private PIDController holdAnglePID = new PIDController(0.01, 0, 0);
 
+  private PIDController StretchDistancePID = new PIDController(0.01, 0, 0);
+  private double endPosition;
+
   /** Creates a new ArmControlCommand. */
   public ArmControlCommand(ArmSubsystem armSubsystem, XboxController armStick) {
     addRequirements(armSubsystem);
     this.armSubsystem = armSubsystem;
     this.armStick = armStick;
+    this.endPosition = endPosition;
   }
 
 
@@ -31,6 +35,8 @@ public class ArmControlCommand extends CommandBase {
   public void initialize() {
     holdAt = armSubsystem.getRotationAngle();
     holdAnglePID.setSetpoint(holdAt);
+    StretchDistancePID.setSetpoint(endPosition);
+    StretchDistancePID.setTolerance(1);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -42,12 +48,20 @@ public class ArmControlCommand extends CommandBase {
       double speed = holdAnglePID.calculate(armSubsystem.getRotationAngle());
       speed = MathUtil.clamp(speed, -Constants.armMaxRotationSpeed, Constants.armMaxRotationSpeed);
       armSubsystem.rotate(speed);
+      
+      endPosition += armStick.getRightY();
+      endPosition = MathUtil.clamp(endPosition, 0, 26);
+      StretchDistancePID.setSetpoint(endPosition); 
+    double StretchSpeed = StretchDistancePID.calculate(armSubsystem.getArmDistance());
+      StretchSpeed = MathUtil.clamp(StretchSpeed, -0.2, 0.2);
+      armSubsystem.stretch(StretchSpeed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     armSubsystem.rotateStop();
+    armSubsystem.stopArmExtension();
   }
 
   // Returns true when the command should end.
