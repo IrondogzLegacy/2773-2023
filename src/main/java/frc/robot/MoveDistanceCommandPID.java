@@ -12,7 +12,7 @@ public class MoveDistanceCommandPID extends CommandBase {
     private final MainDriveSubsystem driveSubsystem;
     private final double distance;
 
-    private final PIDController pid = new PIDController(0.5, 0, 0);
+    private final PIDController moveDistancePID = new PIDController(0.5, 0, 0);
     //Change the parameters to change how PID is calculated.
 
     public MoveDistanceCommandPID(MainDriveSubsystem driveSubsystem, MainNavigationSubsystem navigationSubsystem,
@@ -33,8 +33,8 @@ public class MoveDistanceCommandPID extends CommandBase {
         StartDistance = navigationSubsystem.getDistance();
         StopDistance = StartDistance + distance;
         // Goal = Start + Action
-        pid.setSetpoint(StopDistance);
-        pid.setTolerance(0.1);
+        moveDistancePID.setSetpoint(StopDistance);
+        moveDistancePID.setTolerance(0.1);
         /*
          * //Tolerance is the amount of difference the robot will allow between the goal
          * //location when finished
@@ -45,7 +45,7 @@ public class MoveDistanceCommandPID extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        var speed = pid.calculate(navigationSubsystem.getDistance());
+        var speed = moveDistancePID.calculate(navigationSubsystem.getDistance());
         // Speed is based on the distance left. Longer distance creates higher speed and
         // vice versa.
 
@@ -66,6 +66,6 @@ public class MoveDistanceCommandPID extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return pid.atSetpoint();
+        return moveDistancePID.atSetpoint();
     }
 }
