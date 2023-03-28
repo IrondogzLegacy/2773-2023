@@ -26,6 +26,8 @@ public class MoveArmToAngleCommand extends CommandBase {
   @Override
   public void initialize() {
     rotateAnglePID.setSetpoint(endAngle);
+    rotateAnglePID.setTolerance(5);
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
