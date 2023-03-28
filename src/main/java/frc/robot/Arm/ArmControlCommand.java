@@ -14,7 +14,7 @@ public class ArmControlCommand extends CommandBase {
   private final XboxController armStick;
   private final ArmSubsystem armSubsystem;
 
-  private PIDController holdAnglePID = new PIDController(0.01, 0, 0);
+  private PIDController rotateAnglePID = new PIDController(0.01, 0, 0);
 
   private PIDController StretchDistancePID = new PIDController(0.01, 0, 0);
 
@@ -33,9 +33,10 @@ public class ArmControlCommand extends CommandBase {
   @Override
   public void initialize() {
     holdAt = armSubsystem.getRotationAngle();
-    holdAnglePID.setSetpoint(holdAt);
+    rotateAnglePID.setSetpoint(holdAt);
     StretchDistancePID.setSetpoint(endPosition);
     StretchDistancePID.setTolerance(1);
+    rotateAnglePID.setTolerance(5);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -43,8 +44,8 @@ public class ArmControlCommand extends CommandBase {
   public void execute() {
       holdAt += armStick.getLeftY();
       holdAt = MathUtil.clamp(holdAt, 0, 105);
-      holdAnglePID.setSetpoint(holdAt); 
-      double speed = holdAnglePID.calculate(armSubsystem.getRotationAngle());
+      rotateAnglePID.setSetpoint(holdAt); 
+      double speed = rotateAnglePID.calculate(armSubsystem.getRotationAngle());
       speed = MathUtil.clamp(speed, -Constants.armMaxRotationSpeed, Constants.armMaxRotationSpeed);
       armSubsystem.rotate(speed);
       
