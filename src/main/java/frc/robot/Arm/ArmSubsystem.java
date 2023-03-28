@@ -63,7 +63,7 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public void stretch() {
-      armMotor.set(Constants.ArmMotorSpeed);
+    armMotor.set(Constants.ArmMotorSpeed);
   }
 
   public void stretch(double speed) {
@@ -79,7 +79,6 @@ public class ArmSubsystem extends SubsystemBase {
 
     }
   }
-
 
   public void stopArmExtension() {
     armMotor.stopMotor();
