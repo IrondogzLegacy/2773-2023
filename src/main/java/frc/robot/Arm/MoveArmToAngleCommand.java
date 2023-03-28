@@ -14,7 +14,6 @@ public class MoveArmToAngleCommand extends CommandBase {
   private PIDController rotateAnglePID = new PIDController(0.01, 0, 0);
   private double endAngle;
 
-
   public MoveArmToAngleCommand(ArmSubsystem armSubsystem, double endAngle) {
     this.armSubsystem = armSubsystem;
     this.endAngle = endAngle;
@@ -34,18 +33,19 @@ public class MoveArmToAngleCommand extends CommandBase {
   @Override
   public void execute() {
     double rotateSpeed = rotateAnglePID.calculate(armSubsystem.getRotationAngle());
-      rotateSpeed = MathUtil.clamp(rotateSpeed, -0.2, 0.2);
-      armSubsystem.rotate(rotateSpeed);
+    rotateSpeed = MathUtil.clamp(rotateSpeed, -0.2, 0.2);
+    armSubsystem.rotate(rotateSpeed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    armSubsystem.rotateStop();
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    armSubsystem.rotateStop();
-    return true;
+    return false;
   }
 }
