@@ -80,24 +80,6 @@ public class ArmSubsystem extends SubsystemBase {
     }
   }
 
-  public void stretchLength(double stretchDistance) {
-    double stretch_start = armExtensionEncoder.getPosition();
-    double ratio = armExtensionEncoder.getPositionConversionFactor();
-    double stretch_finish = stretch_start + stretchDistance;
-    if (stretchDistance > 0) {
-      if (armExtensionEncoder.getPosition() < stretch_finish) {
-        stretch();
-      } else
-        stopArmExtension();
-    }
-    if (stretchDistance < 0) {
-      if (armExtensionEncoder.getPosition() > stretch_finish) {
-        retract();
-      } else
-        stopArmExtension();
-    } else
-      stopArmExtension();
-  }
 
   public void stopArmExtension() {
     armMotor.stopMotor();
