@@ -16,6 +16,7 @@ import frc.robot.Arm.RetractCommand;
 import frc.robot.Arm.RotateDownCommand;
 import frc.robot.Arm.RotateUpCommand;
 import frc.robot.Arm.StretchCommand;
+import frc.robot.Arm.StretchDistanceCommandPID;
 import frc.robot.Arm.ArmControlCommand;
 import frc.robot.Claw.ClawSubsystem;
 import frc.robot.Claw.GrabOnCommand;
@@ -100,7 +101,7 @@ public class MainRobotContainer {
 
     // Controls how it grabs or lets go
     JoystickButton openCloseButton = new JoystickButton(main_stick, 1);
-    JoystickButton button2 = new JoystickButton(main_stick, 2);
+    JoystickButton speedChangeButton = new JoystickButton(main_stick, 2);
     JoystickButton button3 = new JoystickButton(main_stick, 3);
     JoystickButton button4 = new JoystickButton(main_stick, 4);
     JoystickButton button5 = new JoystickButton(main_stick, 5);
@@ -129,7 +130,7 @@ public class MainRobotContainer {
         final LetGoCommand letGoCommand = new LetGoCommand(clawSubsystem, arm_stick);
 
         openCloseButton.onTrue(openCloseArm);
-        button2.whileTrue(speedChange);
+        speedChangeButton.whileTrue(speedChange);
         button3.whileTrue(activeBrakingPID);
         
 
@@ -142,9 +143,10 @@ public class MainRobotContainer {
             final RotateDownCommand rotateDown = new RotateDownCommand(armSubsystem);
             InstantCommand resetArmEncoder = new InstantCommand(armSubsystem::ResetArmEncoders);
             final MoveArmToAngleCommand moveArmTo0 = new MoveArmToAngleCommand(armSubsystem, 90);
-            
+            final StretchDistanceCommandPID extendArmToHalf = new StretchDistanceCommandPID(armSubsystem, 15);
+
             button4.whileTrue(moveArmTo0);
-            openCloseButtonAtArmStick.onTrue(openCloseArm);
+            openCloseButtonAtArmStick.whileTrue(extendArmToHalf);
             grabOnButton.whileTrue(grabOnCommand);
             letGoButton.whileTrue(letGoCommand);
             rotateDownButton.whileTrue(rotateDown);
