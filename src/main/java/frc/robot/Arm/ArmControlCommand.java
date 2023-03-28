@@ -17,18 +17,17 @@ public class ArmControlCommand extends CommandBase {
   private PIDController holdAnglePID = new PIDController(0.01, 0, 0);
 
   private PIDController StretchDistancePID = new PIDController(0.01, 0, 0);
-  private double endPosition;
 
   /** Creates a new ArmControlCommand. */
   public ArmControlCommand(ArmSubsystem armSubsystem, XboxController armStick) {
     addRequirements(armSubsystem);
     this.armSubsystem = armSubsystem;
     this.armStick = armStick;
-    this.endPosition = endPosition;
   }
 
 
   double holdAt;
+  double endPosition;
 
   // Called when the command is initially scheduled.
   @Override
