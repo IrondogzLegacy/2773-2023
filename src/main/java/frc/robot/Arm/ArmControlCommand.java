@@ -42,15 +42,15 @@ public class ArmControlCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-      holdAt += armStick.getLeftY();
-      holdAt = MathUtil.clamp(holdAt, 0, 105);
+      holdAt += 20*armStick.getLeftY();
+      holdAt = MathUtil.clamp(holdAt, -5, 105);
       rotateAnglePID.setSetpoint(holdAt); 
       double speed = rotateAnglePID.calculate(armSubsystem.getRotationAngle());
       speed = MathUtil.clamp(speed, -Constants.armMaxRotationSpeed, Constants.armMaxRotationSpeed);
       armSubsystem.rotate(speed);
       
-      endPosition += armStick.getRightY();
-      endPosition = MathUtil.clamp(endPosition, 0, 26);
+      endPosition += 5*armStick.getRightY();
+      endPosition = MathUtil.clamp(endPosition, -5, 26);
       StretchDistancePID.setSetpoint(endPosition); 
     double StretchSpeed = StretchDistancePID.calculate(armSubsystem.getArmDistance());
       StretchSpeed = MathUtil.clamp(StretchSpeed, -0.2, 0.2);
