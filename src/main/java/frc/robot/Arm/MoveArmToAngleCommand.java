@@ -17,15 +17,14 @@ public class MoveArmToAngleCommand extends CommandBase {
 
   public MoveArmToAngleCommand(ArmSubsystem armSubsystem, double endAngle) {
     this.armSubsystem = armSubsystem;
+    this.endAngle = endAngle;
     addRequirements(armSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
-  private double currentArmAngle;
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    currentArmAngle = armSubsystem.getRotationAngle();
     rotateAnglePID.setSetpoint(endAngle);
   }
 
