@@ -22,7 +22,6 @@ public class StretchDistanceCommandPID extends CommandBase {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
-  private double currentDistance = armSubsystem.getArmDistance();
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
@@ -33,19 +32,18 @@ public class StretchDistanceCommandPID extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double StretchSpeed = StretchDistancePID.calculate(currentDistance);
+    double StretchSpeed = StretchDistancePID.calculate(armSubsystem.getArmDistance());
       StretchSpeed = MathUtil.clamp(StretchSpeed, -0.2, 0.2);
-      armSubsystem.stretchLength(StretchSpeed);
+      armSubsystem.stretch(StretchSpeed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {armSubsystem.stopArmExtension();}
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    armSubsystem.rotateStop();
-    return true;
+    return false;
   }
 }

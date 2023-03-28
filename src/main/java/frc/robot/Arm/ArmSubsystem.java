@@ -63,8 +63,11 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public void stretch() {
-    if ((getRotationAngle() > -70))
       armMotor.set(Constants.ArmMotorSpeed);
+  }
+
+  public void stretch(double speed) {
+    armMotor.set(speed);
   }
 
   public void retract() {
