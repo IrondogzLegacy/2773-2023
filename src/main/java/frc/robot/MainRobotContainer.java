@@ -111,16 +111,11 @@ public class MainRobotContainer {
     JoystickButton grabOnButton = new JoystickButton(arm_stick, 1);
     JoystickButton letGoButton = new JoystickButton(arm_stick, 2);
     JoystickButton openCloseButtonAtArmStick = new JoystickButton(arm_stick, 3);
-    JoystickButton resetArmEncoderButton = new JoystickButton(arm_stick, 4);
-    JoystickButton rotateDownButton = new JoystickButton(arm_stick, 5);
-    JoystickButton rotateUpButton = new JoystickButton(arm_stick, 6);
     JoystickButton Abutton7 = new JoystickButton(arm_stick, 7);
 
     // Abuttons are for the second controller
 
     private void configureButtonBindings() {
-        final RotationCommand rotationFlip = new RotationCommand(driveSubsystem, navigationSubsystem, 180);
-        final ActiveBrakingCommand activeBraking = new ActiveBrakingCommand(driveSubsystem, navigationSubsystem);
         final ActiveBrakingCommandPID activeBrakingPID = new ActiveBrakingCommandPID(driveSubsystem,
                 navigationSubsystem);
         InstantCommand openCloseArm = new InstantCommand(pnuematicsSubsystem::openCloseArm, pnuematicsSubsystem);
@@ -137,11 +132,6 @@ public class MainRobotContainer {
         if (!Constants.IsTestRobot) {
             final ArmControlCommand armControl = new ArmControlCommand(armSubsystem, arm_stick);
             armSubsystem.setDefaultCommand(armControl);
-            final RetractCommand retractCommand = new RetractCommand(armSubsystem);
-            final StretchCommand stretchCommand = new StretchCommand(armSubsystem);
-            final RotateUpCommand rotateUp = new RotateUpCommand(armSubsystem);
-            final RotateDownCommand rotateDown = new RotateDownCommand(armSubsystem);
-            InstantCommand resetArmEncoder = new InstantCommand(armSubsystem::ResetArmEncoders);
             final MoveArmToAngleCommand moveArmTo0 = new MoveArmToAngleCommand(armSubsystem, 90);
             final StretchDistanceCommandPID extendArmToHalf = new StretchDistanceCommandPID(armSubsystem, 15);
 
@@ -149,11 +139,6 @@ public class MainRobotContainer {
             openCloseButtonAtArmStick.whileTrue(extendArmToHalf);
             grabOnButton.whileTrue(grabOnCommand);
             letGoButton.whileTrue(letGoCommand);
-            rotateDownButton.whileTrue(rotateDown);
-            rotateUpButton.whileTrue(rotateUp);
-            resetArmEncoderButton.onTrue(resetArmEncoder);
-            leftTrigger1.castTo(Trigger::new).whileTrue(retractCommand);
-            rightTrigger1.castTo(Trigger::new).whileTrue(stretchCommand);
         }
     }
 }

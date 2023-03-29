@@ -16,7 +16,7 @@ public class ArmControlCommand extends CommandBase {
 
   private PIDController rotateAnglePID = new PIDController(0.01, 0, 0);
 
-  private PIDController StretchDistancePID = new PIDController(0.01, 0, 0);
+  private PIDController StretchDistancePID = new PIDController(0.1, 0, 0);
 
   /** Creates a new ArmControlCommand. */
   public ArmControlCommand(ArmSubsystem armSubsystem, XboxController armStick) {
@@ -25,36 +25,46 @@ public class ArmControlCommand extends CommandBase {
     this.armStick = armStick;
   }
 
-
   double holdAt;
   double endPosition;
+
+  private void resetSetpoints() {
+    holdAt = armSubsystem.getRotationAngle();
+    endPosition = armSubsystem.getArmDistance();
+    rotateAnglePID.setSetpoint(holdAt);
+    StretchDistancePID.setSetpoint(endPosition);
+  }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    holdAt = armSubsystem.getRotationAngle();
-    rotateAnglePID.setSetpoint(holdAt);
-    StretchDistancePID.setSetpoint(endPosition);
     StretchDistancePID.setTolerance(1);
     rotateAnglePID.setTolerance(5);
+    resetSetpoints();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-      holdAt += 20*armStick.getLeftY();
-      holdAt = MathUtil.clamp(holdAt, -5, 105);
-      rotateAnglePID.setSetpoint(holdAt); 
-      double speed = rotateAnglePID.calculate(armSubsystem.getRotationAngle());
-      speed = MathUtil.clamp(speed, -Constants.armMaxRotationSpeed, Constants.armMaxRotationSpeed);
-      armSubsystem.rotate(speed);
-      
-      endPosition += 5*armStick.getRightY();
-      endPosition = MathUtil.clamp(endPosition, -5, 26);
-      StretchDistancePID.setSetpoint(endPosition); 
-    double StretchSpeed = StretchDistancePID.calculate(armSubsystem.getArmDistance());
-      StretchSpeed = MathUtil.clamp(StretchSpeed, -0.2, 0.2);
-      armSubsystem.stretch(StretchSpeed);
+    // Check if two buttons pressed to reset zero.
+    boolean resetZero = armStick.getRawButton(7) && armStick.getRawButton(8);
+    if (resetZero) {
+      armSubsystem.resetArmEncoders();
+      resetSetpoints();
+    }
+    holdAt += -0.5 * MathUtil.applyDeadband(armStick.getLeftY(), 0.01);
+    holdAt = MathUtil.clamp(holdAt, resetZero ? -5 : 0, 105);
+    rotateAnglePID.setSetpoint(holdAt);
+    double speed = rotateAnglePID.calculate(armSubsystem.getRotationAngle());
+    speed = MathUtil.clamp(speed, -Constants.armMaxRotationSpeed, Constants.armMaxRotationSpeed);
+    armSubsystem.rotate(speed);
+
+    endPosition += -0.1 * MathUtil.applyDeadband(armStick.getRightY(), 0.01);
+    endPosition = MathUtil.clamp(endPosition, resetZero ? -5 : 0, 26);
+    StretchDistancePID.setSetpoint(endPosition);
+    double stretchSpeed = StretchDistancePID.calculate(armSubsystem.getArmDistance());
+    stretchSpeed = MathUtil.clamp(stretchSpeed, -0.5, 0.5);
+    armSubsystem.stretch(stretchSpeed);
   }
 
   // Called once the command ends or is interrupted.

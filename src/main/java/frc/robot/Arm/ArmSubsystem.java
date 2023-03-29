@@ -75,7 +75,7 @@ public class ArmSubsystem extends SubsystemBase {
       armMotor.set(-Constants.ArmMotorSpeed);
     } else {
       armMotor.set(0);
-      ResetArmEncoders();
+      resetArmEncoders();
 
     }
   }
@@ -92,10 +92,9 @@ public class ArmSubsystem extends SubsystemBase {
     return armExtensionEncoder.getPosition();
   }
 
-  public void ResetArmEncoders() {
+  public void resetArmEncoders() {
     armExtensionEncoder.setPosition(0);
     armRotationEncoder.setPosition(0);
-    // printEncoder();
   }
 
   public void rotateUp() {
