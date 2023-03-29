@@ -12,6 +12,7 @@ public class StretchDistanceCommandPID extends CommandBase {
   /** Creates a new ReturnArmTo0. */
   private ArmSubsystem armSubsystem;
   private PIDController StretchDistancePID = new PIDController(0.01, 0, 0);
+  //Parameters are numbers in the PID formula
   private double endPosition;
 
 
@@ -33,8 +34,11 @@ public class StretchDistanceCommandPID extends CommandBase {
   @Override
   public void execute() {
     double StretchSpeed = StretchDistancePID.calculate(armSubsystem.getArmDistance());
+    //PID Calculation. Current distance is put into the PID formula, speed of arm is given.
       StretchSpeed = MathUtil.clamp(StretchSpeed, -0.2, 0.2);
+      //Limits speed
       armSubsystem.stretch(StretchSpeed);
+      //Tells the armSubsystem to stretch
   }
 
   // Called once the command ends or is interrupted.
