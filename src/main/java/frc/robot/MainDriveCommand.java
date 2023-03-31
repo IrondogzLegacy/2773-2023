@@ -4,10 +4,13 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.filter.LinearFilter;
+import edu.wpi.first.math.filter.SlewRateLimiter;
 //importing the XboxController commands
 import edu.wpi.first.wpilibj.XboxController;
 //importing a base for commands in WPILib
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants.Constants;
 
 //defining a class MainDriveCommand which branches off of the CommandBase (imported earlier)
 public class MainDriveCommand extends CommandBase {
@@ -40,17 +43,33 @@ public class MainDriveCommand extends CommandBase {
     // no code atm
   }
 
+    // Creates a SlewRateLimiter that limits the rate of change of the signal to 0.5
+  // units per second
+  SlewRateLimiter filter = new SlewRateLimiter(0.9);
+  LinearFilter linfilter = LinearFilter.singlePoleIIR(0.05, 0.02);
+  LinearFilter moveAvgFilter = LinearFilter.movingAverage(3);
+
+
   // Called every time the scheduler runs while the command is scheduled.
   // error message if the below code fails
   @Override
   public void execute() {
-    if (driveSubsystem.lowSpeed == false) {
-      driveSubsystem.arcadeDrive(-joystick.getLeftY(), -joystick.getLeftX());
+    boolean isMoving = false;
+    boolean isSlow = joystick.getRawButton(6);
+    if (!isSlow) {
+      // Calculates the next value of the output
+      //double filterOutput = filter.calculate(-joystick.getLeftY() * Constants.SpeedFactor);
+      double filterOutput = -joystick.getLeftY() * Constants.SpeedFactor;
+      driveSubsystem.arcadeDrive(
+          filterOutput, -joystick.getLeftX() * Constants.RotationFactor);
+      isMoving = Math.abs(filterOutput)>0.01 || Math.abs(joystick.getLeftX()) > 0.01;
+  
     } else {
-      driveSubsystem.slowDrive(-joystick.getLeftY(), -joystick.getLeftY());
+      driveSubsystem.arcadeDrive(-joystick.getLeftY() * Constants.SpeedFactorLow, -joystick.getLeftX() * Constants.RotationFactorLow);
+      isMoving = Math.abs(joystick.getLeftY())>0.01 || Math.abs(joystick.getLeftX()) > 0.01;
     }
     double DpadSpeed = 0.3;
-    if (!driveSubsystem.isMoving) {
+    if (!isMoving) {
       switch (armStick.getPOV()) {
         case 0:
           driveSubsystem.driveLine(DpadSpeed);

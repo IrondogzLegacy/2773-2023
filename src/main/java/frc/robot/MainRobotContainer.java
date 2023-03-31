@@ -119,13 +119,10 @@ public class MainRobotContainer {
         final ActiveBrakingCommandPID activeBrakingPID = new ActiveBrakingCommandPID(driveSubsystem,
                 navigationSubsystem);
         InstantCommand openCloseArm = new InstantCommand(pnuematicsSubsystem::openCloseArm, pnuematicsSubsystem);
-        // The below commands are used for printing values / calibration
-        InstantCommand speedChange = new InstantCommand(driveSubsystem::changeSpeedMode);
         final GrabOnCommand grabOnCommand = new GrabOnCommand(clawSubsystem, arm_stick);
         final LetGoCommand letGoCommand = new LetGoCommand(clawSubsystem, arm_stick);
 
         openCloseButton.onTrue(openCloseArm);
-        speedChangeButton.whileTrue(speedChange);
         button3.whileTrue(activeBrakingPID);
         
 

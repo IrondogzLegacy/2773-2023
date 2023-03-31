@@ -52,15 +52,21 @@ public class ArmControlCommand extends CommandBase {
       armSubsystem.resetArmEncoders();
       resetSetpoints();
     }
+
+    boolean overrideZero = armStick.getRawButton(7);
+    double minHoldAngle = overrideZero ? -20 : 0;
+    double maxHoldAngle = 105;
+    double minDistance = overrideZero ? -20 : 0;
+    double maxDistance = 26;
     holdAt += -0.5 * MathUtil.applyDeadband(armStick.getLeftY(), 0.01);
-    holdAt = MathUtil.clamp(holdAt, resetZero ? -5 : 0, 105);
+    holdAt = MathUtil.clamp(holdAt, minHoldAngle, maxHoldAngle);
     rotateAnglePID.setSetpoint(holdAt);
     double speed = rotateAnglePID.calculate(armSubsystem.getRotationAngle());
     speed = MathUtil.clamp(speed, -Constants.armMaxRotationSpeed, Constants.armMaxRotationSpeed);
     armSubsystem.rotate(speed);
 
     endPosition += -0.1 * MathUtil.applyDeadband(armStick.getRightY(), 0.01);
-    endPosition = MathUtil.clamp(endPosition, resetZero ? -5 : 0, 26);
+    endPosition = MathUtil.clamp(endPosition, minDistance, maxDistance);
     StretchDistancePID.setSetpoint(endPosition);
     double stretchSpeed = StretchDistancePID.calculate(armSubsystem.getArmDistance());
     stretchSpeed = MathUtil.clamp(stretchSpeed, -0.5, 0.5);
