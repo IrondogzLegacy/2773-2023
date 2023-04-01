@@ -129,11 +129,11 @@ public class MainRobotContainer {
         if (!Constants.IsTestRobot) {
             final ArmControlCommand armControl = new ArmControlCommand(armSubsystem, arm_stick);
             armSubsystem.setDefaultCommand(armControl);
-            final MoveArmToAnglePositionCommand moveArmTo3rd = new MoveArmToAnglePositionCommand(armSubsystem, 80, 0);
-            final MoveArmToAnglePositionCommand extendArmTo3rd = new MoveArmToAnglePositionCommand(armSubsystem,80, 20);
+            final MoveArmToAnglePositionCommand moveArmTo3rd = new MoveArmToAnglePositionCommand(armSubsystem, Constants.SafeAngle, Constants.SafePosition);
+            final MoveArmToAnglePositionCommand extendArmTo3rd = new MoveArmToAnglePositionCommand(armSubsystem, Constants.ThirdAngle, Constants.ThirdPosition);
 
-            button4.whileTrue(moveArmTo3rd);
-            ExtendArmTo3rd.whileTrue(extendArmTo3rd);
+            button4.whileTrue(moveArmTo3rd.andThen(extendArmTo3rd));
+            //ExtendArmTo3rd.whileTrue(extendArmTo3rd);
             grabOnButton.whileTrue(grabOnCommand);
             letGoButton.whileTrue(letGoCommand);
         }
