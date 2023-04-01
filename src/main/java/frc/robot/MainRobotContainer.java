@@ -103,7 +103,7 @@ public class MainRobotContainer {
     }
 
     // Controls how it grabs or lets go
-    JoystickButton openCloseButton = new JoystickButton(main_stick, 1);
+    JoystickButton autoBalanceButton = new JoystickButton(main_stick, 1);
     JoystickButton speedChangeButton = new JoystickButton(main_stick, 2);
     JoystickButton activeBreakingButton = new JoystickButton(main_stick, 3);
     JoystickButton stowArmButton = new JoystickButton(main_stick, 4);
@@ -123,8 +123,10 @@ public class MainRobotContainer {
         InstantCommand openCloseArm = new InstantCommand(pnuematicsSubsystem::openCloseArm, pnuematicsSubsystem);
         final GrabOnCommand grabOnCommand = new GrabOnCommand(clawSubsystem, arm_stick);
         final LetGoCommand letGoCommand = new LetGoCommand(clawSubsystem, arm_stick);
+        final AutoBalanceCommandPID autoBalanceCommandPID = new AutoBalanceCommandPID(driveSubsystem,
+                navigationSubsystem);
 
-        openCloseButton.onTrue(openCloseArm);
+        autoBalanceButton.onTrue(autoBalanceCommandPID);
         activeBreakingButton.whileTrue(activeBrakingPID);
 
         if (!Constants.IsTestRobot) {
