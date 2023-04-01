@@ -110,7 +110,7 @@ public class MainRobotContainer {
 
     JoystickButton grabOnButton = new JoystickButton(arm_stick, 1);
     JoystickButton letGoButton = new JoystickButton(arm_stick, 2);
-    JoystickButton ExtendArmTo3rd = new JoystickButton(arm_stick, 3);
+    JoystickButton StowArmButton = new JoystickButton(arm_stick, 3);
     JoystickButton Abutton7 = new JoystickButton(arm_stick, 7);
 
     // Abuttons are for the second controller
@@ -131,9 +131,11 @@ public class MainRobotContainer {
             armSubsystem.setDefaultCommand(armControl);
             final MoveArmToAnglePositionCommand moveArmTo3rd = new MoveArmToAnglePositionCommand(armSubsystem, Constants.SafeAngle, Constants.SafePosition);
             final MoveArmToAnglePositionCommand extendArmTo3rd = new MoveArmToAnglePositionCommand(armSubsystem, Constants.ThirdAngle, Constants.ThirdPosition);
+            final MoveArmToAnglePositionCommand stowArmCommand = new MoveArmToAnglePositionCommand(armSubsystem, Constants.StowedAngle, Constants.StowedPosition);
+
 
             button4.whileTrue(moveArmTo3rd.andThen(extendArmTo3rd));
-            //ExtendArmTo3rd.whileTrue(extendArmTo3rd);
+            StowArmButton.whileTrue(stowArmCommand);
             grabOnButton.whileTrue(grabOnCommand);
             letGoButton.whileTrue(letGoCommand);
         }
