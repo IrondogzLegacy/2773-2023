@@ -129,7 +129,7 @@ public class MainRobotContainer {
         if (!Constants.IsTestRobot) {
             final ArmControlCommand armControl = new ArmControlCommand(armSubsystem, arm_stick);
             armSubsystem.setDefaultCommand(armControl);
-            final MoveArmToAngleCommand moveArmTo0 = new MoveArmToAngleCommand(armSubsystem, 90);
+            final MoveArmToAngleCommand moveArmTo0 = new MoveArmToAngleCommand(armSubsystem, 75);
             final StretchDistanceCommandPID extendArmToHalf = new StretchDistanceCommandPID(armSubsystem, 15);
 
             button4.whileTrue(moveArmTo0);
