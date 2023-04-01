@@ -61,7 +61,7 @@ public class Constants extends MainConstants {
   public static final double SafeAngle = 50;
 
   //Constants for the position & angle we need for the third level
-  public static final double ThirdPosition = 25;
-  public static final double ThirdAngle = 95;
+  public static final double ThirdPosition = 30;
+  public static final double ThirdAngle = 100;
 }
 // Pseudocode updated 1/23/2023 last, MainConstants
