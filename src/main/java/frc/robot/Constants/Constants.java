@@ -51,5 +51,13 @@ public class Constants extends MainConstants {
   public static final double ArmTopVoltage = 2.24;
   public static final double ArmMinDeg = -83;
   public static final double ArmMaxDeg = 20;
+
+  //Constants for the safe position, to make sure that the arm does not run into anything
+  public static final double SafePosition = 0;
+  public static final double SafeAngle = 50;
+
+  //Constants for the position & angle we need for the third level
+  public static final double ThirdPosition = 15;
+  public static final double ThirdAngle = 80;
 }
 // Pseudocode updated 1/23/2023 last, MainConstants

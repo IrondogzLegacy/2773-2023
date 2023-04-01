@@ -13,10 +13,9 @@ public class MoveArmToAnglePositionCommand extends CommandBase {
   /** Creates a new ReturnArmTo0. */
   private ArmSubsystem armSubsystem;
   private PIDController rotateAnglePID = new PIDController(0.01, 0, 0);
-  private PIDController StretchDistancePID = new PIDController(0.3, 0, 0);
+  private PIDController stretchDistancePID = new PIDController(0.3, 0, 0);
   private double endAngle;
   private double endPosition;
-
 
   public MoveArmToAnglePositionCommand(ArmSubsystem armSubsystem, double endAngle, double endPosition) {
     this.armSubsystem = armSubsystem;
@@ -31,8 +30,8 @@ public class MoveArmToAnglePositionCommand extends CommandBase {
   public void initialize() {
     rotateAnglePID.setSetpoint(endAngle);
     rotateAnglePID.setTolerance(5);
-    StretchDistancePID.setSetpoint(endPosition);
-    StretchDistancePID.setTolerance(1);
+    stretchDistancePID.setSetpoint(endPosition);
+    stretchDistancePID.setTolerance(1);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -42,7 +41,7 @@ public class MoveArmToAnglePositionCommand extends CommandBase {
     speed = MathUtil.clamp(speed, -Constants.armMaxRotationSpeed, Constants.armMaxRotationSpeed);
     armSubsystem.rotate(speed);
 
-    double stretchSpeed = StretchDistancePID.calculate(armSubsystem.getArmDistance());
+    double stretchSpeed = stretchDistancePID.calculate(armSubsystem.getArmDistance());
     stretchSpeed = MathUtil.clamp(stretchSpeed, -0.5, 0.5);
     armSubsystem.stretch(stretchSpeed);
   }
@@ -56,6 +55,6 @@ public class MoveArmToAnglePositionCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+   return stretchDistancePID.atSetpoint() && rotateAnglePID.atSetpoint();
   }
 }
