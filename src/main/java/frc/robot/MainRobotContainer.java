@@ -58,24 +58,21 @@ public class MainRobotContainer {
     }
 
     public Command getAutonomousCommand2() {
-        final MoveDistanceCommand move2 = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, -10);
+        InstantCommand driveSlow = new InstantCommand(driveSubsystem::driveSlow, driveSubsystem);
+        final ActiveBrakingCommandPID activeBrakingPID = new ActiveBrakingCommandPID(driveSubsystem,
+                navigationSubsystem);
         final AutoBalanceCommandPID autoBalance = new AutoBalanceCommandPID(driveSubsystem, navigationSubsystem);
         // AutoBalance requires gyro.
 
-        var moveUntilandAutoBalance = move2
-                .until(() -> navigationSubsystem.getPitch() > 12 || navigationSubsystem.getPitch() < -12)
-                .andThen(autoBalance);
+        var moveUntilandAutoBalance = driveSlow
+                .until(() -> navigationSubsystem.getPitch() <= -1)
+                .andThen(activeBrakingPID);
         var moveOnCommand = new ParallelRaceGroup(
                 new WaitCommand(15),
                 moveUntilandAutoBalance);
         return moveOnCommand;
     }
 
-    public Command getAutonomousCommandTest() {
-        var move3 = new MoveDistanceCommandPID(driveSubsystem, navigationSubsystem, 3);
-        var rotate90 = new RotationCommand(driveSubsystem, navigationSubsystem, 90);
-        return move3;
-    }
 
     public void resetGyro() {
         navigationSubsystem.resetGyro();
