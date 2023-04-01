@@ -65,6 +65,9 @@ public class MainDriveSubsystem extends SubsystemBase {
     mainDrive.tankDrive(speed, speed);
   }
 
+  public void driveSlow()
+  {mainDrive.tankDrive(0.2,0.2);}
+
   public void stopAllDrive() {
     mainDrive.tankDrive(0, 0);
   }
