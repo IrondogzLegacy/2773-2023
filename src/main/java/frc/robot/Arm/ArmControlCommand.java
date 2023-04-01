@@ -16,7 +16,7 @@ public class ArmControlCommand extends CommandBase {
 
   private PIDController rotateAnglePID = new PIDController(0.01, 0, 0);
 
-  private PIDController StretchDistancePID = new PIDController(0.3, 0, 0);
+  private PIDController StretchDistancePID = new PIDController(0.4, 0, 0);
 
   /** Creates a new ArmControlCommand. */
   public ArmControlCommand(ArmSubsystem armSubsystem, XboxController armStick) {
@@ -54,22 +54,22 @@ public class ArmControlCommand extends CommandBase {
     }
 
     boolean overrideZero = armStick.getRawButton(7);
-    double minHoldAngle = overrideZero ? -20 : 0;
-    double maxHoldAngle = 105;
-    double minDistance = overrideZero ? -20 : 0;
-    double maxDistance = 33;
-    holdAt += -0.5 * MathUtil.applyDeadband(armStick.getLeftY(), 0.01);
+    double minHoldAngle = overrideZero ? Constants.armMaxRotationOverride : 0;
+    double maxHoldAngle = Constants.armMaxAngle;
+    double minDistance = overrideZero ? Constants.armMaxPositionOverride : 0;
+    double maxDistance = Constants.armMaxPosition;
+    holdAt += -0.5 * MathUtil.applyDeadband(armStick.getLeftY(), Constants.ControllerDeadzone);
     holdAt = MathUtil.clamp(holdAt, minHoldAngle, maxHoldAngle);
     rotateAnglePID.setSetpoint(holdAt);
     double speed = rotateAnglePID.calculate(armSubsystem.getRotationAngle());
     speed = MathUtil.clamp(speed, -Constants.armMaxRotationSpeed, Constants.armMaxRotationSpeed);
     armSubsystem.rotate(speed);
 
-    endPosition += -0.3 * MathUtil.applyDeadband(armStick.getRightY(), 0.01);
+    endPosition += -0.3 * MathUtil.applyDeadband(armStick.getRightY(), Constants.ControllerDeadzone);
     endPosition = MathUtil.clamp(endPosition, minDistance, maxDistance);
     StretchDistancePID.setSetpoint(endPosition);
     double stretchSpeed = StretchDistancePID.calculate(armSubsystem.getArmDistance());
-    stretchSpeed = MathUtil.clamp(stretchSpeed, -0.5, 0.5);
+    stretchSpeed = MathUtil.clamp(stretchSpeed, -Constants.armMaxExtensionSpeed, Constants.armMaxExtensionSpeed);
     armSubsystem.stretch(stretchSpeed);
   }
 

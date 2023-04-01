@@ -68,7 +68,7 @@ public class MainDriveCommand extends CommandBase {
       driveSubsystem.arcadeDrive(-joystick.getLeftY() * Constants.SpeedFactorLow, -joystick.getLeftX() * Constants.RotationFactorLow);
       isMoving = Math.abs(joystick.getLeftY())>0.01 || Math.abs(joystick.getLeftX()) > 0.01;
     }
-    double DpadSpeed = 0.3;
+    double DpadSpeed = Constants.DpadSpeed;
     if (!isMoving) {
       switch (armStick.getPOV()) {
         case 0:

@@ -102,16 +102,15 @@ public class MainRobotContainer {
     // Controls how it grabs or lets go
     JoystickButton openCloseButton = new JoystickButton(main_stick, 1);
     JoystickButton speedChangeButton = new JoystickButton(main_stick, 2);
-    JoystickButton button3 = new JoystickButton(main_stick, 3);
-    JoystickButton button4 = new JoystickButton(main_stick, 4);
-    JoystickButton button5 = new JoystickButton(main_stick, 5);
-    JoystickButton button6 = new JoystickButton(main_stick, 6);
-    JoystickButton button7 = new JoystickButton(main_stick, 7);
+    JoystickButton activeBreakingButton = new JoystickButton(main_stick, 3);
+    JoystickButton stowArmButton = new JoystickButton(main_stick, 4);
 
     JoystickButton grabOnButton = new JoystickButton(arm_stick, 1);
     JoystickButton letGoButton = new JoystickButton(arm_stick, 2);
-    JoystickButton StowArmButton = new JoystickButton(arm_stick, 3);
-    JoystickButton Abutton7 = new JoystickButton(arm_stick, 7);
+    JoystickButton moveArmToFirstButton = new JoystickButton(arm_stick, 3);
+    JoystickButton moveArmToSecondButton = new JoystickButton(arm_stick, 4);
+    JoystickButton moveArmToThirdButton = new JoystickButton(arm_stick, 5);
+    JoystickButton stowArmAtArmStickButton = new JoystickButton(arm_stick, 6);
 
     // Abuttons are for the second controller
 
@@ -123,21 +122,26 @@ public class MainRobotContainer {
         final LetGoCommand letGoCommand = new LetGoCommand(clawSubsystem, arm_stick);
 
         openCloseButton.onTrue(openCloseArm);
-        button3.whileTrue(activeBrakingPID);
+        activeBreakingButton.whileTrue(activeBrakingPID);
         
 
         if (!Constants.IsTestRobot) {
             final ArmControlCommand armControl = new ArmControlCommand(armSubsystem, arm_stick);
             armSubsystem.setDefaultCommand(armControl);
-            final MoveArmToAnglePositionCommand moveArmTo3rd = new MoveArmToAnglePositionCommand(armSubsystem, Constants.SafeAngle, Constants.SafePosition);
+            final MoveArmToAnglePositionCommand moveArmToSafe = new MoveArmToAnglePositionCommand(armSubsystem, Constants.SafeAngle, Constants.SafePosition);
             final MoveArmToAnglePositionCommand extendArmTo3rd = new MoveArmToAnglePositionCommand(armSubsystem, Constants.ThirdAngle, Constants.ThirdPosition);
             final MoveArmToAnglePositionCommand stowArmCommand = new MoveArmToAnglePositionCommand(armSubsystem, Constants.StowedAngle, Constants.StowedPosition);
+            final StretchDistanceCommandPID retractFullCommand = new StretchDistanceCommandPID(armSubsystem, Constants.StowedPosition);
+            final MoveArmToAnglePositionCommand extendArmTo2nd = new MoveArmToAnglePositionCommand(armSubsystem, Constants.SecondAngle, Constants.SecondPosition);
+            final MoveArmToAnglePositionCommand extendArmTo1st = new MoveArmToAnglePositionCommand(armSubsystem, Constants.FirstAngle, Constants.FirstPosition);
 
-
-            button4.whileTrue(moveArmTo3rd.andThen(extendArmTo3rd));
-            //StowArmButton.whileTrue(stowArmCommand); This command does not yet work properly
+            stowArmButton.whileTrue(retractFullCommand.andThen(stowArmCommand));
             grabOnButton.whileTrue(grabOnCommand);
             letGoButton.whileTrue(letGoCommand);
+            moveArmToFirstButton.whileTrue(moveArmToSafe.andThen(extendArmTo1st));
+            moveArmToSecondButton.whileTrue(moveArmToSafe.andThen(extendArmTo2nd));
+            moveArmToThirdButton.whileTrue(moveArmToSafe.andThen(extendArmTo3rd));
+            stowArmAtArmStickButton.whileTrue(retractFullCommand.andThen(stowArmCommand));
         }
     }
 }

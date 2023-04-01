@@ -33,6 +33,7 @@ public class Constants extends MainConstants {
   public static final double ArmEncoderRatio = 0.04 * 9. / 8. * 3.14;
 
   public static final double BalanceSpeed = 0.3;
+  public static final double DpadSpeed = 0.4;
 
   // PID Constants (kP)
   public static final double DriveKP = 0.5;
@@ -71,5 +72,7 @@ public class Constants extends MainConstants {
   //Constants for the position & angle we need for the third level
   public static final double ThirdPosition = 30;
   public static final double ThirdAngle = 100;
+
+  public static final double ControllerDeadzone = 0.01;
 }
 // Pseudocode updated 1/23/2023 last, MainConstants
