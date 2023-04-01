@@ -12,7 +12,7 @@ import frc.robot.Constants.Constants;
 public class MoveArmToAnglePositionCommand extends CommandBase {
   /** Creates a new ReturnArmTo0. */
   private ArmSubsystem armSubsystem;
-  private PIDController rotateAnglePID = new PIDController(0.01, 0, 0);
+  private PIDController rotateAnglePID = new PIDController(0.02, 0, 0);
   private PIDController stretchDistancePID = new PIDController(0.3, 0, 0);
   private double endAngle;
   private double endPosition;
@@ -29,7 +29,7 @@ public class MoveArmToAnglePositionCommand extends CommandBase {
   @Override
   public void initialize() {
     rotateAnglePID.setSetpoint(endAngle);
-    rotateAnglePID.setTolerance(1);
+    rotateAnglePID.setTolerance(2);
     stretchDistancePID.setSetpoint(endPosition);
     stretchDistancePID.setTolerance(1);
   }
