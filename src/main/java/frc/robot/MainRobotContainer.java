@@ -135,8 +135,8 @@ public class MainRobotContainer {
             final MoveArmToAnglePositionCommand stowArmCommand1 = new MoveArmToAnglePositionCommand(armSubsystem, Constants.StowedAngle, Constants.StowedPosition);
             final MoveArmToAnglePositionCommand stowArmCommand2 = new MoveArmToAnglePositionCommand(armSubsystem, Constants.StowedAngle, Constants.StowedPosition);
 
-            final StretchDistanceCommandPID retractFullCommand1 = new StretchDistanceCommandPID(armSubsystem, Constants.StowedPosition);
-            final StretchDistanceCommandPID retractFullCommand2 = new StretchDistanceCommandPID(armSubsystem, Constants.StowedPosition);
+            final MoveArmToAnglePositionCommand retractFullCommand1 = MoveArmToAnglePositionCommand.buildPositionMover(armSubsystem,Constants.StowedPosition);
+            final MoveArmToAnglePositionCommand retractFullCommand2 = MoveArmToAnglePositionCommand.buildPositionMover(armSubsystem,Constants.StowedPosition);
 
             final MoveArmToAnglePositionCommand extendArmTo2nd = new MoveArmToAnglePositionCommand(armSubsystem, Constants.SecondAngle, Constants.SecondPosition);
             final MoveArmToAnglePositionCommand extendArmTo1st = new MoveArmToAnglePositionCommand(armSubsystem, Constants.FirstAngle, Constants.FirstPosition);

@@ -25,6 +25,13 @@ public class MoveArmToAnglePositionCommand extends CommandBase {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
+  public static MoveArmToAnglePositionCommand buildAngleMover(ArmSubsystem armSubsystem, double endAngle) {
+    return new MoveArmToAnglePositionCommand(armSubsystem, endAngle, armSubsystem.getArmDistance());
+  }
+
+  public static MoveArmToAnglePositionCommand buildPositionMover(ArmSubsystem armSubsystem, double endPosition) {
+    return new MoveArmToAnglePositionCommand(armSubsystem, armSubsystem.getRotationAngle(), endPosition);
+  }
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
