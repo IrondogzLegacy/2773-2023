@@ -167,12 +167,19 @@ public class MainRobotContainer {
                 return moveArmToSafe2.andThen(extendArmTo2nd);
             });
 
+            var thirdLevel = new ProxyCommand(() -> {
+                if (armSubsystem.getRotationAngle() > 50) {
+                    return extendArmTo3rd;
+                }
+                return moveArmToSafe3.andThen(extendArmTo3rd);
+            });
+
             stowArmButton.whileTrue(retractFullCommand1.andThen(stowArmCommand1));
             grabOnButton.whileTrue(grabOnCommand);
             letGoButton.whileTrue(letGoCommand);
             moveArmToFirstButton.whileTrue(firstLevel);
             moveArmToSecondButton.whileTrue(secondLevel);
-            moveArmToThirdButton.whileTrue(moveArmToSafe3.andThen(extendArmTo3rd));
+            moveArmToThirdButton.whileTrue(thirdLevel);
             stowArmAtArmStickButton.whileTrue(retractFullCommand2.andThen(stowArmCommand2));
         }
     }
