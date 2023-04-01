@@ -33,7 +33,7 @@ public class Constants extends MainConstants {
   public static final double ArmEncoderRatio = 0.04 * 9. / 8. * 3.14;
 
   public static final double BalanceSpeed = 0.3;
-  public static final double DpadSpeed = 0.4;
+  public static final double DpadSpeed = 0.3;
 
   // PID Constants (kP)
   public static final double DriveKP = 0.5;
