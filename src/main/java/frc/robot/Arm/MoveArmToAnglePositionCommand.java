@@ -7,16 +7,21 @@ package frc.robot.Arm;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants.Constants;
 
-public class MoveArmToAngleCommand extends CommandBase {
+public class MoveArmToAnglePositionCommand extends CommandBase {
   /** Creates a new ReturnArmTo0. */
   private ArmSubsystem armSubsystem;
   private PIDController rotateAnglePID = new PIDController(0.01, 0, 0);
+  private PIDController StretchDistancePID = new PIDController(0.3, 0, 0);
   private double endAngle;
+  private double endPosition;
 
-  public MoveArmToAngleCommand(ArmSubsystem armSubsystem, double endAngle) {
+
+  public MoveArmToAnglePositionCommand(ArmSubsystem armSubsystem, double endAngle, double endPosition) {
     this.armSubsystem = armSubsystem;
     this.endAngle = endAngle;
+    this.endPosition = endPosition;
     addRequirements(armSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -25,16 +30,21 @@ public class MoveArmToAngleCommand extends CommandBase {
   @Override
   public void initialize() {
     rotateAnglePID.setSetpoint(endAngle);
-    rotateAnglePID.setTolerance(1);
-
+    rotateAnglePID.setTolerance(5);
+    StretchDistancePID.setSetpoint(endPosition);
+    StretchDistancePID.setTolerance(1);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double rotateSpeed = rotateAnglePID.calculate(armSubsystem.getRotationAngle());
-    rotateSpeed = MathUtil.clamp(rotateSpeed, -0.2, 0.2);
-    armSubsystem.rotate(rotateSpeed);
+    double speed = rotateAnglePID.calculate(armSubsystem.getRotationAngle());
+    speed = MathUtil.clamp(speed, -Constants.armMaxRotationSpeed, Constants.armMaxRotationSpeed);
+    armSubsystem.rotate(speed);
+
+    double stretchSpeed = StretchDistancePID.calculate(armSubsystem.getArmDistance());
+    stretchSpeed = MathUtil.clamp(stretchSpeed, -0.5, 0.5);
+    armSubsystem.stretch(stretchSpeed);
   }
 
   // Called once the command ends or is interrupted.

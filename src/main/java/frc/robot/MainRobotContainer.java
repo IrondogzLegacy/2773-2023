@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Arm.ArmSubsystem;
-import frc.robot.Arm.MoveArmToAngleCommand;
+import frc.robot.Arm.MoveArmToAnglePositionCommand;
 import frc.robot.Arm.RetractCommand;
 import frc.robot.Arm.RotateDownCommand;
 import frc.robot.Arm.RotateUpCommand;
@@ -110,7 +110,7 @@ public class MainRobotContainer {
 
     JoystickButton grabOnButton = new JoystickButton(arm_stick, 1);
     JoystickButton letGoButton = new JoystickButton(arm_stick, 2);
-    JoystickButton openCloseButtonAtArmStick = new JoystickButton(arm_stick, 3);
+    JoystickButton ExtendArmTo3rd = new JoystickButton(arm_stick, 3);
     JoystickButton Abutton7 = new JoystickButton(arm_stick, 7);
 
     // Abuttons are for the second controller
@@ -129,11 +129,11 @@ public class MainRobotContainer {
         if (!Constants.IsTestRobot) {
             final ArmControlCommand armControl = new ArmControlCommand(armSubsystem, arm_stick);
             armSubsystem.setDefaultCommand(armControl);
-            final MoveArmToAngleCommand moveArmTo0 = new MoveArmToAngleCommand(armSubsystem, 75);
-            final StretchDistanceCommandPID extendArmToHalf = new StretchDistanceCommandPID(armSubsystem, 15);
+            final MoveArmToAnglePositionCommand moveArmTo3rd = new MoveArmToAnglePositionCommand(armSubsystem, 80, 0);
+            final MoveArmToAnglePositionCommand extendArmTo3rd = new MoveArmToAnglePositionCommand(armSubsystem,80, 20);
 
-            button4.whileTrue(moveArmTo0);
-            openCloseButtonAtArmStick.whileTrue(extendArmToHalf);
+            button4.whileTrue(moveArmTo3rd);
+            ExtendArmTo3rd.whileTrue(extendArmTo3rd);
             grabOnButton.whileTrue(grabOnCommand);
             letGoButton.whileTrue(letGoCommand);
         }
