@@ -9,7 +9,7 @@ import edu.wpi.first.math.controller.PIDController;
 public class ActiveBrakingCommandPID extends CommandBase {
     private final MainDriveSubsystem driveSubsystem;
     private final MainNavigationSubsystem navigationSubsystem;
-    private final PIDController activeBreakingPID = new PIDController(0.5, 0, 0);
+    private final PIDController activeBreakingPID = new PIDController(0.6, 0, 0);
     
     //Change the parameters to change how PID is calculated.
 
