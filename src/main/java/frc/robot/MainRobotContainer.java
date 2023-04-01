@@ -132,20 +132,22 @@ public class MainRobotContainer {
             final MoveArmToAnglePositionCommand moveArmToSafe2 = new MoveArmToAnglePositionCommand(armSubsystem, Constants.SafeAngle, Constants.SafePosition);
             final MoveArmToAnglePositionCommand moveArmToSafe3 = new MoveArmToAnglePositionCommand(armSubsystem, Constants.SafeAngle, Constants.SafePosition);
             final MoveArmToAnglePositionCommand extendArmTo3rd = new MoveArmToAnglePositionCommand(armSubsystem, Constants.ThirdAngle, Constants.ThirdPosition);
-            final MoveArmToAnglePositionCommand stowArmCommand = new MoveArmToAnglePositionCommand(armSubsystem, Constants.StowedAngle, Constants.StowedPosition);
+            final MoveArmToAnglePositionCommand stowArmCommand1 = new MoveArmToAnglePositionCommand(armSubsystem, Constants.StowedAngle, Constants.StowedPosition);
+            final MoveArmToAnglePositionCommand stowArmCommand2 = new MoveArmToAnglePositionCommand(armSubsystem, Constants.StowedAngle, Constants.StowedPosition);
+
             final StretchDistanceCommandPID retractFullCommand1 = new StretchDistanceCommandPID(armSubsystem, Constants.StowedPosition);
             final StretchDistanceCommandPID retractFullCommand2 = new StretchDistanceCommandPID(armSubsystem, Constants.StowedPosition);
 
             final MoveArmToAnglePositionCommand extendArmTo2nd = new MoveArmToAnglePositionCommand(armSubsystem, Constants.SecondAngle, Constants.SecondPosition);
             final MoveArmToAnglePositionCommand extendArmTo1st = new MoveArmToAnglePositionCommand(armSubsystem, Constants.FirstAngle, Constants.FirstPosition);
 
-            stowArmButton.whileTrue(retractFullCommand1.andThen(stowArmCommand));
+            stowArmButton.whileTrue(retractFullCommand1.andThen(stowArmCommand1));
             grabOnButton.whileTrue(grabOnCommand);
             letGoButton.whileTrue(letGoCommand);
             moveArmToFirstButton.whileTrue(moveArmToSafe1.andThen(extendArmTo1st));
             moveArmToSecondButton.whileTrue(moveArmToSafe2.andThen(extendArmTo2nd));
             moveArmToThirdButton.whileTrue(moveArmToSafe3.andThen(extendArmTo3rd));
-            stowArmAtArmStickButton.whileTrue(retractFullCommand2.andThen(stowArmCommand));
+            stowArmAtArmStickButton.whileTrue(retractFullCommand2.andThen(stowArmCommand2));
         }
     }
 }
