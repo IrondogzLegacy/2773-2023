@@ -1,11 +1,14 @@
 package frc.robot;
 
+import java.net.Proxy;
+
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.event.BooleanEvent;
 import edu.wpi.first.wpilibj.event.EventLoop;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
+import edu.wpi.first.wpilibj2.command.ProxyCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -123,28 +126,44 @@ public class MainRobotContainer {
 
         openCloseButton.onTrue(openCloseArm);
         activeBreakingButton.whileTrue(activeBrakingPID);
-        
 
         if (!Constants.IsTestRobot) {
             final ArmControlCommand armControl = new ArmControlCommand(armSubsystem, arm_stick);
             armSubsystem.setDefaultCommand(armControl);
-            final MoveArmToAnglePositionCommand moveArmToSafe1 = new MoveArmToAnglePositionCommand(armSubsystem, Constants.SafeAngle, Constants.SafePosition);
-            final MoveArmToAnglePositionCommand moveArmToSafe2 = new MoveArmToAnglePositionCommand(armSubsystem, Constants.SafeAngle, Constants.SafePosition);
-            final MoveArmToAnglePositionCommand moveArmToSafe3 = new MoveArmToAnglePositionCommand(armSubsystem, Constants.SafeAngle, Constants.SafePosition);
-            final MoveArmToAnglePositionCommand extendArmTo3rd = new MoveArmToAnglePositionCommand(armSubsystem, Constants.ThirdAngle, Constants.ThirdPosition);
-            final MoveArmToAnglePositionCommand stowArmCommand1 = new MoveArmToAnglePositionCommand(armSubsystem, Constants.StowedAngle, Constants.StowedPosition);
-            final MoveArmToAnglePositionCommand stowArmCommand2 = new MoveArmToAnglePositionCommand(armSubsystem, Constants.StowedAngle, Constants.StowedPosition);
+            final MoveArmToAnglePositionCommand moveArmToSafe1 = new MoveArmToAnglePositionCommand(armSubsystem,
+                    Constants.SafeAngle, Constants.SafePosition);
+            final MoveArmToAnglePositionCommand moveArmToSafe2 = new MoveArmToAnglePositionCommand(armSubsystem,
+                    Constants.SafeAngle, Constants.SafePosition);
+            final MoveArmToAnglePositionCommand moveArmToSafe3 = new MoveArmToAnglePositionCommand(armSubsystem,
+                    Constants.SafeAngle, Constants.SafePosition);
+            final MoveArmToAnglePositionCommand extendArmTo3rd = new MoveArmToAnglePositionCommand(armSubsystem,
+                    Constants.ThirdAngle, Constants.ThirdPosition);
+            final MoveArmToAnglePositionCommand stowArmCommand1 = new MoveArmToAnglePositionCommand(armSubsystem,
+                    Constants.StowedAngle, Constants.StowedPosition);
+            final MoveArmToAnglePositionCommand stowArmCommand2 = new MoveArmToAnglePositionCommand(armSubsystem,
+                    Constants.StowedAngle, Constants.StowedPosition);
 
-            final MoveArmToAnglePositionCommand retractFullCommand1 = MoveArmToAnglePositionCommand.buildPositionMover(armSubsystem,Constants.StowedPosition);
-            final MoveArmToAnglePositionCommand retractFullCommand2 = MoveArmToAnglePositionCommand.buildPositionMover(armSubsystem,Constants.StowedPosition);
+            final MoveArmToAnglePositionCommand retractFullCommand1 = MoveArmToAnglePositionCommand
+                    .buildPositionMover(armSubsystem, Constants.StowedPosition);
+            final MoveArmToAnglePositionCommand retractFullCommand2 = MoveArmToAnglePositionCommand
+                    .buildPositionMover(armSubsystem, Constants.StowedPosition);
 
-            final MoveArmToAnglePositionCommand extendArmTo2nd = new MoveArmToAnglePositionCommand(armSubsystem, Constants.SecondAngle, Constants.SecondPosition);
-            final MoveArmToAnglePositionCommand extendArmTo1st = new MoveArmToAnglePositionCommand(armSubsystem, Constants.FirstAngle, Constants.FirstPosition);
+            final MoveArmToAnglePositionCommand extendArmTo2nd = new MoveArmToAnglePositionCommand(armSubsystem,
+                    Constants.SecondAngle, Constants.SecondPosition);
+            final MoveArmToAnglePositionCommand extendArmTo1st = new MoveArmToAnglePositionCommand(armSubsystem,
+                    Constants.FirstAngle, Constants.FirstPosition);
+
+            var firstLevel = new ProxyCommand(() -> {
+                if (armSubsystem.getRotationAngle() > 50) {
+                    return extendArmTo1st;
+                }
+                return moveArmToSafe1.andThen(extendArmTo1st);
+            });
 
             stowArmButton.whileTrue(retractFullCommand1.andThen(stowArmCommand1));
             grabOnButton.whileTrue(grabOnCommand);
             letGoButton.whileTrue(letGoCommand);
-            moveArmToFirstButton.whileTrue(moveArmToSafe1.andThen(extendArmTo1st));
+            moveArmToFirstButton.whileTrue(firstLevel);
             moveArmToSecondButton.whileTrue(moveArmToSafe2.andThen(extendArmTo2nd));
             moveArmToThirdButton.whileTrue(moveArmToSafe3.andThen(extendArmTo3rd));
             stowArmAtArmStickButton.whileTrue(retractFullCommand2.andThen(stowArmCommand2));
@@ -163,4 +182,4 @@ public class MainRobotContainer {
  * XboxController.Trigger.kLeftTrigger.value); // Creates a new JoystickButton
  * object for the `Y` button on exampleController
  */
-//annotation for testing github
+// annotation for testing github
