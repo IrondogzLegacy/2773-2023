@@ -52,6 +52,10 @@ public class Constants extends MainConstants {
   public static final double ArmMinDeg = -83;
   public static final double ArmMaxDeg = 20;
 
+  //Constants for the fully retracted & rotated-back position, stowed away
+  public static final double StowedPosition = 0;
+  public static final double StowedAngle = 0;
+
   //Constants for the safe position, to make sure that the arm does not run into anything
   public static final double SafePosition = 0;
   public static final double SafeAngle = 50;
