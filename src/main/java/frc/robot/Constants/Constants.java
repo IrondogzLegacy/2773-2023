@@ -21,9 +21,9 @@ public class Constants extends MainConstants {
   // constant (port #) for the ClawMotorChannel
   public static final int ClawMotorCANID = 21; //10; // 10; 10 is the correct CANID but it is no longer on the bot
   // constant for the PickUpSpeed (motor for extending / closing the claw)
-  public static final double ClawMotorSpeed = -0.25;
+  public static final double ClawMotorSpeed = -0.5;
   // constant for the ReleaseSpeed
-  public static final double ReleaseSpeed = 0.2; // -0.5;
+  public static final double ReleaseSpeed = 0.5; // -0.5;
   // constant for the default TankDrive
   public static final double GeneralTankSpeed = 0.3;
 
