@@ -106,6 +106,7 @@ public class MainRobotContainer {
     JoystickButton autoBalanceButton = new JoystickButton(main_stick, 1);
     JoystickButton speedChangeButton = new JoystickButton(main_stick, 2);
     JoystickButton activeBreakingButton = new JoystickButton(main_stick, 3);
+
     JoystickButton stowArmButton = new JoystickButton(main_stick, 4);
 
     JoystickButton grabOnButton = new JoystickButton(arm_stick, 1);
@@ -126,7 +127,7 @@ public class MainRobotContainer {
         final AutoBalanceCommandPID autoBalanceCommandPID = new AutoBalanceCommandPID(driveSubsystem,
                 navigationSubsystem);
 
-        autoBalanceButton.onTrue(autoBalanceCommandPID);
+        autoBalanceButton.whileTrue(autoBalanceCommandPID);
         activeBreakingButton.whileTrue(activeBrakingPID);
 
         if (!Constants.IsTestRobot) {
