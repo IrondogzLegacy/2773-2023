@@ -135,7 +135,7 @@ public class MainRobotContainer {
 
 
             button4.whileTrue(moveArmTo3rd.andThen(extendArmTo3rd));
-            StowArmButton.whileTrue(stowArmCommand);
+            //StowArmButton.whileTrue(stowArmCommand); This command does not yet work properly
             grabOnButton.whileTrue(grabOnCommand);
             letGoButton.whileTrue(letGoCommand);
         }
