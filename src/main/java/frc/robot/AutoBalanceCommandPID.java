@@ -4,14 +4,18 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.Constants;
 
-public class AutoBalanceCommand extends CommandBase {
+public class AutoBalanceCommandPID extends CommandBase {
   private final MainDriveSubsystem driveSubsystem;
   private final MainNavigationSubsystem navigationSubsystem;
+  private PIDController autoBalancePID = new PIDController(0.02, 0, 0);
 
-  public AutoBalanceCommand(MainDriveSubsystem driveSubsystem, MainNavigationSubsystem navigationSubsystem) {
+
+  public AutoBalanceCommandPID(MainDriveSubsystem driveSubsystem, MainNavigationSubsystem navigationSubsystem) {
     this.driveSubsystem = driveSubsystem;
     this.navigationSubsystem = navigationSubsystem;
     addRequirements(driveSubsystem);
@@ -19,22 +23,18 @@ public class AutoBalanceCommand extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    autoBalancePID.setTolerance(2);
+
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
 
   @Override
   public void execute() {
-      double pitch = navigationSubsystem.getPitch();
-      if (pitch > 1.5)
-      {
-        driveSubsystem.driveLine(Constants.BalanceSpeed);
-      }
-      else if (pitch < -1.5)
-      {
-        driveSubsystem.driveLine(-Constants.BalanceSpeed);
-      }
-      else{driveSubsystem.stopAllDrive();}
+    double speed = autoBalancePID.calculate(navigationSubsystem.getPitch());
+    speed = MathUtil.clamp(speed, -Constants.BalanceSpeed, Constants.BalanceSpeed);
+    driveSubsystem.driveLine(speed);  
   }
 
   // Called once the command ends or is interrupted.

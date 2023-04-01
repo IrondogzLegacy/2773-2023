@@ -59,7 +59,7 @@ public class MainRobotContainer {
 
     public Command getAutonomousCommand2() {
         final MoveDistanceCommand move2 = new MoveDistanceCommand(driveSubsystem, navigationSubsystem, -10);
-        final AutoBalanceCommand autoBalance = new AutoBalanceCommand(driveSubsystem, navigationSubsystem);
+        final AutoBalanceCommandPID autoBalance = new AutoBalanceCommandPID(driveSubsystem, navigationSubsystem);
         // AutoBalance requires gyro.
 
         var moveUntilandAutoBalance = move2
