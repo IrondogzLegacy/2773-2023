@@ -25,7 +25,7 @@ public class MoveArmToAngleCommand extends CommandBase {
   @Override
   public void initialize() {
     rotateAnglePID.setSetpoint(endAngle);
-    rotateAnglePID.setTolerance(5);
+    rotateAnglePID.setTolerance(1);
 
   }
 
