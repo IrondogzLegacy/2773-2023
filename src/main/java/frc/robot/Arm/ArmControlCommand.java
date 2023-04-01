@@ -55,7 +55,7 @@ public class ArmControlCommand extends CommandBase {
 
     boolean overrideZero = armStick.getRawButton(7);
     double minHoldAngle = overrideZero ? -20 : 0;
-    double maxHoldAngle = 95;
+    double maxHoldAngle = 105;
     double minDistance = overrideZero ? -20 : 0;
     double maxDistance = 33;
     holdAt += -0.5 * MathUtil.applyDeadband(armStick.getLeftY(), 0.01);
