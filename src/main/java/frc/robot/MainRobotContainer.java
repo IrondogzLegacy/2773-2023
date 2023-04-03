@@ -64,12 +64,14 @@ public class MainRobotContainer {
         final AutoBalanceCommandPID autoBalance = new AutoBalanceCommandPID(driveSubsystem, navigationSubsystem);
         // AutoBalance requires gyro.
 
-        var moveUntilandAutoBalance = driveSlow
-                .until(() -> navigationSubsystem.getPitch() <= -1)
+        var moveUntilandAutoBalance = driveSlow.until(() -> navigationSubsystem.getPitch() <= -7)
                 .andThen(activeBrakingPID);
+                
+        var moveUntilandAutoBalance2 = driveSlow.until(() -> navigationSubsystem.getPitch() >= 7)
+        .andThen(moveUntilandAutoBalance);
         var moveOnCommand = new ParallelRaceGroup(
                 new WaitCommand(15),
-                moveUntilandAutoBalance);
+                moveUntilandAutoBalance2);
         return moveOnCommand;
     }
 
