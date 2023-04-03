@@ -7,6 +7,7 @@ package frc.robot.Arm;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.ProxyCommand;
 import frc.robot.Constants.Constants;
 
 public class MoveArmToAnglePositionCommand extends CommandBase {
@@ -25,12 +26,12 @@ public class MoveArmToAnglePositionCommand extends CommandBase {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
-  public static MoveArmToAnglePositionCommand buildAngleMover(ArmSubsystem armSubsystem, double endAngle) {
-    return new MoveArmToAnglePositionCommand(armSubsystem, endAngle, armSubsystem.getArmDistance());
+  public static CommandBase buildAngleMover(ArmSubsystem armSubsystem, double endAngle) {
+    return new ProxyCommand(() -> new MoveArmToAnglePositionCommand(armSubsystem, endAngle, armSubsystem.getArmDistance()));
   }
 
-  public static MoveArmToAnglePositionCommand buildPositionMover(ArmSubsystem armSubsystem, double endPosition) {
-    return new MoveArmToAnglePositionCommand(armSubsystem, armSubsystem.getRotationAngle(), endPosition);
+  public static CommandBase buildPositionMover(ArmSubsystem armSubsystem, double endPosition) {
+    return new ProxyCommand(() -> new MoveArmToAnglePositionCommand(armSubsystem, armSubsystem.getRotationAngle(), endPosition));
   }
   // Called when the command is initially scheduled.
   @Override

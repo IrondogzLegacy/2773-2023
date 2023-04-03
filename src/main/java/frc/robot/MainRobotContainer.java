@@ -145,9 +145,9 @@ public class MainRobotContainer {
             final MoveArmToAnglePositionCommand stowArmCommand2 = new MoveArmToAnglePositionCommand(armSubsystem,
                     Constants.StowedAngle, Constants.StowedPosition);
 
-            final MoveArmToAnglePositionCommand retractFullCommand1 = MoveArmToAnglePositionCommand
+            final var retractFullCommand1 = MoveArmToAnglePositionCommand
                     .buildPositionMover(armSubsystem, Constants.StowedPosition);
-            final MoveArmToAnglePositionCommand retractFullCommand2 = MoveArmToAnglePositionCommand
+            final var retractFullCommand2 = MoveArmToAnglePositionCommand
                     .buildPositionMover(armSubsystem, Constants.StowedPosition);
 
             final MoveArmToAnglePositionCommand extendArmTo2nd = new MoveArmToAnglePositionCommand(armSubsystem,
