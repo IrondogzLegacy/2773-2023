@@ -25,7 +25,7 @@ public class MainRobot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-    autonomousCommand = robotContainer.getAutonomousCommand2();
+    autonomousCommand = robotContainer.getAutonomousCommandScoreThird();
 
     // schedule the autonomous command (example)
     if (autonomousCommand != null) {
