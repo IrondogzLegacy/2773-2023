@@ -17,6 +17,7 @@ public class MoveArmToAnglePositionCommand extends CommandBase {
   private PIDController stretchDistancePID = new PIDController(0.3, 0, 0);
   private double endAngle;
   private double endPosition;
+  public boolean dontstop = false;
 
   public MoveArmToAnglePositionCommand(ArmSubsystem armSubsystem, double endAngle, double endPosition) {
     this.armSubsystem = armSubsystem;
@@ -27,12 +28,15 @@ public class MoveArmToAnglePositionCommand extends CommandBase {
   }
 
   public static CommandBase buildAngleMover(ArmSubsystem armSubsystem, double endAngle) {
-    return new ProxyCommand(() -> new MoveArmToAnglePositionCommand(armSubsystem, endAngle, armSubsystem.getArmDistance()));
+    return new ProxyCommand(
+        () -> new MoveArmToAnglePositionCommand(armSubsystem, endAngle, armSubsystem.getArmDistance()));
   }
 
   public static CommandBase buildPositionMover(ArmSubsystem armSubsystem, double endPosition) {
-    return new ProxyCommand(() -> new MoveArmToAnglePositionCommand(armSubsystem, armSubsystem.getRotationAngle(), endPosition));
+    return new ProxyCommand(
+        () -> new MoveArmToAnglePositionCommand(armSubsystem, armSubsystem.getRotationAngle(), endPosition));
   }
+
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
@@ -63,6 +67,8 @@ public class MoveArmToAnglePositionCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-   return stretchDistancePID.atSetpoint() && rotateAnglePID.atSetpoint();
+    if (dontstop)
+      return false;
+    return stretchDistancePID.atSetpoint() && rotateAnglePID.atSetpoint();
   }
 }
