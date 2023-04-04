@@ -1,7 +1,4 @@
 package frc.robot;
-
-import java.net.Proxy;
-
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.event.BooleanEvent;
 import edu.wpi.first.wpilibj.event.EventLoop;
@@ -15,11 +12,6 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Arm.ArmSubsystem;
 import frc.robot.Arm.MoveArmToAnglePositionCommand;
-import frc.robot.Arm.RetractCommand;
-import frc.robot.Arm.RotateDownCommand;
-import frc.robot.Arm.RotateUpCommand;
-import frc.robot.Arm.StretchCommand;
-import frc.robot.Arm.StretchDistanceCommandPID;
 import frc.robot.Arm.ArmControlCommand;
 import frc.robot.Claw.ClawSubsystem;
 import frc.robot.Claw.GrabOnCommand;
@@ -202,15 +194,4 @@ public class MainRobotContainer {
         }
 }
 
-// final TurnToTagCommand turnToTagCommand = new
-// TurnToTagCommand(driveSubsystem, camSubsystem,
-// navigationSubsystem, rotate90);
-/*
- * Below is not used, attempted to assign commands to triggers a while ago
- * XboxController controllerOne = new XboxController(0);
- * XboxController controllerTwo = new XboxController(1);
- * Trigger retractTrigger = new JoystickButton(controllerOne,
- * XboxController.Trigger.kLeftTrigger.value); // Creates a new JoystickButton
- * object for the `Y` button on exampleController
- */
 // annotation for testing github
