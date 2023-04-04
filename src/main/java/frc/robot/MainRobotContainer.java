@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.event.BooleanEvent;
 import edu.wpi.first.wpilibj.event.EventLoop;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.ProxyCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -32,17 +33,18 @@ public class MainRobotContainer {
 
         // Autonomous Section
         public Command getAutonomousCommandScoreThird() {
-                final ArmControlCommand armControl = new ArmControlCommand(armSubsystem, arm_stick);
-                armSubsystem.setDefaultCommand(armControl);
                 final MoveArmToAnglePositionCommand moveArmToSafe = new MoveArmToAnglePositionCommand(armSubsystem,
                                 Constants.SafeAngle, Constants.SafePosition);
                 final MoveArmToAnglePositionCommand extendArmTo3rd = new MoveArmToAnglePositionCommand(armSubsystem,
                                 Constants.ThirdAngle, Constants.ThirdPosition);
                 final LetGoCommand letGoCommand = new LetGoCommand(clawSubsystem, arm_stick);
-                ParallelRaceGroup letGoUsableCommand = new ParallelRaceGroup(letGoCommand, new WaitCommand(2));
+                var rotateToThird = MoveArmToAnglePositionCommand.buildAngleMover(armSubsystem, Constants.ThirdAngle);
+                var extendToThird = MoveArmToAnglePositionCommand.buildPositionMover(armSubsystem, Constants.ThirdPosition);
+                var extendToThird2 = MoveArmToAnglePositionCommand.buildPositionMover(armSubsystem, Constants.ThirdPosition);
+                ParallelRaceGroup letGoUsableCommand = new ParallelRaceGroup(extendToThird2,  letGoCommand, new WaitCommand(2));
                 var driveBack = new RunCommand(driveSubsystem::driveBack, driveSubsystem);
                 var goBackCommand = new ParallelRaceGroup(new WaitCommand(12), driveBack);
-                return moveArmToSafe.andThen(extendArmTo3rd).andThen(letGoUsableCommand);
+                return rotateToThird.andThen(extendToThird).andThen(letGoUsableCommand);
                 /*
                  * var rotateUpCommand = new ParallelRaceGroup(
                  * new WaitCommand(5.25), new RotateUpCommand(armSubsystem));
