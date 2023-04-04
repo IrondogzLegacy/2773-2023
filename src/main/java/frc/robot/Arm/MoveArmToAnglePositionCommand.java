@@ -13,7 +13,7 @@ import frc.robot.Constants.Constants;
 public class MoveArmToAnglePositionCommand extends CommandBase {
   /** Creates a new ReturnArmTo0. */
   private ArmSubsystem armSubsystem;
-  private PIDController rotateAnglePID = new PIDController(0.02, 0, 0);
+  private PIDController rotateAnglePID = new PIDController(0.03, 0, 0);
   private PIDController stretchDistancePID = new PIDController(0.3, 0, 0);
   private double endAngle;
   private double endPosition;
