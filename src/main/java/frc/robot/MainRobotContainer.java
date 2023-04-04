@@ -33,6 +33,7 @@ public class MainRobotContainer {
 
         // Autonomous Section
         public Command getAutonomousCommandScoreThird() {
+                final ArmControlCommand armControlCommand = new ArmControlCommand(armSubsystem, arm_stick);
                 final MoveArmToAnglePositionCommand moveArmToSafe = new MoveArmToAnglePositionCommand(armSubsystem,
                                 Constants.SafeAngle, Constants.SafePosition);
                 final MoveArmToAnglePositionCommand extendArmTo3rd = new MoveArmToAnglePositionCommand(armSubsystem,
@@ -40,11 +41,10 @@ public class MainRobotContainer {
                 final LetGoCommand letGoCommand = new LetGoCommand(clawSubsystem, arm_stick);
                 var rotateToThird = MoveArmToAnglePositionCommand.buildAngleMover(armSubsystem, Constants.ThirdAngle);
                 var extendToThird = MoveArmToAnglePositionCommand.buildPositionMover(armSubsystem, Constants.ThirdPosition);
-                var extendToThird2 = MoveArmToAnglePositionCommand.buildPositionMover(armSubsystem, Constants.ThirdPosition);
-                ParallelRaceGroup letGoUsableCommand = new ParallelRaceGroup(extendToThird2,  letGoCommand, new WaitCommand(2));
+                ParallelRaceGroup letGoUsableCommand = new ParallelRaceGroup(armControlCommand,  letGoCommand, new WaitCommand(2));
                 var driveBack = new RunCommand(driveSubsystem::driveBack, driveSubsystem);
                 var goBackCommand = new ParallelRaceGroup(new WaitCommand(12), driveBack);
-                return rotateToThird.andThen(extendToThird).andThen(letGoUsableCommand);
+                return moveArmToSafe.andThen(extendArmTo3rd).andThen(letGoUsableCommand);
                 /*
                  * var rotateUpCommand = new ParallelRaceGroup(
                  * new WaitCommand(5.25), new RotateUpCommand(armSubsystem));
