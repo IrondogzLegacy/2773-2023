@@ -12,36 +12,33 @@ import edu.wpi.first.wpilibj.XboxController;
 
 public class LetGoCommand extends CommandBase {
   /** Creates a new LetGoCommand. */
-  private final ClawSubsystem ReleaseSubsystem;
-  private final Timer timer = new Timer();
+  private final ClawSubsystem clawSubsystem;
 
-  public LetGoCommand(ClawSubsystem ReleaseSubsystem, XboxController m_stick) {
-    this.ReleaseSubsystem = ReleaseSubsystem;
-    addRequirements(ReleaseSubsystem);
-    // Use addRequirements() here to declare subsystem dependencies.
+  public LetGoCommand(ClawSubsystem clawSubsystem) {
+    this.clawSubsystem = clawSubsystem;
+    addRequirements(clawSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    timer.start();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    ReleaseSubsystem.Release();
+    clawSubsystem.release();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    ReleaseSubsystem.stopClawMotor();
+    clawSubsystem.stopClawMotor();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false; // timer.hasElapsed(1);
+    return false;
   }
 }

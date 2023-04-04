@@ -37,7 +37,7 @@ public class ClawSubsystem extends SubsystemBase {
     ClawMotor.set(Constants.ClawMotorSpeed);
   }
 
-  public void Release() {
+  public void release() {
     ClawMotor.set(Constants.ReleaseSpeed);
   }
 }

@@ -7,42 +7,50 @@ package frc.robot.Arm;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.ProxyCommand;
 import frc.robot.Constants.Constants;
+import java.util.function.Supplier;
 
 public class MoveArmToAnglePositionCommand extends CommandBase {
   /** Creates a new ReturnArmTo0. */
   private ArmSubsystem armSubsystem;
   private PIDController rotateAnglePID = new PIDController(0.03, 0, 0);
   private PIDController stretchDistancePID = new PIDController(0.3, 0, 0);
-  private double endAngle;
-  private double endPosition;
-  public boolean dontstop = false;
+  private Supplier<Double> endAngle;
+  private Supplier<Double> endPosition;
+  private boolean dontStop;
 
   public MoveArmToAnglePositionCommand(ArmSubsystem armSubsystem, double endAngle, double endPosition) {
+    this(armSubsystem, () -> endAngle, () -> endPosition, false);
+  }
+
+  public MoveArmToAnglePositionCommand(ArmSubsystem armSubsystem, double endAngle, double endPosition,
+      boolean dontStop) {
+    this(armSubsystem, () -> endAngle, () -> endPosition, dontStop);
+  }
+
+  public MoveArmToAnglePositionCommand(ArmSubsystem armSubsystem, Supplier<Double> endAngle,
+      Supplier<Double> endPosition, boolean dontStop) {
     this.armSubsystem = armSubsystem;
     this.endAngle = endAngle;
     this.endPosition = endPosition;
+    this.dontStop = dontStop;
     addRequirements(armSubsystem);
-    // Use addRequirements() here to declare subsystem dependencies.
   }
 
-  public static CommandBase buildAngleMover(ArmSubsystem armSubsystem, double endAngle) {
-    return new ProxyCommand(
-        () -> new MoveArmToAnglePositionCommand(armSubsystem, endAngle, armSubsystem.getArmDistance()));
+  public static MoveArmToAnglePositionCommand buildAngleMover(ArmSubsystem armSubsystem, double endAngle) {
+    return new MoveArmToAnglePositionCommand(armSubsystem, () -> endAngle, () -> armSubsystem.getArmDistance(), false);
   }
 
-  public static CommandBase buildPositionMover(ArmSubsystem armSubsystem, double endPosition) {
-    return new ProxyCommand(
-        () -> new MoveArmToAnglePositionCommand(armSubsystem, armSubsystem.getRotationAngle(), endPosition));
+  public static MoveArmToAnglePositionCommand buildPositionMover(ArmSubsystem armSubsystem, double endPosition) {
+    return new MoveArmToAnglePositionCommand(armSubsystem, armSubsystem::getRotationAngle, () -> endPosition, false);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    rotateAnglePID.setSetpoint(endAngle);
+    rotateAnglePID.setSetpoint(endAngle.get());
     rotateAnglePID.setTolerance(2);
-    stretchDistancePID.setSetpoint(endPosition);
+    stretchDistancePID.setSetpoint(endPosition.get());
     stretchDistancePID.setTolerance(1);
   }
 
@@ -67,8 +75,9 @@ public class MoveArmToAnglePositionCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (dontstop)
+    if (dontStop) {
       return false;
+    }
     return stretchDistancePID.atSetpoint() && rotateAnglePID.atSetpoint();
   }
 }

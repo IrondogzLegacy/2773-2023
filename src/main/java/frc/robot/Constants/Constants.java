@@ -23,7 +23,7 @@ public class Constants extends MainConstants {
   // constant for the PickUpSpeed (motor for extending / closing the claw)
   public static final double ClawMotorSpeed = -0.5;
   // constant for the ReleaseSpeed
-  public static final double ReleaseSpeed = 0.5; // -0.5;
+  public static final double ReleaseSpeed = 0.8; // -0.5;
   // constant for the default TankDrive
   public static final double GeneralTankSpeed = 0.3;
 
@@ -70,7 +70,7 @@ public class Constants extends MainConstants {
   public static final double SecondAngle = 70;
 
   //Constants for the position & angle we need for the third level
-  public static final double ThirdPosition = 31;
+  public static final double ThirdPosition = 32;
   public static final double ThirdAngle = 97;
 
   public static final double ControllerDeadzone = 0.01;
