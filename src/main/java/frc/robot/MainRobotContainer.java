@@ -39,7 +39,7 @@ public class MainRobotContainer {
                 final MoveArmToAnglePositionCommand extendArmTo3rd = new MoveArmToAnglePositionCommand(armSubsystem,
                                 Constants.ThirdAngle, Constants.ThirdPosition);
                 final LetGoCommand letGoCommand = new LetGoCommand(clawSubsystem, arm_stick);
-                ParallelRaceGroup letGoUsableCommand = new ParallelRaceGroup(letGoCommand, new WaitCommand(5));
+                ParallelRaceGroup letGoUsableCommand = new ParallelRaceGroup(letGoCommand, new WaitCommand(1));
                 var driveBack = new RunCommand(driveSubsystem::driveBack, driveSubsystem);
                 var goBackCommand = new ParallelRaceGroup(new WaitCommand(12), driveBack);
                 return moveArmToSafe.andThen(extendArmTo3rd).andThen(letGoUsableCommand);
