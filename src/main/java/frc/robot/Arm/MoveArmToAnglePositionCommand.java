@@ -58,7 +58,7 @@ public class MoveArmToAnglePositionCommand extends CommandBase {
   @Override
   public void execute() {
     double speed = rotateAnglePID.calculate(armSubsystem.getRotationAngle());
-    speed = MathUtil.clamp(speed, -Constants.armMaxRotationSpeed, Constants.armMaxRotationSpeed);
+    speed = MathUtil.clamp(speed, -Constants.ArmMaxRotationSpeed, Constants.ArmMaxRotationSpeed);
     armSubsystem.rotate(speed);
 
     double stretchSpeed = stretchDistancePID.calculate(armSubsystem.getArmDistance());

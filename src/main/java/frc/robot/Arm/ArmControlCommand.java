@@ -14,7 +14,7 @@ public class ArmControlCommand extends CommandBase {
   private final XboxController armStick;
   private final ArmSubsystem armSubsystem;
 
-  private PIDController rotateAnglePID = new PIDController(0.01, 0, 0);
+  private PIDController rotateAnglePID = new PIDController(0.02, 0, 0);
 
   private PIDController StretchDistancePID = new PIDController(0.4, 0, 0);
 
@@ -58,11 +58,11 @@ public class ArmControlCommand extends CommandBase {
     double maxHoldAngle = Constants.armMaxAngle;
     double minDistance = overrideZero ? Constants.armMaxPositionOverride : 0;
     double maxDistance = Constants.armMaxPosition;
-    holdAt += -0.5 * MathUtil.applyDeadband(armStick.getLeftY(), Constants.ControllerDeadzone);
+    holdAt += -0.8 * MathUtil.applyDeadband(armStick.getLeftY(), Constants.ControllerDeadzone);
     holdAt = MathUtil.clamp(holdAt, minHoldAngle, maxHoldAngle);
     rotateAnglePID.setSetpoint(holdAt);
     double speed = rotateAnglePID.calculate(armSubsystem.getRotationAngle());
-    speed = MathUtil.clamp(speed, -Constants.armMaxRotationSpeed, Constants.armMaxRotationSpeed);
+    speed = MathUtil.clamp(speed, -Constants.ArmMaxRotationSpeed, Constants.ArmMaxRotationSpeed);
     armSubsystem.rotate(speed);
 
     endPosition += -0.3 * MathUtil.applyDeadband(armStick.getRightY(), Constants.ControllerDeadzone);

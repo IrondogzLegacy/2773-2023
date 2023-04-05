@@ -20,7 +20,7 @@ public class MainConstants {
     public static final int PnuematicsPort1 = 7;
     public static final int PnuematicsPort2 = 6;
 
-    public static final double armMaxRotationSpeed = 0.3;
+    public static final double ArmMaxRotationSpeed = 0.2;
     public static final double armMaxExtensionSpeed = 0.5;
 
     public static final double armMaxAngle = 105;

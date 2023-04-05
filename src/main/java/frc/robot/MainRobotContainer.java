@@ -40,28 +40,25 @@ public class MainRobotContainer {
                 Constants.ThirdAngle, Constants.ThirdPosition);
 
         var releaseAndHold = new ParallelRaceGroup(
-          new WaitCommand(1.5),
-          new LetGoCommand(clawSubsystem),
-          new MoveArmToAnglePositionCommand(armSubsystem,
-                ()->Constants.ThirdAngle, ()-> Constants.ThirdPosition, true)
-        );
+                new WaitCommand(1.5),
+                new LetGoCommand(clawSubsystem),
+                new MoveArmToAnglePositionCommand(armSubsystem,
+                        () -> Constants.ThirdAngle, () -> Constants.ThirdPosition, true));
 
         var pullBack = new MoveArmToAnglePositionCommand(armSubsystem, Constants.ThirdAngle, Constants.SafePosition);
         var driveBack = new ParallelRaceGroup(
-            new WaitCommand(2),
-            new MoveDistanceCommand(driveSubsystem, navigationSubsystem, -3),
-            new MoveArmToAnglePositionCommand(armSubsystem,
-                  ()->Constants.SafePosition, ()-> Constants.SafePosition, true)              
-        );     
+                new WaitCommand(2),
+                new MoveDistanceCommand(driveSubsystem, navigationSubsystem, -3),
+                new MoveArmToAnglePositionCommand(armSubsystem,
+                        () -> Constants.SafePosition, () -> Constants.SafePosition, true));
         return new SequentialCommandGroup(
-             moveArmToSafe,
-             extendArmTo3rd,
-             releaseAndHold,
-             pullBack,
-             driveBack
-        );
+                moveArmToSafe,
+                extendArmTo3rd,
+                releaseAndHold,
+                pullBack,
+                driveBack);
     }
-    
+
     private Command getAutonomousCommandAutoBalance() {
         InstantCommand driveSlow = new InstantCommand(driveSubsystem::driveSlow, driveSubsystem);
         final ActiveBrakingCommandPID activeBrakingPID = new ActiveBrakingCommandPID(driveSubsystem,
@@ -81,7 +78,7 @@ public class MainRobotContainer {
 
     public Command getAutonomousCommand() {
         return getAutonomousCommandScoreTop();
-        //return getAutonomousCommandScoreThird();
+        // return getAutonomousCommandScoreThird();
         // return getAutonomousCommandAutoBalance();
     }
 
@@ -129,8 +126,6 @@ public class MainRobotContainer {
     private void configureButtonBindings() {
         final ActiveBrakingCommandPID activeBrakingPID = new ActiveBrakingCommandPID(driveSubsystem,
                 navigationSubsystem);
-        final GrabOnCommand grabOnCommand = new GrabOnCommand(clawSubsystem, arm_stick);
-        final LetGoCommand letGoCommand = new LetGoCommand(clawSubsystem);
         final AutoBalanceCommandPID autoBalanceCommandPID = new AutoBalanceCommandPID(driveSubsystem,
                 navigationSubsystem);
 
@@ -140,65 +135,66 @@ public class MainRobotContainer {
         if (!Constants.IsTestRobot) {
             final ArmControlCommand armControl = new ArmControlCommand(armSubsystem, arm_stick);
             armSubsystem.setDefaultCommand(armControl);
-            final MoveArmToAnglePositionCommand moveArmToSafe1 = new MoveArmToAnglePositionCommand(
-                    armSubsystem,
-                    Constants.SafeAngle, Constants.SafePosition);
-            final MoveArmToAnglePositionCommand moveArmToSafe2 = new MoveArmToAnglePositionCommand(
-                    armSubsystem,
-                    Constants.SafeAngle, Constants.SafePosition);
-            final MoveArmToAnglePositionCommand moveArmToSafe3 = new MoveArmToAnglePositionCommand(
-                    armSubsystem,
-                    Constants.SafeAngle, Constants.SafePosition);
-            final MoveArmToAnglePositionCommand extendArmTo3rd = new MoveArmToAnglePositionCommand(
-                    armSubsystem,
-                    Constants.ThirdAngle, Constants.ThirdPosition);
             final MoveArmToAnglePositionCommand stowArmCommand1 = new MoveArmToAnglePositionCommand(
                     armSubsystem,
                     Constants.StowedAngle, Constants.StowedPosition);
+            final var retractFullCommand1 = MoveArmToAnglePositionCommand
+                    .buildPositionMover(armSubsystem, Constants.StowedPosition);
+            stowArmButton.whileTrue(retractFullCommand1.andThen(stowArmCommand1));
+
             final MoveArmToAnglePositionCommand stowArmCommand2 = new MoveArmToAnglePositionCommand(
                     armSubsystem,
                     Constants.StowedAngle, Constants.StowedPosition);
-
-            final var retractFullCommand1 = MoveArmToAnglePositionCommand
-                    .buildPositionMover(armSubsystem, Constants.StowedPosition);
             final var retractFullCommand2 = MoveArmToAnglePositionCommand
                     .buildPositionMover(armSubsystem, Constants.StowedPosition);
+            stowArmAtArmStickButton.whileTrue(retractFullCommand2.andThen(stowArmCommand2));
 
-            final MoveArmToAnglePositionCommand extendArmTo2nd = new MoveArmToAnglePositionCommand(
-                    armSubsystem,
-                    Constants.SecondAngle, Constants.SecondPosition);
-            final MoveArmToAnglePositionCommand extendArmTo1st = new MoveArmToAnglePositionCommand(
-                    armSubsystem,
-                    Constants.FirstAngle, Constants.FirstPosition);
+            final GrabOnCommand grabOnCommand = new GrabOnCommand(clawSubsystem, arm_stick);
+            grabOnButton.whileTrue(grabOnCommand);
+            final LetGoCommand letGoCommand = new LetGoCommand(clawSubsystem);
+            letGoButton.whileTrue(letGoCommand);
 
             var firstLevel = new ProxyCommand(() -> {
+                final MoveArmToAnglePositionCommand extendArmTo1st = new MoveArmToAnglePositionCommand(
+                        armSubsystem,
+                        Constants.FirstAngle, Constants.FirstPosition);
                 if (armSubsystem.getRotationAngle() > 50) {
                     return extendArmTo1st;
                 }
+                final MoveArmToAnglePositionCommand moveArmToSafe1 = new MoveArmToAnglePositionCommand(
+                        armSubsystem,
+                        Constants.SafeAngle, Constants.SafePosition);
                 return moveArmToSafe1.andThen(extendArmTo1st);
             });
+            moveArmToFirstButton.whileTrue(firstLevel);
 
             var secondLevel = new ProxyCommand(() -> {
+                final MoveArmToAnglePositionCommand extendArmTo2nd = new MoveArmToAnglePositionCommand(
+                        armSubsystem,
+                        Constants.SecondAngle, Constants.SecondPosition);
                 if (armSubsystem.getRotationAngle() > 50) {
                     return extendArmTo2nd;
                 }
+                final MoveArmToAnglePositionCommand moveArmToSafe2 = new MoveArmToAnglePositionCommand(
+                        armSubsystem,
+                        Constants.SafeAngle, Constants.SafePosition);
                 return moveArmToSafe2.andThen(extendArmTo2nd);
             });
+            moveArmToSecondButton.whileTrue(secondLevel);
 
             var thirdLevel = new ProxyCommand(() -> {
+                final MoveArmToAnglePositionCommand extendArmTo3rd = new MoveArmToAnglePositionCommand(
+                        armSubsystem,
+                        Constants.ThirdAngle, Constants.ThirdPosition);
                 if (armSubsystem.getRotationAngle() > 50) {
                     return extendArmTo3rd;
                 }
+                final MoveArmToAnglePositionCommand moveArmToSafe3 = new MoveArmToAnglePositionCommand(
+                        armSubsystem,
+                        Constants.SafeAngle, Constants.SafePosition);
                 return moveArmToSafe3.andThen(extendArmTo3rd);
             });
-
-            stowArmButton.whileTrue(retractFullCommand1.andThen(stowArmCommand1));
-            grabOnButton.whileTrue(grabOnCommand);
-            letGoButton.whileTrue(letGoCommand);
-            moveArmToFirstButton.whileTrue(firstLevel);
-            moveArmToSecondButton.whileTrue(secondLevel);
             moveArmToThirdButton.whileTrue(thirdLevel);
-            stowArmAtArmStickButton.whileTrue(retractFullCommand2.andThen(stowArmCommand2));
         }
     }
 }
