@@ -72,7 +72,7 @@ public class Constants extends MainConstants {
   public static final double SecondAngle = 70;
 
   //Constants for the position & angle we need for the third level
-  public static final double ThirdPosition = 32;
+  public static final double ThirdPosition = 33;
   public static final double ThirdAngle = 97;
 
   public static final double ControllerDeadzone = 0.01;
