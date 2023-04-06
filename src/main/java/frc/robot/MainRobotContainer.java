@@ -47,7 +47,7 @@ public class MainRobotContainer {
 
         var pullBack = new MoveArmToAnglePositionCommand(armSubsystem, Constants.ThirdAngle, Constants.SafePosition);
         var driveBack = new ParallelRaceGroup(
-                new WaitCommand(2),
+                new WaitCommand(4),
                 new MoveDistanceCommand(driveSubsystem, navigationSubsystem, -6),
                 new MoveArmToAnglePositionCommand(armSubsystem,
                         () -> Constants.SafePosition, () -> Constants.SafePosition, true));
