@@ -10,7 +10,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 public class Constants extends MainConstants {
   // constants for MainDriveSubsystem, speed + rotation factor (was for the PWMs
   // not the Neos...)
-  public static final double SpeedFactor = 0.5;
+  public static final double SpeedFactor = 0.67;
   public static final double SpeedFactorLow = 0.3;
   public static final double RotationFactor = 0.4;
   public static final double RotationFactorLow = 0.3;
