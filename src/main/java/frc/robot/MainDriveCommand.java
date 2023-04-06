@@ -56,7 +56,8 @@ public class MainDriveCommand extends CommandBase {
   public void execute() {
     boolean isMoving = false;
     boolean isSlow = joystick.getRawButton(6);
-    if (!isSlow) {
+    boolean isFast = joystick.getRawButton(5);
+    if (!isFast && !isSlow || isFast && isSlow) {
       // Calculates the next value of the output
       //double filterOutput = filter.calculate(-joystick.getLeftY() * Constants.SpeedFactor);
       double filterOutput = -joystick.getLeftY() * Constants.SpeedFactor;
@@ -64,7 +65,12 @@ public class MainDriveCommand extends CommandBase {
           filterOutput, -joystick.getLeftX() * Constants.RotationFactor);
       isMoving = Math.abs(filterOutput)>0.01 || Math.abs(joystick.getLeftX()) > 0.01;
   
-    } else {
+    } 
+    if (isFast && !isSlow) {
+      driveSubsystem.arcadeDrive(-joystick.getLeftY() * Constants.SpeedFactorHigh, -joystick.getLeftX() * Constants.RotationFactorHigh);
+      isMoving = Math.abs(joystick.getLeftY())>0.01 || Math.abs(joystick.getLeftX()) > 0.01;
+    } 
+    if (!isFast && isSlow) {
       driveSubsystem.arcadeDrive(-joystick.getLeftY() * Constants.SpeedFactorLow, -joystick.getLeftX() * Constants.RotationFactorLow);
       isMoving = Math.abs(joystick.getLeftY())>0.01 || Math.abs(joystick.getLeftX()) > 0.01;
     }
