@@ -48,7 +48,7 @@ public class MainRobotContainer {
         var pullBack = new MoveArmToAnglePositionCommand(armSubsystem, Constants.ThirdAngle, Constants.SafePosition);
         var driveBack = new ParallelRaceGroup(
                 new WaitCommand(2),
-                new MoveDistanceCommand(driveSubsystem, navigationSubsystem, -3),
+                new MoveDistanceCommand(driveSubsystem, navigationSubsystem, -6),
                 new MoveArmToAnglePositionCommand(armSubsystem,
                         () -> Constants.SafePosition, () -> Constants.SafePosition, true));
         return new SequentialCommandGroup(
@@ -56,7 +56,8 @@ public class MainRobotContainer {
                 extendArmTo3rd,
                 releaseAndHold,
                 pullBack,
-                driveBack);
+                driveBack
+                );
     }
 
     private Command getAutonomousCommandAutoBalance() {
@@ -65,7 +66,7 @@ public class MainRobotContainer {
                 navigationSubsystem);
         final AutoBalanceCommandPID autoBalance = new AutoBalanceCommandPID(driveSubsystem,
                 navigationSubsystem);
-        // AutoBalance requires gyro.
+        // AutoBalance requires gyro
 
         var moveUntilandAutoBalance = driveSlow
                 .until(() -> navigationSubsystem.getPitch() <= -1)
