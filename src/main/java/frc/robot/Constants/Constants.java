@@ -36,6 +36,7 @@ public class Constants extends MainConstants {
 
   public static final double BalanceSpeed = 0.3;
   public static final double DpadSpeed = 0.3;
+  public static final double SpeedIncrease = 0.75;
 
   // PID Constants (kP)
   public static final double DriveKP = 0.5;
@@ -68,8 +69,8 @@ public class Constants extends MainConstants {
   public static final double FirstAngle = 50;
 
   //Constants for the position & angle we need for the second level
-  public static final double SecondPosition = 20;
-  public static final double SecondAngle = 70;
+  public static final double SecondPosition = 25;
+  public static final double SecondAngle = 75;
 
   //Constants for the position & angle we need for the third level
   public static final double ThirdPosition = 33;

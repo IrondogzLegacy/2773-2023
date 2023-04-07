@@ -43,12 +43,11 @@ public class MainDriveCommand extends CommandBase {
     // no code atm
   }
 
-    // Creates a SlewRateLimiter that limits the rate of change of the signal to 0.5
+  // Creates a SlewRateLimiter that limits the rate of change of the signal to 0.5
   // units per second
   SlewRateLimiter filter = new SlewRateLimiter(0.9);
   LinearFilter linfilter = LinearFilter.singlePoleIIR(0.05, 0.02);
   LinearFilter moveAvgFilter = LinearFilter.movingAverage(3);
-
 
   // Called every time the scheduler runs while the command is scheduled.
   // error message if the below code fails
@@ -56,23 +55,21 @@ public class MainDriveCommand extends CommandBase {
   public void execute() {
     boolean isMoving = false;
     boolean isSlow = joystick.getRawButton(6);
-    boolean isFast = joystick.getRawButton(5);
-    if (!isFast && !isSlow || isFast && isSlow) {
+    if (!isSlow) {
       // Calculates the next value of the output
-      //double filterOutput = filter.calculate(-joystick.getLeftY() * Constants.SpeedFactor);
-      double filterOutput = -joystick.getLeftY() * Constants.SpeedFactor;
+      // double filterOutput = filter.calculate(-joystick.getLeftY() * Constants.SpeedFactor);
+      double speedRateControl = Math.abs(joystick.getRightTriggerAxis()) >= 0.01 ? joystick.getRightTriggerAxis()
+          : -joystick.getRightY();
+      double filterOutput = -joystick.getLeftY() * Constants.SpeedFactor
+          * (1 + Constants.SpeedIncrease * speedRateControl);
       driveSubsystem.arcadeDrive(
           filterOutput, -joystick.getLeftX() * Constants.RotationFactor);
-      isMoving = Math.abs(filterOutput)>0.01 || Math.abs(joystick.getLeftX()) > 0.01;
-  
-    } 
-    if (isFast && !isSlow) {
-      driveSubsystem.arcadeDrive(-joystick.getLeftY() * Constants.SpeedFactorHigh, -joystick.getLeftX() * Constants.RotationFactorHigh);
-      isMoving = Math.abs(joystick.getLeftY())>0.01 || Math.abs(joystick.getLeftX()) > 0.01;
-    } 
-    if (!isFast && isSlow) {
-      driveSubsystem.arcadeDrive(-joystick.getLeftY() * Constants.SpeedFactorLow, -joystick.getLeftX() * Constants.RotationFactorLow);
-      isMoving = Math.abs(joystick.getLeftY())>0.01 || Math.abs(joystick.getLeftX()) > 0.01;
+      isMoving = Math.abs(filterOutput) > 0.01 || Math.abs(joystick.getLeftX()) > 0.01;
+
+    } else {
+      driveSubsystem.arcadeDrive(-joystick.getLeftY() * Constants.SpeedFactorLow,
+          -joystick.getLeftX() * Constants.RotationFactorLow);
+      isMoving = Math.abs(joystick.getLeftY()) > 0.01 || Math.abs(joystick.getLeftX()) > 0.01;
     }
     double DpadSpeed = Constants.DpadSpeed;
     if (!isMoving) {
@@ -92,7 +89,7 @@ public class MainDriveCommand extends CommandBase {
       }
       if (Math.abs(armStick.getLeftX()) > 0.01) {
         driveSubsystem.rotation(armStick.getLeftX() * DpadSpeed);
-      } 
+      }
     }
   }
 
