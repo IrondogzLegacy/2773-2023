@@ -36,7 +36,7 @@ public class Constants extends MainConstants {
 
   public static final double BalanceSpeed = 0.3;
   public static final double DpadSpeed = 0.3;
-  public static final double SpeedIncrease = 0.75;
+  public static final double SpeedIncrease = 0.9;
 
   // PID Constants (kP)
   public static final double DriveKP = 0.5;
